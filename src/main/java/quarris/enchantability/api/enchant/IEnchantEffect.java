@@ -53,7 +53,7 @@ public interface IEnchantEffect {
      * @param player The player which the effect is applied to.
      * @param target The entity which the player has attacked.
      * @param tier The tier of the enchantment.
-     * @return true if the event should be canceled, preventing the target gettining hit.
+     * @return true if the event should be canceled, preventing the target getting hit.
      */
     boolean onPlayerAttack(EntityPlayer player, Entity target, int tier);
 

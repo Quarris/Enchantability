@@ -22,6 +22,7 @@ import java.util.List;
 public class PlayerEnchHandler implements IPlayerEnchHandler {
 
     protected EntityPlayer player;
+    protected boolean dirty = false;
     protected List<Pair<Enchantment, Integer>> enchants;
 
     public PlayerEnchHandler() {
@@ -85,6 +86,7 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
             }
         }
         this.enchants.add(Pair.of(enchant, tier));
+        markDirty();
     }
 
     @Override
@@ -96,7 +98,7 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
                 for (IEnchantEffect effect : effects) {
                     effect.onRemove(player, pair.getRight());
                 }
-                PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
+                //PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
                 IEnchantItemHandler cap = player.getCapability(CapabilityHandler.ENCHANT_INVENTORY_CAPABILITY, null);
                 for (int i = 0; i < EnchantItemHandler.ENCH_SLOTS; i++) {
                     ItemStack stack = cap.getStackInSlot(i);
@@ -112,6 +114,22 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
                 return;
             }
         }
+        markDirty();
+    }
+
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void markDirty() {
+        dirty = true;
+    }
+
+    @Override
+    public void markClean() {
+        dirty = false;
     }
 
     @Override
@@ -123,6 +141,9 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
             compound.setInteger("tier", enchant.getRight());
             enchantList.appendTag(compound);
         }
+        NBTTagCompound dirtyTag = new NBTTagCompound();
+        dirtyTag.setBoolean("dirty", isDirty());
+        enchantList.appendTag(dirtyTag);
         return enchantList;
     }
 
@@ -130,7 +151,12 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
     public void deserializeNBT(NBTTagList nbt) {
         for (NBTBase base : nbt) {
             NBTTagCompound compound = (NBTTagCompound) base;
-            this.addEnchant(Enchantment.getEnchantmentByLocation(compound.getString("enchant")), compound.getInteger("tier"));
+            if (compound.hasKey("dirty")) {
+                dirty = compound.getBoolean("dirty");
+            }
+            else {
+                this.addEnchant(Enchantment.getEnchantmentByLocation(compound.getString("enchant")), compound.getInteger("tier"));
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quarris.enchantability.mod.Enchantability;
@@ -35,7 +36,7 @@ public class ModEvents {
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
             if (!e.getWorld().isRemote) {
-                PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
+                System.out.println("Join World");
             }
         }
     }
@@ -45,8 +46,9 @@ public class ModEvents {
         if (e.getObject() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getObject();
             e.addCapability(new ResourceLocation(Enchantability.MODID, "enchant"), new PlayerEnchProvider(new PlayerEnchHandler(player)));
-            e.addCapability(new ResourceLocation(Enchantability.MODID, "enchantInv"), new EnchantItemProvider(new EnchantItemHandler()));
-
+            e.addCapability(new ResourceLocation(Enchantability.MODID, "enchantInv"), new EnchantItemProvider(new EnchantItemHandler(player)));
+            System.out.println("Attach Caps");
+            System.out.println(player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null));
         }
     }
 
@@ -65,6 +67,22 @@ public class ModEvents {
                 cnItem.deserializeNBT(nbtItem);
             } catch (Exception exp) {
                 Enchantability.logger.warn("Failed to clone player " + e.getOriginal().getName(), exp);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent e) {
+        EntityPlayer player = e.player;
+        if (e.side.isServer() && e.phase == TickEvent.Phase.END) {
+            //System.out.println(player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null));
+            IPlayerEnchHandler enchCap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+            IEnchantItemHandler invCap = player.getCapability(CapabilityHandler.ENCHANT_INVENTORY_CAPABILITY, null);
+            if (enchCap != null && invCap != null) {
+                if (enchCap.isDirty()) {
+                    invCap.updateEnchants();
+                    enchCap.markClean();
+                }
             }
         }
     }

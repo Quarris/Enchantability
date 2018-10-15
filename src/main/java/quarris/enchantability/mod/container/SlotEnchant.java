@@ -16,10 +16,12 @@ import javax.annotation.Nonnull;
 public class SlotEnchant extends SlotItemHandler {
 
     private EntityPlayer player;
+    private IEnchantItemHandler handler;
 
     public SlotEnchant(EntityPlayer player, IEnchantItemHandler itemHandler, int index, int xPosition, int yPosition) {
         super(itemHandler, index, xPosition, yPosition);
         this.player = player;
+        this.handler = itemHandler;
     }
 
     @Override
@@ -34,32 +36,17 @@ public class SlotEnchant extends SlotItemHandler {
         NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
         Enchantment ench = Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id"));
         cap.removeEnchant(ench);
-        updateEnchants();
+        handler.updateEnchants();
         return super.onTake(thePlayer, stack);
     }
 
     @Override
     public void putStack(@Nonnull ItemStack stack) {
         super.putStack(stack);
-        updateEnchants();
+        handler.updateEnchants();
     }
 
-    private void updateEnchants() {
-        for (int slot = 0; slot < getItemHandler().getSlots(); slot++) {
-            ItemStack stack = getItemHandler().getStackInSlot(slot);
-            NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
-            if (!stack.isEmpty() && enchants.tagCount() == 1) {
-                IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
-                if (cap == null) return;
-                Enchantment ench = Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id"));
-                int level = enchants.getCompoundTagAt(0).getShort("lvl");
-                if (level > 0 && cap.hasEnchant(ench) < level); {
-                    cap.addEnchant(ench, level);
-                    PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
-                }
-            }
-        }
-    }
+
 
     @Override
     public int getSlotStackLimit() {

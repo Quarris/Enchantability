@@ -16,6 +16,8 @@ import quarris.enchantability.api.enchant.EnchantEffectRegistry;
 import quarris.enchantability.api.enchant.IEnchantEffect;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
+import quarris.enchantability.mod.network.PacketHandler;
+import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import java.util.List;
 
@@ -32,9 +34,15 @@ public class EnchantEffectEventHandler {
                 if (out < 0) {
                     e.setCanceled(true);
                 }
-                else e.setNewSpeed(out);
+                else {
+                    e.setNewSpeed(out);
+                    if (!player.world.isRemote) {
+                        System.out.println(out);
+                    }
+                }
             }
         }
+
     }
 
     @SubscribeEvent
@@ -82,9 +90,7 @@ public class EnchantEffectEventHandler {
         for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
             List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
             for (IEnchantEffect effect : effects) {
-                if (!effect.onPlayerAttack(player, e.getTarget(), pair.getRight())) {
-                    e.setCanceled(true);
-                }
+                e.setCanceled(effect.onPlayerAttack(player, e.getTarget(), pair.getRight()));
             }
         }
 
@@ -112,7 +118,6 @@ public class EnchantEffectEventHandler {
 
     @SubscribeEvent
     public void handleEffectOnItemCrafted(PlayerEvent.ItemCraftedEvent e) {
-
         EntityPlayer player = e.player;
         IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
         for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
@@ -126,7 +131,7 @@ public class EnchantEffectEventHandler {
     @SubscribeEvent
     public void handleEffectOnLivingUpdate(LivingEvent.LivingUpdateEvent e) {
         if (e.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer)e.getEntityLiving();
+            EntityPlayer player = (EntityPlayer) e.getEntityLiving();
             IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
             for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
                 List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
@@ -147,6 +152,7 @@ public class EnchantEffectEventHandler {
                 e.setCanceled(effect.onRenderPlayer(e.getEntityPlayer(), e.getRenderer(), pair.getRight()));
             }
         }
+        PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(e.getEntityPlayer()));
     }
 
     @SubscribeEvent

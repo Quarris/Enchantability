@@ -13,6 +13,7 @@ public class Enchants {
         register(new EnchantEffectInfinity());
         register(new EnchantEffectEfficiency());
         register(new EnchantEffectPunch());
+        register(new EnchantEffectSilkTouch());
     }
 
     private static void register(IEnchantEffect effect) {

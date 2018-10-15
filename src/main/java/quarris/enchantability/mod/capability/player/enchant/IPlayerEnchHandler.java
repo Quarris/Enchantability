@@ -56,6 +56,12 @@ public interface IPlayerEnchHandler extends IModCapability {
      */
     void removeEnchant(Enchantment enchant);
 
+    boolean isDirty();
+
+    void markDirty();
+
+    void markClean();
+
     NBTTagList serializeNBT();
 
     void deserializeNBT(NBTTagList nbt);
