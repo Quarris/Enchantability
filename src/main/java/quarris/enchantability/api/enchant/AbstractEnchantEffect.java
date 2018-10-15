@@ -1,11 +1,13 @@
 package quarris.enchantability.api.enchant;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nonnull;
 
@@ -43,6 +45,11 @@ public abstract class AbstractEnchantEffect implements IEnchantEffect {
     @Override
     public float onPlayerDamageTaken(EntityPlayer player, DamageSource source, float amount, int tier) {
         return amount;
+    }
+
+    @Override
+    public float breakSpeed(EntityPlayer player, IBlockState state, BlockPos pos, float originalSpeed, int tier) {
+        return originalSpeed;
     }
 
     @Override

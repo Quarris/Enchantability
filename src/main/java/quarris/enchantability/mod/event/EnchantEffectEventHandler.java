@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -21,8 +22,23 @@ import java.util.List;
 public class EnchantEffectEventHandler {
 
     @SubscribeEvent
-    public void handleEffectOnPlayerDamageTaken(LivingDamageEvent e) {
+    public void handleEffectBreakSpeed(BreakSpeed e) {
+        EntityPlayer player = e.getEntityPlayer();
+        IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+        for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+            List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+            for (IEnchantEffect effect : effects) {
+                float out = effect.breakSpeed(player, e.getState(), e.getPos(), e.getOriginalSpeed(), pair.getRight());
+                if (out < 0) {
+                    e.setCanceled(true);
+                }
+                else e.setNewSpeed(out);
+            }
+        }
+    }
 
+    @SubscribeEvent
+    public void handleEffectOnPlayerDamageTaken(LivingDamageEvent e) {
         if (e.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntityLiving();
             IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);

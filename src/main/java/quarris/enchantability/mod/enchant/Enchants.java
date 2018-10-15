@@ -12,6 +12,7 @@ public class Enchants {
         register(new EnchantEffectSlowFall());
         register(new EnchantEffectInfinity());
         register(new EnchantEffectEfficiency());
+        register(new EnchantEffectPunch());
     }
 
     private static void register(IEnchantEffect effect) {

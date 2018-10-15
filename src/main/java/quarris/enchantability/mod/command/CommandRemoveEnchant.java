@@ -26,7 +26,7 @@ public class CommandRemoveEnchant extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/ench remove <Enchantment>";
+        return "/ench remove <Player> <Enchantment>";
     }
 
     @Override

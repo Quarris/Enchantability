@@ -1,5 +1,6 @@
 package quarris.enchantability.api.enchant;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -8,16 +9,21 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Implement this interface to add you own effect to the mod.
  */
 public interface IEnchantEffect {
+
+    float breakSpeed(EntityPlayer player, IBlockState state, BlockPos pos, float originalSpeed, int tier);
 
     void onItemCrafted(EntityPlayer player, ItemStack output, int tier);
 
@@ -47,6 +53,7 @@ public interface IEnchantEffect {
      * @param player The player which the effect is applied to.
      * @param target The entity which the player has attacked.
      * @param tier The tier of the enchantment.
+     * @return true if the event should be canceled, preventing the target gettining hit.
      */
     boolean onPlayerAttack(EntityPlayer player, Entity target, int tier);
 
@@ -78,6 +85,14 @@ public interface IEnchantEffect {
     boolean onPlayerDeath(EntityPlayer player, int tier);
 
     void onRemove(EntityPlayer player, int tier);
+
+    /**
+     * List of enchantments which are required for the effect to take place.
+     * @return List of enchantments.
+     */
+    default List<Enchantment> getEnchantments() {
+        return Collections.singletonList(getEnchantment());
+    }
 
     /**
      * This can be accessed via {@link Enchantments} class.
