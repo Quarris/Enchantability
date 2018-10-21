@@ -33,17 +33,18 @@ public class SlotEnchant extends SlotItemHandler {
     public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
         IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
         if (cap == null) return super.onTake(thePlayer, stack);
+        cap.markDirty();
         NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
         Enchantment ench = Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id"));
-        cap.removeEnchant(ench);
-        handler.updateEnchants();
+        //cap.removeEnchant(ench);
         return super.onTake(thePlayer, stack);
     }
 
     @Override
     public void putStack(@Nonnull ItemStack stack) {
+        IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+        cap.markDirty();
         super.putStack(stack);
-        handler.updateEnchants();
     }
 
 

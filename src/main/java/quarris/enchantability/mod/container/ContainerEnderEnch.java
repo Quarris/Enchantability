@@ -91,21 +91,4 @@ public class ContainerEnderEnch extends Container {
     public boolean canInteractWith(EntityPlayer playerIn) {
         return true;
     }
-
-    private void updateEnchants() {
-        for (int slot = 0; slot < inv.getSlots(); slot++) {
-            ItemStack stack = inv.getStackInSlot(slot);
-            NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
-            if (!stack.isEmpty() && enchants.tagCount() == 1) {
-                IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
-                if (cap == null) return;
-                Enchantment ench = Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id"));
-                int level = enchants.getCompoundTagAt(0).getShort("lvl");
-                if (level > 0 && cap.hasEnchant(ench) < level); {
-                    cap.addEnchant(ench, level);
-                    PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
-                }
-            }
-        }
-    }
 }

@@ -7,9 +7,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -17,11 +20,14 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Implement this interface to add you own effect to the mod.
  */
 public interface IEnchantEffect {
+
+    void onLootTableFillInventory(EntityPlayer player, LootTable table, IInventory inv, Random rand, LootContext context);
 
     float breakSpeed(EntityPlayer player, IBlockState state, BlockPos pos, float originalSpeed, int tier);
 
@@ -84,7 +90,9 @@ public interface IEnchantEffect {
 
     boolean onPlayerDeath(EntityPlayer player, int tier);
 
-    void onRemove(EntityPlayer player, int tier);
+    void onAdded(EntityPlayer player, int tier);
+
+    void onRemoved(EntityPlayer player, int tier);
 
     /**
      * List of enchantments which are required for the effect to take place.

@@ -2,24 +2,30 @@ package quarris.enchantability.mod.event;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.Sys;
 import quarris.enchantability.api.enchant.EnchantEffectRegistry;
 import quarris.enchantability.api.enchant.IEnchantEffect;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
-import quarris.enchantability.mod.network.PacketHandler;
-import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import java.util.List;
+import java.util.Random;
 
 public class EnchantEffectEventHandler {
 
@@ -31,18 +37,18 @@ public class EnchantEffectEventHandler {
             List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
             for (IEnchantEffect effect : effects) {
                 float out = effect.breakSpeed(player, e.getState(), e.getPos(), e.getOriginalSpeed(), pair.getRight());
-                if (out < 0) {
-                    e.setCanceled(true);
-                }
-                else {
-                    e.setNewSpeed(out);
-                    if (!player.world.isRemote) {
-                        System.out.println(out);
+                if (out != e.getOriginalSpeed()) {
+                    if (out < 0) {
+                        e.setCanceled(true);
+                    }
+                    else {
+                        e.setNewSpeed(out);
+                        break;
                     }
                 }
             }
         }
-
+        System.out.println();
     }
 
     @SubscribeEvent
@@ -93,7 +99,6 @@ public class EnchantEffectEventHandler {
                 e.setCanceled(effect.onPlayerAttack(player, e.getTarget(), pair.getRight()));
             }
         }
-
     }
 
     @SubscribeEvent
@@ -110,7 +115,7 @@ public class EnchantEffectEventHandler {
                     }
                 }
                 if (shouldRemove) {
-                    cap.removeEnchant(pair.getLeft());
+                    //cap.removeEnchant(pair.getLeft());
                 }
             }
         }
@@ -146,13 +151,16 @@ public class EnchantEffectEventHandler {
     @SubscribeEvent
     public void handleEffectOnPlayerRender(RenderPlayerEvent.Pre e) {
         IPlayerEnchHandler cap = e.getEntityPlayer().getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+        boolean shouldCancel = false;
         for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
             List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
             for (IEnchantEffect effect : effects) {
-                e.setCanceled(effect.onRenderPlayer(e.getEntityPlayer(), e.getRenderer(), pair.getRight()));
+                if (effect.onRenderPlayer(e.getEntityPlayer(), e.getRenderer(), pair.getRight())) {
+                    shouldCancel = true;
+                }
             }
         }
-        PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(e.getEntityPlayer()));
+        e.setCanceled(shouldCancel);
     }
 
     @SubscribeEvent

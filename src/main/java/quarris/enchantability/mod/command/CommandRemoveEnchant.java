@@ -44,7 +44,7 @@ public class CommandRemoveEnchant extends CommandBase {
         }
         IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
         if (cap != null) {
-            cap.removeEnchant(enchantment);
+            //cap.removeEnchant(enchantment);
             sender.sendMessage(new TextComponentString("Successfully removed "+ I18n.translateToLocal(enchantment.getName()) +" from "+player.getName()));
         }
     }

@@ -56,6 +56,7 @@ public class PacketSendCapsToClients implements IMessage, IMessageHandler<Packet
             buffer.writeCompoundTag(tag);
         }
     }
+
     @SideOnly(Side.CLIENT)
     @Override
     public IMessage onMessage(PacketSendCapsToClients message, MessageContext ctx) {
@@ -63,14 +64,16 @@ public class PacketSendCapsToClients implements IMessage, IMessageHandler<Packet
         IThreadListener mainThread = Minecraft.getMinecraft();
         mainThread.addScheduledTask(() -> {
             EntityPlayer player;
+
             if (Minecraft.getMinecraft().player.getUniqueID().equals(message.playerUUID)) {
                 player = Minecraft.getMinecraft().player;
             }
             else {
                 player = Minecraft.getMinecraft().world.getPlayerEntityByUUID(message.playerUUID);
             }
+
             IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
-            cap.deserializeNBT(message.dataList);
+            if (cap != null) cap.deserializeNBT(message.dataList);
         });
 
         return null;

@@ -29,12 +29,6 @@ public interface IPlayerEnchHandler extends IModCapability {
     int hasEnchant(Enchantment enchant);
 
     /**
-     * Sets the list of enchants.
-     * @param enchants to set.
-     */
-    void setEnchants(List<Pair<Enchantment, Integer>> enchants);
-
-    /**
      * Checks if the player has the enchant with a specific tier.
      * @see IPlayerEnchHandler#hasEnchant(Enchantment)
      * @param enchant the enchant to check.
@@ -50,11 +44,7 @@ public interface IPlayerEnchHandler extends IModCapability {
      */
     void addEnchant(Enchantment enchant, int tier);
 
-    /**
-     * Removes an enchant from the list.
-     * @param enchant The enchant to remove.
-     */
-    void removeEnchant(Enchantment enchant);
+    void clearEnchants();
 
     boolean isDirty();
 

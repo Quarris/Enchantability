@@ -13,8 +13,6 @@ import quarris.enchantability.mod.Enchantability;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.container.EnchantItemHandler;
 import quarris.enchantability.mod.capability.player.container.IEnchantItemHandler;
-import quarris.enchantability.mod.network.PacketHandler;
-import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.List;
 public class PlayerEnchHandler implements IPlayerEnchHandler {
 
     protected EntityPlayer player;
-    protected boolean dirty = false;
+    protected boolean dirty = true;
     protected List<Pair<Enchantment, Integer>> enchants;
 
     public PlayerEnchHandler() {
@@ -65,40 +63,41 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
     }
 
     @Override
-    public void setEnchants(List<Pair<Enchantment, Integer>> enchants) {
-        this.enchants = enchants;
-    }
-
-    @Override
     public void addEnchant(Enchantment enchant, int tier) {
         if (enchant == null) {
             Enchantability.logger.warn("Tried adding enchant which does not exist.");
             return;
         }
         if (tier < 1 || tier > enchant.getMaxLevel()) {
-            Enchantability.logger.warn("Tried adding enchant to the player with an invalid tier for that enchant. Enchant: "+enchant.getName()+", Tier: "+tier);
+            Enchantability.logger.warn("Tried adding enchant to the player with an invalid tier for that enchant. Enchant: " + enchant.getName() + ", Tier: " + tier);
             return;
         }
         for (Pair<Enchantment, Integer> pair : this.enchants) {
             if (pair.getLeft().equals(enchant)) {
-                this.enchants.remove(pair);
-                break;
+                if (tier < pair.getRight()) {
+                    this.enchants.remove(pair);
+                    break;
+                }
             }
+        }
+        List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(enchant);
+        for (IEnchantEffect effect : effects) {
+            effect.onAdded(player, tier);
         }
         this.enchants.add(Pair.of(enchant, tier));
         markDirty();
     }
 
-    @Override
+    //@Override
     public void removeEnchant(Enchantment enchant) {
         for (Pair<Enchantment, Integer> pair : this.enchants) {
             if (pair.getLeft().equals(enchant)) {
-                this.enchants.remove(pair);
                 List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
                 for (IEnchantEffect effect : effects) {
-                    effect.onRemove(player, pair.getRight());
+                    effect.onRemoved(player, pair.getRight());
                 }
-                //PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
+                this.enchants.remove(pair);
+                markDirty();
                 IEnchantItemHandler cap = player.getCapability(CapabilityHandler.ENCHANT_INVENTORY_CAPABILITY, null);
                 for (int i = 0; i < EnchantItemHandler.ENCH_SLOTS; i++) {
                     ItemStack stack = cap.getStackInSlot(i);
@@ -115,6 +114,17 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
             }
         }
         markDirty();
+    }
+
+    @Override
+    public void clearEnchants() {
+        for (Pair<Enchantment, Integer> pair : this.enchants) {
+            List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+            for (IEnchantEffect effect : effects) {
+                effect.onRemoved(player, pair.getRight());
+            }
+        }
+        this.enchants.clear();
     }
 
     @Override
@@ -141,22 +151,15 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
             compound.setInteger("tier", enchant.getRight());
             enchantList.appendTag(compound);
         }
-        NBTTagCompound dirtyTag = new NBTTagCompound();
-        dirtyTag.setBoolean("dirty", isDirty());
-        enchantList.appendTag(dirtyTag);
         return enchantList;
     }
 
     @Override
     public void deserializeNBT(NBTTagList nbt) {
+        clearEnchants();
         for (NBTBase base : nbt) {
             NBTTagCompound compound = (NBTTagCompound) base;
-            if (compound.hasKey("dirty")) {
-                dirty = compound.getBoolean("dirty");
-            }
-            else {
-                this.addEnchant(Enchantment.getEnchantmentByLocation(compound.getString("enchant")), compound.getInteger("tier"));
-            }
+            this.addEnchant(Enchantment.getEnchantmentByLocation(compound.getString("enchant")), compound.getInteger("tier"));
         }
     }
 }

@@ -14,6 +14,7 @@ public class Enchants {
         register(new EnchantEffectEfficiency());
         register(new EnchantEffectPunch());
         register(new EnchantEffectSilkTouch());
+        register(new EnchantEffectLooting());
     }
 
     private static void register(IEnchantEffect effect) {

@@ -5,16 +5,22 @@ import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quarris.enchantability.mod.Enchantability;
@@ -29,6 +35,9 @@ import quarris.enchantability.mod.container.gui.GuiEnchButton;
 import quarris.enchantability.mod.network.PacketHandler;
 import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
+import java.util.List;
+import java.util.Random;
+
 public class ModEvents {
 
     @SubscribeEvent
@@ -36,7 +45,7 @@ public class ModEvents {
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
             if (!e.getWorld().isRemote) {
-                System.out.println("Join World");
+                PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
             }
         }
     }
@@ -47,8 +56,6 @@ public class ModEvents {
             EntityPlayer player = (EntityPlayer) e.getObject();
             e.addCapability(new ResourceLocation(Enchantability.MODID, "enchant"), new PlayerEnchProvider(new PlayerEnchHandler(player)));
             e.addCapability(new ResourceLocation(Enchantability.MODID, "enchantInv"), new EnchantItemProvider(new EnchantItemHandler(player)));
-            System.out.println("Attach Caps");
-            System.out.println(player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null));
         }
     }
 
@@ -73,9 +80,8 @@ public class ModEvents {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent e) {
-        EntityPlayer player = e.player;
         if (e.side.isServer() && e.phase == TickEvent.Phase.END) {
-            //System.out.println(player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null));
+            EntityPlayer player = e.player;
             IPlayerEnchHandler enchCap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
             IEnchantItemHandler invCap = player.getCapability(CapabilityHandler.ENCHANT_INVENTORY_CAPABILITY, null);
             if (enchCap != null && invCap != null) {

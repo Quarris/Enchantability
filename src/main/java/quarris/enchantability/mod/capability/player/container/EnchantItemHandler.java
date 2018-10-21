@@ -36,20 +36,27 @@ public class EnchantItemHandler extends ItemStackHandler implements IEnchantItem
 
     @Override
     public void updateEnchants() {
+        IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+        if (cap == null) return;
+        cap.clearEnchants();
         for (int slot = 0; slot < getSlots(); slot++) {
             ItemStack stack = getStackInSlot(slot);
             NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
             if (!stack.isEmpty() && enchants.tagCount() == 1) {
-                IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
-                if (cap == null) return;
                 Enchantment ench = Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id"));
                 int level = enchants.getCompoundTagAt(0).getShort("lvl");
                 if (level > 0 && cap.hasEnchant(ench) < level) {
                     cap.addEnchant(ench, level);
-                    PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
                 }
             }
         }
+        PacketHandler.INSTANCE.sendToAll(new PacketSendCapsToClients(player));
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        return super.extractItem(slot, amount, simulate);
     }
 
     @Override

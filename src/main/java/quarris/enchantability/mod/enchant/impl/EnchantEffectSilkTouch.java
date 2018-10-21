@@ -2,9 +2,13 @@ package quarris.enchantability.mod.enchant.impl;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 
 import javax.annotation.Nonnull;
@@ -13,10 +17,7 @@ public class EnchantEffectSilkTouch extends AbstractEnchantEffect {
 
     @Override
     public boolean onPlayerAttack(EntityPlayer player, Entity target, int tier) {
-        if (player.getHeldItemMainhand().isEmpty()) {
-            if (player.world.getBlockState(target.getPosition()).getBlock().isReplaceable(player.world, target.getPosition())) {
-                player.world.setBlockState(target.getPosition(), Blocks.WEB.getDefaultState());
-            }
+        if (target instanceof IAnimals && !(target instanceof IMob)) {
             return true;
         }
         return false;

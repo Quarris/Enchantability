@@ -5,13 +5,22 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public abstract class AbstractEnchantEffect implements IEnchantEffect {
+
+    @Override
+    public void onLootTableFillInventory(EntityPlayer player, LootTable table, IInventory inv, Random rand, LootContext context) {
+
+    }
 
     @Override
     public void onItemCrafted(EntityPlayer player, ItemStack output, int tier) {
@@ -58,7 +67,11 @@ public abstract class AbstractEnchantEffect implements IEnchantEffect {
     }
 
     @Override
-    public void onRemove(EntityPlayer player, int tier) {
+    public void onRemoved(EntityPlayer player, int tier) {
+    }
+
+    @Override
+    public void onAdded(EntityPlayer player, int tier) {
 
     }
 
