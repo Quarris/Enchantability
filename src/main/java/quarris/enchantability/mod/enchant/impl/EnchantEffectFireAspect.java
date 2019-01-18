@@ -20,11 +20,14 @@ public class EnchantEffectFireAspect extends AbstractEnchantEffect {
         double sunHeight = Math.cos(celestialAngle);
         Vec3d vec3d1 = player.getLook(1.0F);
         Vec3d sunDir = new Vec3d(-Math.sin(celestialAngle), sunHeight, 0);
-        if (sunHeight >= 0 && sunDir.dotProduct(vec3d1) > 0.996) {
-            PotionEffectHelper.applyPotionEffectAtInterval(player, MobEffects.REGENERATION, 20, 80, tier, true);
-        }
-        else if (sunHeight < 0) {
-            PotionEffectHelper.applyPotionEffectAtInterval(player, MobEffects.WEAKNESS, 20, 80, tier, true);
+        // TODO: Add a ray trace instead of world.canSeeSky() m8
+        if (player.world.canSeeSky(player.getPosition())) {
+            if (sunHeight >= 0 && sunDir.dotProduct(vec3d1) > 0.996) {
+                PotionEffectHelper.applyPotionEffectAtInterval(player, MobEffects.REGENERATION, 20, 80, tier, true);
+            }
+            else if (sunHeight < 0) {
+                PotionEffectHelper.applyPotionEffectAtInterval(player, MobEffects.WEAKNESS, 20, 80, tier, true);
+            }
         }
     }
 

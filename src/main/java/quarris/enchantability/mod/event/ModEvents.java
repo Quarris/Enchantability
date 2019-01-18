@@ -14,15 +14,19 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import quarris.enchantability.api.EnchantabilityAPI;
 import quarris.enchantability.mod.Enchantability;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.container.EnchantItemHandler;
@@ -104,6 +108,13 @@ public class ModEvents {
                     e.getButtonList().add(new GuiEnchButton(837259834, guiChest, guiChest.getGuiLeft() - 18, guiChest.getGuiTop() + 143, 0));
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void configChange(ConfigChangedEvent.OnConfigChangedEvent e) {
+        if (e.getModID().equals(Enchantability.MODID)) {
+            ConfigManager.sync(e.getModID(), Config.Type.INSTANCE);
         }
     }
 }

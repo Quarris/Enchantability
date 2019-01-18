@@ -14,7 +14,6 @@ public class EnchantEffectPunch extends AbstractEnchantEffect {
 
     @Override
     public float breakSpeed(EntityPlayer player, IBlockState state, BlockPos pos, float originalSpeed, int tier) {
-        System.out.println(player.getHeldItemMainhand());
         if (player.getHeldItemMainhand().isEmpty()) {
             return originalSpeed + tier;
         }

@@ -1,14 +1,14 @@
 [
 {
-  "modid": "enchantibility",
-  "name": "Enchantibility",
+  "modid": "enchantability",
+  "name": "Enchantability",
   "description": "Enchant yourself.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": [""],
-  "credits": "The Forge and FML guys, for making this example",
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

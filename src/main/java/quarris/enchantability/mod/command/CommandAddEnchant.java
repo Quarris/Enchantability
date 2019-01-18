@@ -26,7 +26,7 @@ public class CommandAddEnchant extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/ench add <Enchantment> [tier]";
+        return "/ench add <Player> <Enchantment> [tier]";
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CommandAddEnchant extends CommandBase {
             try {
                 tier = Integer.parseInt(args[2]);
             } catch (NumberFormatException e) {
-                throw new CommandException("Given tier is not a number");
+                throw new CommandException("The given tier does not exist");
             }
             if (tier < 1 || tier > enchantment.getMaxLevel()) {
                 throw new CommandException("The tier is not within the range of the enchantment. Must be between 1 and "+enchantment.getMaxLevel());

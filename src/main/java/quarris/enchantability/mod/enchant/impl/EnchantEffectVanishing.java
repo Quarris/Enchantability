@@ -15,7 +15,7 @@ import quarris.enchantability.mod.network.PacketSendCapsToClients;
 import javax.annotation.Nonnull;
 
 public class EnchantEffectVanishing extends AbstractEnchantEffect {
-
+    //TODO make mobs not attack you at all. (Until provoked?)
     @Override
     public void onRemoved(EntityPlayer player, int tier) {
         player.setInvisible(false);
@@ -29,6 +29,7 @@ public class EnchantEffectVanishing extends AbstractEnchantEffect {
 
     @Override
     public void onTick(EntityPlayer player, int tier) {
+
     }
 
     @Nonnull

@@ -9,13 +9,30 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Random;
 
 public abstract class AbstractEnchantEffect implements IEnchantEffect {
+
+    @Override
+    public boolean onProjectileImpact(EntityPlayer player, Entity projectile, int tier) {
+        return false;
+    }
+
+    @Override
+    public boolean onExplosionStart(EntityPlayer player, Explosion explosion, int tier) {
+        return false;
+    }
+
+    @Override
+    public void onExplosionDetonate(EntityPlayer player, Explosion explosion, List<Entity> affectedEntities, int tier) {
+
+    }
 
     @Override
     public void onLootTableFillInventory(EntityPlayer player, LootTable table, IInventory inv, Random rand, LootContext context) {
@@ -29,7 +46,6 @@ public abstract class AbstractEnchantEffect implements IEnchantEffect {
 
     @Override
     public void onLivingUpdate(EntityPlayer player, int tier) {
-
     }
 
     @Override
@@ -48,7 +64,7 @@ public abstract class AbstractEnchantEffect implements IEnchantEffect {
 
     @Override
     public boolean onPlayerAttack(EntityPlayer player, Entity target, int tier) {
-        return true;
+        return false;
     }
 
     @Override

@@ -11,6 +11,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -27,6 +28,7 @@ import java.util.Random;
  */
 public interface IEnchantEffect {
 
+    // UNUSED
     void onLootTableFillInventory(EntityPlayer player, LootTable table, IInventory inv, Random rand, LootContext context);
 
     float breakSpeed(EntityPlayer player, IBlockState state, BlockPos pos, float originalSpeed, int tier);
@@ -35,8 +37,10 @@ public interface IEnchantEffect {
 
     void onLivingUpdate(EntityPlayer player, int tier);
 
+    boolean onProjectileImpact(EntityPlayer player, Entity projectile, int tier);
+
     /**
-     * Called
+     * Called at the Render Player Event.
      * @param player The player which the effect is applied to.
      * @param render The {@link RenderPlayer} class which renders the player.
      * @param tier The tier of the enchantment.
@@ -51,6 +55,9 @@ public interface IEnchantEffect {
      */
     void onTick(EntityPlayer player, int tier);
 
+    boolean onExplosionStart(EntityPlayer player, Explosion explosion, int tier);
+
+    void onExplosionDetonate(EntityPlayer player, Explosion explosion, List<Entity> affectedEntities, int tier);
 
     /**
      * Called when player attacks an entity.

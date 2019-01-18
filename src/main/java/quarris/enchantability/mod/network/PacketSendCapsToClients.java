@@ -63,17 +63,11 @@ public class PacketSendCapsToClients implements IMessage, IMessageHandler<Packet
 
         IThreadListener mainThread = Minecraft.getMinecraft();
         mainThread.addScheduledTask(() -> {
-            EntityPlayer player;
-
             if (Minecraft.getMinecraft().player.getUniqueID().equals(message.playerUUID)) {
-                player = Minecraft.getMinecraft().player;
+                EntityPlayer player = Minecraft.getMinecraft().player;
+                IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+                if (cap != null) cap.deserializeNBT(message.dataList);
             }
-            else {
-                player = Minecraft.getMinecraft().world.getPlayerEntityByUUID(message.playerUUID);
-            }
-
-            IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
-            if (cap != null) cap.deserializeNBT(message.dataList);
         });
 
         return null;

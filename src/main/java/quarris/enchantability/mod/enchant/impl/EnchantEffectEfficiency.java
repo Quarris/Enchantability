@@ -18,7 +18,7 @@ public class EnchantEffectEfficiency extends AbstractEnchantEffect {
         if (!player.world.isRemote) {
             if (player.world.rand.nextInt(9-tier) == 0) {
                 for (ItemStack is : EnchantabilityAPI.EFFICIENCY_ITEMSTACKS) {
-                    if (output.isItemEqual(is)) {
+                    if (OreDictionary.itemMatches(is, output, false)) {
                         ItemStack stack = output.copy();
                         stack.setCount(1);
                         EntityItem ei = new EntityItem(player.world, player.posX, player.posY, player.posZ, stack);

@@ -1,6 +1,7 @@
 package quarris.enchantability.mod.event;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.storage.loot.LootContext;
@@ -8,9 +9,11 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -48,7 +51,58 @@ public class EnchantEffectEventHandler {
                 }
             }
         }
-        System.out.println();
+    }
+
+    @SubscribeEvent
+    public void handleEffectOnExplosionStart(ExplosionEvent.Start e) {
+        for (EntityPlayer player : e.getExplosion().getPlayerKnockbackMap().keySet()) {
+            IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+            boolean shouldCancel = false;
+            for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+                List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+                for (IEnchantEffect effect : effects) {
+                    if (effect.onExplosionStart(player, e.getExplosion(), pair.getRight())) {
+                        shouldCancel = true;
+                    }
+                }
+            }
+            if (shouldCancel) e.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void handleEffectOnProjectileImpact(ProjectileImpactEvent e) {
+        if (e.getRayTraceResult().entityHit instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer)e.getRayTraceResult().entityHit;
+            IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+            boolean shouldCancel = false;
+            for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+                List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+                for (IEnchantEffect effect : effects) {
+                    if (effect.onProjectileImpact(player, e.getEntity(), pair.getRight())) {
+                        shouldCancel = true;
+                    }
+                }
+            }
+            if (shouldCancel) e.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void handleEffectOnExplosionDetonate(ExplosionEvent.Detonate e) {
+        for (Entity entity : e.getAffectedEntities()) {
+            if (entity instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) entity;
+                IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+                for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+                    List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+                    for (IEnchantEffect effect : effects) {
+                        effect.onExplosionDetonate(player, e.getExplosion(), e.getAffectedEntities(), pair.getRight());
+                    }
+                }
+
+            }
+        }
     }
 
     @SubscribeEvent
@@ -78,7 +132,7 @@ public class EnchantEffectEventHandler {
             for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
                 List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
                 for (IEnchantEffect effect : effects) {
-                    float amount = effect.onPlayerDamageTaken(player, e.getSource(), e.getAmount(), pair.getRight());
+                    float amount = effect.onPlayerHurt(player, e.getSource(), e.getAmount(), pair.getRight());
                     if (amount <= 0) {
                         e.setCanceled(true);
                         return;
@@ -107,15 +161,9 @@ public class EnchantEffectEventHandler {
             EntityPlayer player = e.player;
             IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
             for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
-                boolean shouldRemove = false;
                 List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
                 for (IEnchantEffect effect : effects) {
-                    if (effect.onPlayerDeath(player, pair.getRight())) {
-                        shouldRemove = true;
-                    }
-                }
-                if (shouldRemove) {
-                    //cap.removeEnchant(pair.getLeft());
+                    effect.onPlayerDeath(player, pair.getRight());
                 }
             }
         }
@@ -160,7 +208,7 @@ public class EnchantEffectEventHandler {
                 }
             }
         }
-        e.setCanceled(shouldCancel);
+        if (shouldCancel) e.setCanceled(true);
     }
 
     @SubscribeEvent

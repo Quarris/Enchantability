@@ -11,7 +11,7 @@ public class EnchantEffectSlowFall extends AbstractEnchantEffect {
 
     @Override
     public void onLivingUpdate(EntityPlayer player, int tier) {
-        if (player.motionY < -0.08d) {
+        if (!player.isSneaking() && player.motionY < -0.08d) {
             player.motionY *= (1 - tier/10d);
             player.fallDistance -= tier;
         }
