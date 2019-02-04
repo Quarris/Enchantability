@@ -14,8 +14,9 @@ public class EnchantEffectBlastProt extends AbstractEnchantEffect {
 
     @Override
     public void onExplosionDetonate(EntityPlayer player, Explosion explosion, List<Entity> affectedEntities, int tier) {
+        int level = Math.min(5, tier);
         for (int i = explosion.getAffectedBlockPositions().size() - 1; i >= 0; i--) {
-            if (player.world.rand.nextInt(5-tier) == 0) {
+            if (player.world.rand.nextInt(5-level) == 0) {
                 explosion.getAffectedBlockPositions().remove(i);
             }
         }

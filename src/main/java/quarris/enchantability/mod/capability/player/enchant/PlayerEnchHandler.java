@@ -88,7 +88,7 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
         markDirty();
     }
 
-    //@Override
+    @Override
     public void removeEnchant(Enchantment enchant) {
         for (Pair<Enchantment, Integer> pair : this.enchants) {
             if (pair.getLeft().equals(enchant)) {
@@ -113,7 +113,6 @@ public class PlayerEnchHandler implements IPlayerEnchHandler {
                 return;
             }
         }
-        markDirty();
     }
 
     @Override

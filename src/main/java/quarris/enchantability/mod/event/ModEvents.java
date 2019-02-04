@@ -1,8 +1,10 @@
 package quarris.enchantability.mod.event;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
@@ -10,16 +12,19 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -80,6 +85,7 @@ public class ModEvents {
                 Enchantability.logger.warn("Failed to clone player " + e.getOriginal().getName(), exp);
             }
         }
+        EnchantEffectEventHandler.handleEffectOnPlayerDeath(e);
     }
 
     @SubscribeEvent
@@ -115,6 +121,14 @@ public class ModEvents {
     public void configChange(ConfigChangedEvent.OnConfigChangedEvent e) {
         if (e.getModID().equals(Enchantability.MODID)) {
             ConfigManager.sync(e.getModID(), Config.Type.INSTANCE);
+        }
+    }
+
+    @SubscribeEvent
+    public void onHitBlock(PlayerInteractEvent.LeftClickBlock e) {
+        IBlockState state = e.getEntityPlayer().world.getBlockState(e.getPos());
+        if (state.getBlock() == Enchantability.AIR_ICE) {
+            e.setCanceled(true);
         }
     }
 }

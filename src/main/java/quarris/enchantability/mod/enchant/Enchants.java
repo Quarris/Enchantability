@@ -9,7 +9,7 @@ public class Enchants {
 
     public static void init() {
         if (ConfigEnchants.initEnchants.fireAspect)             register(new EnchantEffectFireAspect());
-        if (ConfigEnchants.initEnchants.vanishing)              register(new EnchantEffectVanishing());
+        //if (ConfigEnchants.initEnchants.vanishing)              register(new EnchantEffectVanishing());
         if (ConfigEnchants.initEnchants.featherFalling)         register(new EnchantEffectSlowFall());
         if (ConfigEnchants.initEnchants.infinity)               register(new EnchantEffectInfinity());
         if (ConfigEnchants.initEnchants.efficiency)             register(new EnchantEffectEfficiency());
@@ -18,6 +18,12 @@ public class Enchants {
         if (ConfigEnchants.initEnchants.knockback)              register(new EnchantEffectKnockBack());
         if (ConfigEnchants.initEnchants.blastProtection)        register(new EnchantEffectBlastProt());
         if (ConfigEnchants.initEnchants.projectileProtection)   register(new EnchantEffectProjectileProt());
+        if (ConfigEnchants.initEnchants.frostWalker)            register(new EnchantEffectFrostWalker());
+        if (ConfigEnchants.initEnchants.smite)                  register(new EnchantEffectSmite());
+        //if (ConfigEnchants.initEnchants.binding)                register(new EnchantEffectBinding());
+        if (ConfigEnchants.initEnchants.looting)                register(new EnchantEffectLooting());
+        if (ConfigEnchants.initEnchants.fortune)                register(new EnchantEffectFortune());
+
     }
 
     private static void register(IEnchantEffect effect) {

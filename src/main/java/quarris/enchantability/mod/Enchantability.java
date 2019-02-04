@@ -1,5 +1,7 @@
 package quarris.enchantability.mod;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,9 +15,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Logger;
 import quarris.enchantability.api.EnchantabilityAPI;
+import quarris.enchantability.mod.blocks.BlockAirIce;
+import quarris.enchantability.mod.blocks.TileAirIce;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.command.CommandModTree;
 import quarris.enchantability.mod.config.ConfigEnchants;
@@ -36,16 +41,17 @@ public class Enchantability {
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         logger = e.getModLog();
-    }
-
-    @EventHandler
-    public void init(FMLInitializationEvent e) {
         MinecraftForge.EVENT_BUS.register(new ModEvents());
         MinecraftForge.EVENT_BUS.register(new EnchantEffectEventHandler());
         CapabilityHandler.register();
         Enchants.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         PacketHandler.init();
+    }
+
+    @EventHandler
+    public void init(FMLInitializationEvent e) {
+
     }
 
     @EventHandler
@@ -69,7 +75,7 @@ public class Enchantability {
                     ItemStack stack = new ItemStack(item, 1, meta);
                     EnchantabilityAPI.addToEfficiencyList(stack);
                 }
-                // TODO: Add a warning for stupid people
+                // TODO: Add a warning for stupid people (item is null)
             }
             else {
                 if (!OreDictionary.getOres(entry).isEmpty()) {
@@ -79,5 +85,7 @@ public class Enchantability {
             }
         }
     }
+
+    public static final Block AIR_ICE = new BlockAirIce();
 }
 

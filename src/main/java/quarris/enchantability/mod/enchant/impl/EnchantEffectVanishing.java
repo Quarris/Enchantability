@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 
 public class EnchantEffectVanishing extends AbstractEnchantEffect {
     //TODO make mobs not attack you at all. (Until provoked?)
+    //TODO: it brook
     @Override
     public void onRemoved(EntityPlayer player, int tier) {
         player.setInvisible(false);

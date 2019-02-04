@@ -1,7 +1,6 @@
 package quarris.enchantability.mod.capability.player.container;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
@@ -13,8 +12,6 @@ import quarris.enchantability.mod.network.PacketHandler;
 import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import javax.annotation.Nonnull;
-
-import static sun.misc.Version.print;
 
 public class EnchantItemHandler extends ItemStackHandler implements IEnchantItemHandler {
 

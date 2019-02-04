@@ -15,8 +15,9 @@ public class EnchantEffectEfficiency extends AbstractEnchantEffect {
 
     @Override
     public void onItemCrafted(EntityPlayer player, ItemStack output, int tier) {
+        int level = Math.min(5, tier);
         if (!player.world.isRemote) {
-            if (player.world.rand.nextInt(9-tier) == 0) {
+            if (player.world.rand.nextInt(9-level) == 0) {
                 for (ItemStack is : EnchantabilityAPI.EFFICIENCY_ITEMSTACKS) {
                     if (OreDictionary.itemMatches(is, output, false)) {
                         ItemStack stack = output.copy();
@@ -24,8 +25,8 @@ public class EnchantEffectEfficiency extends AbstractEnchantEffect {
                         EntityItem ei = new EntityItem(player.world, player.posX, player.posY, player.posZ, stack);
                         ei.setNoPickupDelay();
                         player.world.spawnEntity(ei);
-                        if (player.world.rand.nextInt(6-tier) == 0) {
-                            player.addExperience(tier);
+                        if (player.world.rand.nextInt(6-level) == 0) {
+                            player.addExperience(level);
                         }
                         return;
                     }
@@ -39,8 +40,8 @@ public class EnchantEffectEfficiency extends AbstractEnchantEffect {
                             EntityItem ei = new EntityItem(player.world, player.posX, player.posY, player.posZ, stack);
                             ei.setNoPickupDelay();
                             player.world.spawnEntity(ei);
-                            if (player.world.rand.nextInt(6-tier) == 0) {
-                                player.addExperience(tier);
+                            if (player.world.rand.nextInt(6-level) == 0) {
+                                player.addExperience(level);
                             }
                             return;
                         }

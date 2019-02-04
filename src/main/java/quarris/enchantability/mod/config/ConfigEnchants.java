@@ -23,6 +23,11 @@ public class ConfigEnchants {
         public boolean silktouch = true;
         public boolean featherFalling = true;
         public boolean vanishing = true;
+        public boolean frostWalker = true;
+        public boolean smite = true;
+        //public boolean binding = true;
+        public boolean looting = true;
+        public boolean fortune = true;
     }
 
     public static class ModifyEnchants {
@@ -49,8 +54,21 @@ public class ConfigEnchants {
         public boolean offsetEndPositionFromWorldSpawn = true;
 
         @Config.RangeDouble(min = 0.5, max = 33.5)
-        @Config.Comment({"Knockback: Adds a modifier to the reach distance"})
+        @Config.Comment({"Knockback: Adds a modifier to the reach distance, in terms of blocks"})
         public double knockbackModifier = 0.5;
+
+        @Config.RangeDouble(min = 5.0)
+        @Config.Comment({"Smite: Modifies the chance of causing lightning. The higher this value, the lower the chance.",
+                         "At 5.0, the chance with diamond sword is 100%"})
+        public float smiteChance = 50.0f;
+
+        @Config.Comment("Smite: Should Smite effect be bound by sword tiers.")
+        public boolean useSwordTiers = true;
+
+        @Config.RangeDouble(min = 0)
+        @Config.Comment({"Fortune: An experience multiplier to be applied for getting xp from smelting.",
+                         "{xp = tier * multiplier}, note that the xp does not have a 100% of dropping."})
+        public float fortuneMultiplier = 1.0f;
 
     }
 }

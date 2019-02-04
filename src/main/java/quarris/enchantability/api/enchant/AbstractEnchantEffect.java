@@ -4,12 +4,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.GameType;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 
@@ -30,18 +33,24 @@ public abstract class AbstractEnchantEffect implements IEnchantEffect {
     }
 
     @Override
-    public void onExplosionDetonate(EntityPlayer player, Explosion explosion, List<Entity> affectedEntities, int tier) {
+    public int onExperienceDrop(EntityPlayer player, EntityLivingBase dropper, int originalXP, int droppedXP, int tier) {
+        return droppedXP;
+    }
 
+    @Override
+    public void onExplosionDetonate(EntityPlayer player, Explosion explosion, List<Entity> affectedEntities, int tier) {
     }
 
     @Override
     public void onLootTableFillInventory(EntityPlayer player, LootTable table, IInventory inv, Random rand, LootContext context) {
-
     }
 
     @Override
     public void onItemCrafted(EntityPlayer player, ItemStack output, int tier) {
+    }
 
+    @Override
+    public void onItemSmelted(EntityPlayer player, ItemStack output, int tier) {
     }
 
     @Override
@@ -54,7 +63,16 @@ public abstract class AbstractEnchantEffect implements IEnchantEffect {
     }
 
     @Override
-    public boolean onPlayerDeath(EntityPlayer player, int tier) {
+    public boolean onPlayerDeathPre(EntityPlayer player, int tier) {
+        return false;
+    }
+
+    @Override
+    public void onPlayerDeath(EntityPlayer original, EntityPlayer newPlayer, int tier) {
+    }
+
+    @Override
+    public boolean onPlayerDeathPost(EntityPlayer player, int tier) {
         return false;
     }
 

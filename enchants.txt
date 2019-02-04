@@ -19,8 +19,15 @@ Silktouch - Prevents hitting of animals, they sometimes get in the way.
 
 Feather Falling - Slows down the fall of the player.
 
-Curse of Vanishing - Turns the player completely invisible, including armour
+//BROKEN - not working on server// Curse of Vanishing - Turns the player completely invisible, including armour
 
+Frost Walker - Allow walking on air. Higher tier allows sprinting, lower tier is a little unstable and only allows walking.
+
+Smite - Create lightning when hitting mobs with a sword of given tier.
+
+Looting - Increased experience drop from killing mobs.
+
+Fortune - Increase experience from smelting items
 
 TODO Enchants:
 =============================
@@ -28,15 +35,13 @@ IDEAS:
 ----------------
 Depth Strider - Something with the Nether (Depth) and movement/maneuverability (Strider).
 Protection - Gives you a second health bar, which regens after a short while of being depleted (Maybe at cost of hunger?).
-Frost Walker - Allow to create temp ice block in the air by shifting. Once created, can continue to create them if the player is standing on those blocks (Similar to normal Frost Walker on Water, but on Air).
-Smite - Create lightning when hitting mobs (with a specific item set?) with a % chance based on the tier of the enchant (% chance configurable?).
 Sharpness - Sharp Eyes. Add a zoom function (Using FOV?) (Zoom increases with tier?). Alternatively something with awareness.
 Curse of Binding - Keeps the inventory on death, destroying the book afterwards.
 Lure - Lures passive animals without the need for their item. (Range increases with tier?).
 Mending - Make Amends? Maybe disable/reduce villager trade blocking?
-Looting - Increased experience drop from killing mobs.
+    Alternative, gives player Saturation.
+    Alternative pt2, Heals players slightly when gathering xp.
 Fire Protection - Temporary immunity to lava, will not catch on fire or take damage for a while (1 second per level?)
-Fortune - Greatly increase experience from smelting items?
 
 REST:
 ----------------

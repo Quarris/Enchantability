@@ -44,6 +44,8 @@ public interface IPlayerEnchHandler extends IModCapability {
      */
     void addEnchant(Enchantment enchant, int tier);
 
+    void removeEnchant(Enchantment enchant);
+
     void clearEnchants();
 
     boolean isDirty();

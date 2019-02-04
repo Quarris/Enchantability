@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -35,7 +36,20 @@ public interface IEnchantEffect {
 
     void onItemCrafted(EntityPlayer player, ItemStack output, int tier);
 
+    void onItemSmelted(EntityPlayer player, ItemStack output, int tier);
+
     void onLivingUpdate(EntityPlayer player, int tier);
+
+    /**
+     * @see net.minecraftforge.event.entity.living.LivingExperienceDropEvent
+     * @param player The player with the enchant
+     * @param dropper The entity which died to drop the experience
+     * @param originalXP The original XP count when the dropper died
+     * @param droppedXP The already modified XP count when the dropper died (If, for example, modified by another mod)
+     * @param tier The tier of the enchant
+     * @return
+     */
+    int onExperienceDrop(EntityPlayer player, EntityLivingBase dropper, int originalXP, int droppedXP, int tier);
 
     boolean onProjectileImpact(EntityPlayer player, Entity projectile, int tier);
 
@@ -95,7 +109,24 @@ public interface IEnchantEffect {
      */
     float onPlayerHurt(EntityPlayer player, DamageSource source, float amount, int tier);
 
-    boolean onPlayerDeath(EntityPlayer player, int tier);
+    /**
+     *
+     * @see net.minecraftforge.event.entity.living.LivingDeathEvent
+     * @param player The player
+     * @param tier The tier of the enchantment
+     * @return true if the player should not die
+     */
+    boolean onPlayerDeathPre(EntityPlayer player, int tier);
+
+    void onPlayerDeath(EntityPlayer original, EntityPlayer newPlayer, int tier);
+
+    /**
+     * @see net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent
+     * @param player The player
+     * @param tier The tier of enchantment
+     * @return true if the enchantment should be deleted
+     */
+    boolean onPlayerDeathPost(EntityPlayer player, int tier);
 
     void onAdded(EntityPlayer player, int tier);
 

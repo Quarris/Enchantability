@@ -2,33 +2,28 @@ package quarris.enchantability.mod.event;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.Sys;
 import quarris.enchantability.api.enchant.EnchantEffectRegistry;
 import quarris.enchantability.api.enchant.IEnchantEffect;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class EnchantEffectEventHandler {
 
@@ -156,14 +151,51 @@ public class EnchantEffectEventHandler {
     }
 
     @SubscribeEvent
-    public void handleEffectOnPlayerDeath(PlayerEvent.PlayerRespawnEvent e) {
-        if (!e.isEndConquered()) {
-            EntityPlayer player = e.player;
+    public void handleEffectOnPlayerDeathPre(LivingDeathEvent e) {
+        if (e.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) e.getEntityLiving();
             IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
             for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
                 List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
                 for (IEnchantEffect effect : effects) {
-                    effect.onPlayerDeath(player, pair.getRight());
+                    e.setCanceled(effect.onPlayerDeathPre(player, pair.getRight()));
+                }
+            }
+        }
+    }
+
+    public static void handleEffectOnPlayerDeath(Clone e) {
+        if (e.isWasDeath()) {
+            EntityPlayer player = e.getEntityPlayer();
+            IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+            if (cap != null) {
+                for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+                    List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+                    for (IEnchantEffect effect : effects) {
+                        effect.onPlayerDeath(e.getOriginal(), player, pair.getRight());
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void handleEffectOnPlayerDeathPost(PlayerEvent.PlayerRespawnEvent e) {
+        List<Enchantment> toDelete = new ArrayList<>();
+        if (!e.isEndConquered()) {
+            EntityPlayer player = e.player;
+            IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+            if (cap != null) {
+                for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+                    List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+                    for (IEnchantEffect effect : effects) {
+                        if (effect.onPlayerDeathPost(player, pair.getRight())) {
+                            toDelete.add(pair.getLeft());
+                        }
+                    }
+                }
+                for (Enchantment ench : toDelete) {
+                    cap.removeEnchant(ench);
                 }
             }
         }
@@ -177,6 +209,35 @@ public class EnchantEffectEventHandler {
             List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
             for (IEnchantEffect effect : effects) {
                 effect.onItemCrafted(player, e.crafting, pair.getRight());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void handleEffectOnItemSmelted(PlayerEvent.ItemSmeltedEvent e) {
+        EntityPlayer player = e.player;
+        IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+        for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+            List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+            for (IEnchantEffect effect : effects) {
+                effect.onItemSmelted(player, e.smelting, pair.getRight());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void handleEffectOnExperienceDrop(LivingExperienceDropEvent e) {
+        EntityPlayer player = e.getAttackingPlayer();
+        if (player != null) {
+            EntityLivingBase dropper = e.getEntityLiving();
+            int originalXP = e.getOriginalExperience();
+            IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+            for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+                List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+                for (IEnchantEffect effect : effects) {
+                    int droppedXP = e.getDroppedExperience();
+                    e.setDroppedExperience(effect.onExperienceDrop(player, dropper, originalXP, droppedXP, pair.getRight()));
+                }
             }
         }
     }
