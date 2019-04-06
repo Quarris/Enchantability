@@ -16,24 +16,22 @@ import javax.annotation.Nonnull;
 
 public class EnchantEffectProjectileProt extends AbstractEnchantEffect {
 
+
     @Override
     public float onPlayerHurt(EntityPlayer player, DamageSource source, float amount, int tier) {
-        if (source.getImmediateSource() instanceof EntityArrow) {
-            return amount-tier/2f;
-        }
         return amount;
     }
 
     @Override
     public boolean onProjectileImpact(EntityPlayer player, Entity projectile, int tier) {
-        if (projectile instanceof EntityArrow) {
-            float speed = (float)Math.sqrt(Math.abs(projectile.motionX * projectile.motionX) + Math.abs(projectile.motionY * projectile.motionY) + Math.abs(projectile.motionZ * projectile.motionZ));
-            ((EntityArrow) projectile).shoot(((EntityArrow) projectile).shootingEntity, -projectile.rotationPitch, -projectile.rotationYaw, 0, speed, 0);
-            EntityArrow arrow = ((ItemArrow)Items.ARROW).createArrow(player.world, new ItemStack(Items.ARROW), (EntityLivingBase)((EntityArrow) projectile).shootingEntity);
-            arrow.shoot(projectile.posX, projectile.posY, projectile.posZ, 100, 0);
-            //TODO stop creating like 20 arrows at once
-            player.world.spawnEntity(arrow);
-            return true;
+        if (!player.world.isRemote) {
+            int level = Math.min(tier, 10);
+            if (player.getRNG().nextInt(level) == 0)
+            if (projectile instanceof EntityArrow) {
+                float speed = (float)Math.sqrt(Math.abs(projectile.motionX * projectile.motionX) + Math.abs(projectile.motionY * projectile.motionY) + Math.abs(projectile.motionZ * projectile.motionZ));
+                ((EntityArrow) projectile).shoot(-projectile.motionX, -projectile.motionY, -projectile.motionZ, 1, 0);
+                return true;
+            }
         }
         return false;
     }
