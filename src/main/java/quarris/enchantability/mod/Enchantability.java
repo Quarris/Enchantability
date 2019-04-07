@@ -34,7 +34,7 @@ import quarris.enchantability.mod.network.PacketHandler;
 public class Enchantability {
     public static final String MODID = "enchantability";
     public static final String NAME = "Enchantability";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "1.0.1";
 
     public static Logger logger;
 
