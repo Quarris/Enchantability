@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 public class EnchantEffectProjectileProt extends AbstractEnchantEffect {
 
 
+
 	@Override
 	public float onPlayerHurt(EntityPlayer player, DamageSource source, float amount, int tier) {
 		return amount;
