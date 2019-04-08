@@ -23,6 +23,7 @@ public class Enchants {
         //if (ConfigEnchants.initEnchants.binding)                register(new EnchantEffectBinding());
         if (ConfigEnchants.initEnchants.looting)                register(new EnchantEffectLooting());
         if (ConfigEnchants.initEnchants.fortune)                register(new EnchantEffectFortune());
+        if (ConfigEnchants.initEnchants.mending)				register(new EnchantEffectMending());
 
     }
 

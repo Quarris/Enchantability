@@ -26,6 +26,7 @@ import quarris.enchantability.mod.command.CommandModTree;
 import quarris.enchantability.mod.config.ConfigEnchants;
 import quarris.enchantability.mod.container.gui.GuiHandler;
 import quarris.enchantability.mod.enchant.Enchants;
+import quarris.enchantability.mod.enchant.impl.EnchantEffectMending;
 import quarris.enchantability.mod.event.EnchantEffectEventHandler;
 import quarris.enchantability.mod.event.ModEvents;
 import quarris.enchantability.mod.network.PacketHandler;
@@ -41,12 +42,14 @@ public class Enchantability {
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         logger = e.getModLog();
+        EnchantabilityAPI.setInstance(new InternalHooks());
         MinecraftForge.EVENT_BUS.register(new ModEvents());
         MinecraftForge.EVENT_BUS.register(new EnchantEffectEventHandler());
         CapabilityHandler.register();
         Enchants.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         PacketHandler.init();
+		EnchantEffectMending.registerFoodActions();
     }
 
     @EventHandler
@@ -73,13 +76,13 @@ public class Enchantability {
                 if (item != null) {
                     int meta = split.length == 2 ? Integer.parseInt(split[1]) : OreDictionary.WILDCARD_VALUE;
                     ItemStack stack = new ItemStack(item, 1, meta);
-                    EnchantabilityAPI.addToEfficiencyList(stack);
+                    EnchantabilityAPI.getInstance().addToEfficiencyList(stack);
                 }
                 // TODO: Add a warning for stupid people (item is null)
             }
             else {
                 if (!OreDictionary.getOres(entry).isEmpty()) {
-                    EnchantabilityAPI.addToEfficiencyList(entry);
+                    EnchantabilityAPI.getInstance().addToEfficiencyList(entry);
                 }
                 // TODO: Add a warning for stupid people part 2
             }

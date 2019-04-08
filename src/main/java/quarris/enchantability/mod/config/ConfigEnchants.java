@@ -28,6 +28,7 @@ public class ConfigEnchants {
         //public boolean binding = true;
         public boolean looting = true;
         public boolean fortune = true;
+        public boolean mending = true;
     }
 
     public static class ModifyEnchants {

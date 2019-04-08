@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -40,6 +39,16 @@ public interface IEnchantEffect {
 
     void onLivingUpdate(EntityPlayer player, int tier);
 
+	/**
+	 * Called when the player finishes using an item.
+	 * @see net.minecraftforge.event.entity.living.LivingEntityUseItemEvent.Finish
+	 * @param player The player with the enchant.
+	 * @param result The resulting ItemStack of the item being finished.
+	 * @param tier The tier of the enchant.
+	 * @return The ItemStack to be set as resultant.
+	 */
+    ItemStack onItemUseFinish(EntityPlayer player, ItemStack result, int tier);
+
     /**
      * @see net.minecraftforge.event.entity.living.LivingExperienceDropEvent
      * @param player The player with the enchant
@@ -47,7 +56,7 @@ public interface IEnchantEffect {
      * @param originalXP The original XP count when the dropper died
      * @param droppedXP The already modified XP count when the dropper died (If, for example, modified by another mod)
      * @param tier The tier of the enchant
-     * @return
+     * @return The new experience to be dropped.
      */
     int onExperienceDrop(EntityPlayer player, EntityLivingBase dropper, int originalXP, int droppedXP, int tier);
 

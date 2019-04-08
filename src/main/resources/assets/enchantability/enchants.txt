@@ -41,6 +41,7 @@ Lure - Lures passive animals without the need for their item. (Range increases w
 Mending - Make Amends? Maybe disable/reduce villager trade blocking?
     Alternative, gives player Saturation.
     Alternative pt2, Heals players slightly when gathering xp.
+    Alternative pt3, Foods get enhanced when eaten at cost of XP.
 Fire Protection - Temporary immunity to lava, will not catch on fire or take damage for a while (1 second per level?)
 
 REST:
@@ -53,6 +54,10 @@ Flame
 Unbreaking
 Sweeping Edge
 Luck of the Sea
+
+FIX:
+----------------
+Vanishing: The render cancelling doesnt work on servers
 
 
 
