@@ -19,7 +19,7 @@ Silktouch - Prevents hitting of animals, they sometimes get in the way.
 
 Feather Falling - Slows down the fall of the player.
 
-//BROKEN - not working on server// Curse of Vanishing - Turns the player completely invisible, including armour
+//BROKEN - not working on server// Curse of Vanishing - Turns the player completely invisible, including armour.
 
 Frost Walker - Allow walking on air. Higher tier allows sprinting, lower tier is a little unstable and only allows walking.
 
@@ -27,7 +27,9 @@ Smite - Create lightning when hitting mobs with a sword of given tier.
 
 Looting - Increased experience drop from killing mobs.
 
-Fortune - Increase experience from smelting items
+Fortune - Increase experience from smelting items.
+
+Mending - Enhance the eaten foods with XP.
 
 TODO Enchants:
 =============================
@@ -58,6 +60,19 @@ Luck of the Sea
 FIX:
 ----------------
 Vanishing: The render cancelling doesnt work on servers
+
+
+TODO Mending Foods:
+============================
+Spider Eyes - Allows climbing walls (new Potion Effect)
+Rabbit Stew - Leaping Effect    DONE
+Cookie - Speed Effect           DONE
+Mushroom Stew - Night Vision
+Pumpkin Pie - Reset the enderman agro DONE
+
+
+
+
 
 
 

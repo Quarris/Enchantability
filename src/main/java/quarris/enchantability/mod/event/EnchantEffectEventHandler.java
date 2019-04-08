@@ -56,7 +56,7 @@ public class EnchantEffectEventHandler {
 			for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
 				List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
 				for (IEnchantEffect effect : effects) {
-					effect.onItemUseFinish(player, e.getResultStack(), pair.getRight());
+					e.setResultStack(effect.onItemUseFinish(player, e.getItem(), e.getResultStack(), pair.getRight()));
 				}
 			}
 		}

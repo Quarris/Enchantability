@@ -21,7 +21,7 @@ import java.util.Random;
 public abstract class AbstractEnchantEffect implements IEnchantEffect {
 
     @Override
-    public ItemStack onItemUseFinish(EntityPlayer player, ItemStack result, int tier) {
+    public ItemStack onItemUseFinish(EntityPlayer player, ItemStack item, ItemStack result, int tier) {
     	return result;
     }
 

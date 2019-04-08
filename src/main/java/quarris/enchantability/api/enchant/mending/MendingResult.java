@@ -5,12 +5,12 @@ import net.minecraft.item.ItemStack;
 
 public class MendingResult {
 
-	public final ItemStack result;
+	public final ItemStack item;
 	public final EntityPlayer player;
 	public final int tier;
 
-	public MendingResult(ItemStack result, EntityPlayer player, int tier) {
-		this.result = result;
+	public MendingResult(ItemStack item, EntityPlayer player, int tier) {
+		this.item = item;
 		this.player = player;
 		this.tier = tier;
 	}

@@ -47,7 +47,7 @@ public interface IEnchantEffect {
 	 * @param tier The tier of the enchant.
 	 * @return The ItemStack to be set as resultant.
 	 */
-    ItemStack onItemUseFinish(EntityPlayer player, ItemStack result, int tier);
+    ItemStack onItemUseFinish(EntityPlayer player, ItemStack item, ItemStack result, int tier);
 
     /**
      * @see net.minecraftforge.event.entity.living.LivingExperienceDropEvent
