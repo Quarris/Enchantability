@@ -1,38 +1,32 @@
 package quarris.enchantability.mod.event;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import quarris.enchantability.api.EnchantabilityAPI;
 import quarris.enchantability.mod.Enchantability;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.container.EnchantItemHandler;
@@ -45,9 +39,6 @@ import quarris.enchantability.mod.container.gui.GuiEnchButton;
 import quarris.enchantability.mod.network.PacketHandler;
 import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
-import java.util.List;
-import java.util.Random;
-
 public class ModEvents {
 
     @SubscribeEvent
@@ -59,6 +50,25 @@ public class ModEvents {
             }
         }
     }
+
+    @SubscribeEvent
+	public void onLivingTick(LivingEvent.LivingUpdateEvent e) {
+		EntityLivingBase entity = e.getEntityLiving();
+		if (entity.getActivePotionEffect(Enchantability.SPIDER_CLIMB) != null) {
+			if (entity.collidedHorizontally) {
+				entity.fallDistance = 0;
+			}
+			else {
+				for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+					BlockPos statePos = new BlockPos(entity.getPosition().getX()+facing.getFrontOffsetX(), entity.getPosition().getY(), entity.getPosition().getZ()+facing.getFrontOffsetZ());
+					IBlockState state = entity.world.getBlockState(statePos);
+					if (state.getMaterial() != Material.AIR) {
+						entity.fallDistance = 0;
+					}
+				}
+			}
+		}
+	}
 
     @SubscribeEvent
     public void attachCapabilityEntity(AttachCapabilitiesEvent<Entity> e) {

@@ -2,13 +2,9 @@ package quarris.enchantability.mod.enchant.impl;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemArrow;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 

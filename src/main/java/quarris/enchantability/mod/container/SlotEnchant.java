@@ -8,8 +8,6 @@ import net.minecraftforge.items.SlotItemHandler;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.container.IEnchantItemHandler;
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
-import quarris.enchantability.mod.network.PacketHandler;
-import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import javax.annotation.Nonnull;
 

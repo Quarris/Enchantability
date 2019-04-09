@@ -2,13 +2,9 @@ package quarris.enchantability.mod.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialTransparent;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -21,12 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quarris.enchantability.mod.Enchantability;
-import quarris.enchantability.mod.capability.player.CapabilityHandler;
-import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Random;
 
 public class BlockAirIce extends Block implements ITileEntityProvider {
 

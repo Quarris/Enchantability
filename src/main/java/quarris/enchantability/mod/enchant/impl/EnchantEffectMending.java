@@ -1,8 +1,6 @@
 package quarris.enchantability.mod.enchant.impl;
 
-import com.google.common.base.Predicate;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.monster.EntityEnderman;

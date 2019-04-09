@@ -3,12 +3,9 @@ package quarris.enchantability.mod.enchant.impl;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 
 import javax.annotation.Nonnull;

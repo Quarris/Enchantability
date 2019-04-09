@@ -6,9 +6,6 @@ import quarris.enchantability.api.EnchantabilityAPI;
 import quarris.enchantability.api.enchant.EnchantEffectRegistry;
 import quarris.enchantability.api.enchant.IEnchantEffect;
 import quarris.enchantability.api.enchant.mending.MendingAction;
-import quarris.enchantability.api.enchant.mending.MendingResult;
-
-import java.util.function.Consumer;
 
 public class InternalHooks implements EnchantabilityAPI.IInternals {
 

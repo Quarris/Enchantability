@@ -1,18 +1,13 @@
 package quarris.enchantability.mod.container;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.container.IEnchantItemHandler;
-import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
-import quarris.enchantability.mod.network.PacketHandler;
-import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import java.util.Objects;
 

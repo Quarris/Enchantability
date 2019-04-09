@@ -8,10 +8,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import quarris.enchantability.mod.capability.player.container.EnchantItemHandler;
 import quarris.enchantability.mod.capability.player.container.IEnchantItemHandler;
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
 import quarris.enchantability.mod.capability.player.enchant.PlayerEnchHandler;
-import quarris.enchantability.mod.capability.player.container.EnchantItemHandler;
 
 import javax.annotation.Nullable;
 

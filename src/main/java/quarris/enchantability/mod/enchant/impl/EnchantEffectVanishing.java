@@ -4,13 +4,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.MobEffects;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import quarris.enchantability.api.PotionEffectHelper;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
-import quarris.enchantability.mod.network.PacketHandler;
-import quarris.enchantability.mod.network.PacketSendCapsToClients;
 
 import javax.annotation.Nonnull;
 

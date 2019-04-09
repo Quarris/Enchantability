@@ -4,11 +4,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import quarris.enchantability.mod.Enchantability;
@@ -35,31 +33,20 @@ public class PotionSpiderClimb extends Potion {
 		World world = entity.world;
 		if (entity.collidedHorizontally) {
 			entity.motionY = 0.15d + amplifier * 0.05d;
-			entity.fallDistance = 0;
 		}
 		else if (false) { // TODO: Allow sneaking to stop midair like on ladders
-			boolean blockNearby = false;
-			for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-				BlockPos statePos = new BlockPos(entity.getPosition().getX()+facing.getFrontOffsetX(), entity.getPosition().getY(), entity.getPosition().getZ()+facing.getFrontOffsetZ());
-				IBlockState state = world.getBlockState(statePos);
-				if (state.getMaterial() != Material.AIR) {
-					blockNearby = true;
-				}
-			}
-			if (blockNearby) {
+			EnumFacing facing = entity.getAdjustedHorizontalFacing();
+			IBlockState state = world.getBlockState(entity.getPosition().offset(facing));
+			if (state.getMaterial() != Material.AIR) {
 				entity.motionX = MathHelper.clamp(entity.motionX, -0.15d, 0.15d);
 				entity.motionZ = MathHelper.clamp(entity.motionZ, -0.15d, 0.15d);
-				entity.fallDistance = 0.0F;
 
 				if (entity.motionY < -0.15D) {
 					entity.motionY = -0.15D;
 				}
-
 				if (entity.isSneaking() && entity.motionY < 0.0D) {
-					System.out.println("Stop");
 					entity.motionY = 0.0D;
 				}
-				entity.fallDistance = 0;
 			}
 		}
 	}

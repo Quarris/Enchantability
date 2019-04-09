@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 import quarris.enchantability.api.enchant.IEnchantEffect;
 import quarris.enchantability.api.enchant.mending.MendingAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
