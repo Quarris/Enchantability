@@ -41,13 +41,7 @@ Sharpness - Sharp Eyes. Add a zoom function (Using FOV?) (Zoom increases with ti
 Curse of Binding - Keeps the inventory on death, destroying the book afterwards.
 Lure - Lures passive animals without the need for their item. (Range increases with tier?).
 Mending - Make Amends? Maybe disable/reduce villager trade blocking?
-    Alternative, gives player Saturation.
-    Alternative pt2, Heals players slightly when gathering xp.
-<<<<<<< HEAD:enchants.txt
     Alternative pt3, Enhances eaten foods with the cost of XP.
-=======
-    Alternative pt3, Foods get enhanced when eaten at cost of XP.
->>>>>>> enchant-mending:src/main/resources/assets/enchantability/enchants.txt
 Fire Protection - Temporary immunity to lava, will not catch on fire or take damage for a while (1 second per level?)
 
 REST:
@@ -71,7 +65,7 @@ TODO Mending Foods:
 Spider Eyes - Allows climbing walls (new Potion Effect)
 Rabbit Stew - Leaping Effect    DONE
 Cookie - Speed Effect           DONE
-Mushroom Stew - Night Vision
+Mushroom Stew - Night Vision    DONE
 Pumpkin Pie - Reset the enderman agro DONE
 
 

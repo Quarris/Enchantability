@@ -1,4 +1,4 @@
-@API(owner = Enchantability.MODID, provides = "EnchantabilityAPI", apiVersion = "0.2")
+@API(owner = Enchantability.MODID, provides = "EnchantabilityAPI", apiVersion = "0.3")
 package quarris.enchantability.api;
 
 import net.minecraftforge.fml.common.API;
