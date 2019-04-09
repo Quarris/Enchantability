@@ -18,6 +18,8 @@ import quarris.enchantability.api.EnchantabilityAPI;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 import quarris.enchantability.api.enchant.mending.MendingAction;
 import quarris.enchantability.api.enchant.mending.MendingResult;
+import quarris.enchantability.mod.Enchantability;
+import quarris.enchantability.mod.config.ConfigEnchants;
 import quarris.enchantability.mod.utils.EnchantmentUtils;
 
 import javax.annotation.Nonnull;
@@ -27,39 +29,55 @@ public class EnchantEffectMending extends AbstractEnchantEffect {
 
 	public static void registerFoodActions() {
 		// Pumpkin Pie
-		EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.PUMPKIN_PIE,
-				new MendingAction((mendingResult -> {
-					EntityPlayer player = mendingResult.player;
-					List<EntityEnderman> list = player.world.getEntities(EntityEnderman.class, enderman -> enderman.getAttackTarget() == player);
-					for (EntityEnderman enderman : list) {
-						for (EntityAITasks.EntityAITaskEntry ai : enderman.targetTasks.taskEntries) {
-							if (ai.priority == 1) {
+		if (ConfigEnchants.mendingEffects.pumpkinPieEffect) {
+			EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.PUMPKIN_PIE,
+					new MendingAction((mendingResult -> {
+						EntityPlayer player = mendingResult.player;
+						List<EntityEnderman> list = player.world.getEntities(EntityEnderman.class, enderman -> enderman.getAttackTarget() == player);
+						for (EntityEnderman enderman : list) {
+							for (EntityAITasks.EntityAITaskEntry ai : enderman.targetTasks.taskEntries) {
 								// v minecraft sucks v
-								ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, (EntityAINearestAttackableTarget) ai.action, null, 4);
-								ai.action.resetTask();
+								if (ai.priority == 1) {
+									ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, (EntityAINearestAttackableTarget) ai.action, null, 4);
+									ai.action.resetTask();
+								}
 							}
 						}
-					}
-				}), 25));
+					}), 25));
+		}
 
 		// Rabbit Stew
-		EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.RABBIT_STEW,
-				new MendingAction(
-						mendingResult -> mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 20 * 60, mendingResult.tier + 2)),
-						20));
+		if (ConfigEnchants.mendingEffects.rabbitStewEffect) {
+			EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.RABBIT_STEW,
+					new MendingAction(
+							mendingResult -> mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 20 * 60, mendingResult.tier + 2)),
+							20));
+		}
 
 		// Cookie
-		EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.COOKIE,
-				new MendingAction(mendingResult -> {
-					mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 30, 1));
-					mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 15, 0));
-				}, 10));
+		if (ConfigEnchants.mendingEffects.cookieEffect) {
+			EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.COOKIE,
+					new MendingAction(mendingResult -> {
+						mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 30, 1));
+						mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 15, 0));
+					}, 10));
+		}
 
 		// Mushroom Stew
-		EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.MUSHROOM_STEW,
-				new MendingAction(
-						mendingResult -> mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 20*60, 0)),
-						10));
+		if (ConfigEnchants.mendingEffects.mushroomStewEffect) {
+			EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.MUSHROOM_STEW,
+					new MendingAction(
+							mendingResult -> mendingResult.player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 20 * 60, 0)),
+							10));
+		}
+
+		// Spider Eye
+		if (ConfigEnchants.mendingEffects.spiderEyeEffect) {
+			EnchantabilityAPI.getInstance().addToMendingList((ItemFood) Items.SPIDER_EYE,
+					new MendingAction(
+							mendingResult -> mendingResult.player.addPotionEffect(new PotionEffect(Enchantability.SPIDER_CLIMB, 20*45, 0)),
+							30));
+		}
 	}
 
 	@Override

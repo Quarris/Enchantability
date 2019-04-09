@@ -8,9 +8,8 @@ public class ConfigEnchants {
 
     @Config.Comment("Registers the specified enchants. Set to false to disable them.")
     public static InitEnchants initEnchants = new InitEnchants();
-
     public static ModifyEnchants modifyEnchants = new ModifyEnchants();
-    
+    public static MendingEffects mendingEffects = new MendingEffects();
     
     public static class InitEnchants {
         public boolean blastProtection = true;
@@ -70,6 +69,13 @@ public class ConfigEnchants {
         @Config.Comment({"Fortune: An experience multiplier to be applied for getting xp from smelting.",
                          "{xp = tier * multiplier}, note that the xp does not have a 100% of dropping."})
         public float fortuneMultiplier = 1.0f;
-
     }
+
+    public static class MendingEffects {
+    	public boolean spiderEyeEffect = true;
+    	public boolean rabbitStewEffect = true;
+    	public boolean mushroomStewEffect = true;
+    	public boolean cookieEffect = true;
+    	public boolean pumpkinPieEffect = true;
+	}
 }

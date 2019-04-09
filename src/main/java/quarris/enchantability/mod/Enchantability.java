@@ -5,6 +5,7 @@ import net.minecraft.block.BlockAir;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -30,6 +31,7 @@ import quarris.enchantability.mod.enchant.impl.EnchantEffectMending;
 import quarris.enchantability.mod.event.EnchantEffectEventHandler;
 import quarris.enchantability.mod.event.ModEvents;
 import quarris.enchantability.mod.network.PacketHandler;
+import quarris.enchantability.mod.potion.PotionSpiderClimb;
 
 @Mod(modid = Enchantability.MODID, name = Enchantability.NAME, version = Enchantability.VERSION)
 public class Enchantability {
@@ -49,6 +51,7 @@ public class Enchantability {
         Enchants.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         PacketHandler.init();
+        ForgeRegistries.POTIONS.register(SPIDER_CLIMB);
 		EnchantEffectMending.registerFoodActions();
     }
 
@@ -90,5 +93,6 @@ public class Enchantability {
     }
 
     public static final Block AIR_ICE = new BlockAirIce();
+    public static final Potion SPIDER_CLIMB = new PotionSpiderClimb();
 }
 
