@@ -19,7 +19,7 @@ Silktouch - Prevents hitting of animals, they sometimes get in the way.
 
 Feather Falling - Slows down the fall of the player.
 
-//BROKEN - not working on server// Curse of Vanishing - Turns the player completely invisible, including armour
+//BROKEN - not working on server// Curse of Vanishing - Turns the player completely invisible, including armour.
 
 Frost Walker - Allow walking on air. Higher tier allows sprinting, lower tier is a little unstable and only allows walking.
 
@@ -27,7 +27,9 @@ Smite - Create lightning when hitting mobs with a sword of given tier.
 
 Looting - Increased experience drop from killing mobs.
 
-Fortune - Increase experience from smelting items
+Fortune - Increase experience from smelting items.
+
+Mending - Enhance the eaten foods with XP.
 
 TODO Enchants:
 =============================
@@ -41,7 +43,11 @@ Lure - Lures passive animals without the need for their item. (Range increases w
 Mending - Make Amends? Maybe disable/reduce villager trade blocking?
     Alternative, gives player Saturation.
     Alternative pt2, Heals players slightly when gathering xp.
+<<<<<<< HEAD:enchants.txt
     Alternative pt3, Enhances eaten foods with the cost of XP.
+=======
+    Alternative pt3, Foods get enhanced when eaten at cost of XP.
+>>>>>>> enchant-mending:src/main/resources/assets/enchantability/enchants.txt
 Fire Protection - Temporary immunity to lava, will not catch on fire or take damage for a while (1 second per level?)
 
 REST:
@@ -54,6 +60,23 @@ Flame
 Unbreaking
 Sweeping Edge
 Luck of the Sea
+
+FIX:
+----------------
+Vanishing: The render cancelling doesnt work on servers
+
+
+TODO Mending Foods:
+============================
+Spider Eyes - Allows climbing walls (new Potion Effect)
+Rabbit Stew - Leaping Effect    DONE
+Cookie - Speed Effect           DONE
+Mushroom Stew - Night Vision
+Pumpkin Pie - Reset the enderman agro DONE
+
+
+
+
 
 
 

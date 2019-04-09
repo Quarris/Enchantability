@@ -49,6 +49,20 @@ public class EnchantEffectEventHandler {
     }
 
     @SubscribeEvent
+    public void handleEffectOnItemUseFinish(LivingEntityUseItemEvent.Finish e) {
+    	if (e.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)e.getEntityLiving();
+			IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);
+			for (Pair<Enchantment, Integer> pair : cap.getEnchants()) {
+				List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(pair.getLeft());
+				for (IEnchantEffect effect : effects) {
+					e.setResultStack(effect.onItemUseFinish(player, e.getItem(), e.getResultStack(), pair.getRight()));
+				}
+			}
+		}
+    }
+
+    @SubscribeEvent
     public void handleEffectOnExplosionStart(ExplosionEvent.Start e) {
         for (EntityPlayer player : e.getExplosion().getPlayerKnockbackMap().keySet()) {
             IPlayerEnchHandler cap = player.getCapability(CapabilityHandler.PLAYER_ENCHANT_CAPABILITY, null);

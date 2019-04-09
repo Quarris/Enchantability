@@ -6,13 +6,11 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.GameType;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 
@@ -21,6 +19,11 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class AbstractEnchantEffect implements IEnchantEffect {
+
+    @Override
+    public ItemStack onItemUseFinish(EntityPlayer player, ItemStack item, ItemStack result, int tier) {
+    	return result;
+    }
 
     @Override
     public boolean onProjectileImpact(EntityPlayer player, Entity projectile, int tier) {
