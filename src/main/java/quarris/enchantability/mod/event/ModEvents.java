@@ -2,24 +2,30 @@ package quarris.enchantability.mod.event;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.player.inventory.ContainerLocalMenu;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -27,6 +33,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+import quarris.enchantability.api.enchant.EnchantEffectRegistry;
+import quarris.enchantability.api.enchant.IEnchantEffect;
 import quarris.enchantability.mod.Enchantability;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.container.EnchantItemHandler;
@@ -35,9 +44,13 @@ import quarris.enchantability.mod.capability.player.container.IEnchantItemHandle
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
 import quarris.enchantability.mod.capability.player.enchant.PlayerEnchHandler;
 import quarris.enchantability.mod.capability.player.enchant.PlayerEnchProvider;
+import quarris.enchantability.mod.container.gui.GuiEnch;
 import quarris.enchantability.mod.container.gui.GuiEnchButton;
 import quarris.enchantability.mod.network.PacketHandler;
 import quarris.enchantability.mod.network.PacketSendCapsToClients;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class ModEvents {
 
@@ -127,6 +140,46 @@ public class ModEvents {
             }
         }
     }
+
+    @SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void addTooltipToEnchantedBooks(ItemTooltipEvent e) {
+		ItemStack stack = e.getItemStack();
+		if (e.getEntity() == null || Minecraft.getMinecraft().currentScreen instanceof GuiEnch || (e.getEntityPlayer().isCreative() && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))) {
+			NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
+			String baseTooltip = TextFormatting.YELLOW + (TextFormatting.BOLD + I18n.format("tooltip.info_name")+" ");
+			List<String> effectTooltips = new LinkedList<>();
+			if (enchants.tagCount() != 1) {
+				baseTooltip = baseTooltip + TextFormatting.RESET + TextFormatting.RED + I18n.format("tooltip.bad_count");
+			}
+			else {
+				List<IEnchantEffect> effects = EnchantEffectRegistry.getEffectsFromEnchantment(Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id")));
+				if (effects.isEmpty()) {
+					baseTooltip = baseTooltip + TextFormatting.RESET + TextFormatting.GOLD + I18n.format("tooltip.no_effect");
+				}
+				else {
+					for (IEnchantEffect effect : effects) {
+						if (effect.getDescription() != null) {
+							effectTooltips.add(effect.getDescription());
+						}
+					}
+					if (effectTooltips.isEmpty()) {
+						baseTooltip = baseTooltip + TextFormatting.RESET + TextFormatting.YELLOW + I18n.format("tooltip.no_info");
+					}
+					else {
+						baseTooltip = baseTooltip + TextFormatting.RESET + TextFormatting.YELLOW + I18n.format("tooltip.info");
+					}
+				}
+			}
+
+			e.getToolTip().add(baseTooltip);
+			if (!effectTooltips.isEmpty()) {
+				for (String s : effectTooltips) {
+					e.getToolTip().add(s);
+				}
+			}
+		}
+	}
 
     @SubscribeEvent
     public void configChange(ConfigChangedEvent.OnConfigChangedEvent e) {

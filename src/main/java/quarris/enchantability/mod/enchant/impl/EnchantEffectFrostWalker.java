@@ -2,6 +2,7 @@ package quarris.enchantability.mod.enchant.impl;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -9,11 +10,13 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 import quarris.enchantability.mod.Enchantability;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class EnchantEffectFrostWalker extends AbstractEnchantEffect {
 
@@ -51,4 +54,10 @@ public class EnchantEffectFrostWalker extends AbstractEnchantEffect {
     public Enchantment getEnchantment() {
         return Enchantments.FROST_WALKER;
     }
+
+	@Nullable
+	@Override
+	public String getDescription() {
+		return TextFormatting.AQUA+I18n.format("tooltip.effect.frostwalker");
+	}
 }

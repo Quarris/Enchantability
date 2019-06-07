@@ -1,5 +1,6 @@
 package quarris.enchantability.mod.enchant.impl;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks;
@@ -11,6 +12,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import quarris.enchantability.api.EnchantabilityAPI;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
@@ -21,6 +23,7 @@ import quarris.enchantability.mod.config.ConfigEnchants;
 import quarris.enchantability.mod.utils.EnchantmentUtils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class EnchantEffectMending extends AbstractEnchantEffect {
@@ -97,4 +100,11 @@ public class EnchantEffectMending extends AbstractEnchantEffect {
 	public Enchantment getEnchantment() {
 		return Enchantments.MENDING;
 	}
+
+	@Nullable
+	@Override
+	public String getDescription() {
+		return TextFormatting.LIGHT_PURPLE+I18n.format("tooltip.effect.mending");
+	}
+
 }

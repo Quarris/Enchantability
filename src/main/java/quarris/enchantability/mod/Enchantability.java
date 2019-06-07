@@ -33,7 +33,7 @@ import quarris.enchantability.mod.potion.PotionSpiderClimb;
 public class Enchantability {
     public static final String MODID = "enchantability";
     public static final String NAME = "Enchantability";
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "1.1.1";
 
     public static Logger logger;
 
@@ -77,13 +77,17 @@ public class Enchantability {
                     ItemStack stack = new ItemStack(item, 1, meta);
                     EnchantabilityAPI.getInstance().addToEfficiencyList(stack);
                 }
-                // TODO: Add a warning for stupid people (item is null)
+                else {
+                	logger.warn("Item was not found: "+itemName);
+				}
             }
             else {
                 if (!OreDictionary.getOres(entry).isEmpty()) {
                     EnchantabilityAPI.getInstance().addToEfficiencyList(entry);
                 }
-                // TODO: Add a warning for stupid people part 2
+				else {
+					logger.warn("OreDict was not found: "+entry);
+				}
             }
         }
     }

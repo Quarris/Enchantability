@@ -1,5 +1,6 @@
 package quarris.enchantability.mod.enchant.impl;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -7,10 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.util.text.TextFormatting;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 import quarris.enchantability.mod.config.ConfigEnchants;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class EnchantEffectSmite extends AbstractEnchantEffect {
 
@@ -43,4 +46,11 @@ public class EnchantEffectSmite extends AbstractEnchantEffect {
     public Enchantment getEnchantment() {
         return Enchantments.SMITE;
     }
+
+	@Nullable
+	@Override
+	public String getDescription() {
+		return TextFormatting.YELLOW+I18n.format("tooltip.effect.smite");
+	}
+
 }

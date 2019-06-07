@@ -1,15 +1,18 @@
 package quarris.enchantability.mod.enchant.impl;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.oredict.OreDictionary;
 import quarris.enchantability.api.EnchantabilityAPI;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class EnchantEffectEfficiency extends AbstractEnchantEffect {
 
@@ -56,4 +59,10 @@ public class EnchantEffectEfficiency extends AbstractEnchantEffect {
     public Enchantment getEnchantment() {
         return Enchantments.EFFICIENCY;
     }
+
+	@Nullable
+	@Override
+	public String getDescription() {
+		return TextFormatting.DARK_GREEN+I18n.format("tooltip.effect.efficiency");
+	}
 }

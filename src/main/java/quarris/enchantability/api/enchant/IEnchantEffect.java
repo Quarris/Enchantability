@@ -19,12 +19,13 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Implement this interface to add you own effect to the mod.
+ * Implement this interface to add you own effect to the mod or extend {@link AbstractEnchantEffect} and override the methods you want.
  */
 public interface IEnchantEffect {
 
@@ -155,4 +156,9 @@ public interface IEnchantEffect {
      */
     @Nonnull
     Enchantment getEnchantment();
+
+    @Nullable
+    default String getDescription() {
+    	return null;
+	}
 }

@@ -1,14 +1,17 @@
 package quarris.enchantability.mod.enchant.impl;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
 import quarris.enchantability.api.PotionEffectHelper;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class EnchantEffectFireAspect extends AbstractEnchantEffect {
 
@@ -36,4 +39,10 @@ public class EnchantEffectFireAspect extends AbstractEnchantEffect {
     public Enchantment getEnchantment() {
         return Enchantments.FIRE_ASPECT;
     }
+
+	@Nullable
+	@Override
+	public String getDescription() {
+		return TextFormatting.GOLD+I18n.format("tooltip.effect.fireaspect");
+	}
 }

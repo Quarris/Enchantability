@@ -1,13 +1,16 @@
 package quarris.enchantability.mod.enchant.impl;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.util.text.TextFormatting;
 import quarris.enchantability.api.enchant.AbstractEnchantEffect;
 import quarris.enchantability.mod.config.ConfigEnchants;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class EnchantEffectKnockBack extends AbstractEnchantEffect {
@@ -27,4 +30,10 @@ public class EnchantEffectKnockBack extends AbstractEnchantEffect {
     public Enchantment getEnchantment() {
         return Enchantments.KNOCKBACK;
     }
+
+	@Nullable
+	@Override
+	public String getDescription() {
+		return TextFormatting.LIGHT_PURPLE+I18n.format("tooltip.effect.knockback");
+	}
 }

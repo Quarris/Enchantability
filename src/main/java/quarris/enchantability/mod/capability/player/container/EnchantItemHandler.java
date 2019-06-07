@@ -6,6 +6,7 @@ import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.items.ItemStackHandler;
+import quarris.enchantability.api.enchant.EnchantEffectRegistry;
 import quarris.enchantability.mod.capability.player.CapabilityHandler;
 import quarris.enchantability.mod.capability.player.enchant.IPlayerEnchHandler;
 import quarris.enchantability.mod.network.PacketHandler;
@@ -62,7 +63,7 @@ public class EnchantItemHandler extends ItemStackHandler implements IEnchantItem
             return false;
         }
         NBTTagList enchants = stack.serializeNBT().getCompoundTag("tag").getTagList("StoredEnchantments", 10);
-        return enchants.tagCount() == 1;
+        return enchants.tagCount() == 1 && !EnchantEffectRegistry.getEffectsFromEnchantment(Enchantment.getEnchantmentByID(enchants.getCompoundTagAt(0).getShort("id"))).isEmpty();
     }
 
     @Override
