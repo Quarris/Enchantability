@@ -1,3 +1,0 @@
-v1.1.1
-- Added text descrpitions to enchantments which can be viewed when hovering over the enchant in the provided Ender Chest Enchant GUI (or pressing shift when in creative).
-- You can now only put in enchanted books which actually give an effect.
