@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quarris.enchantability.client.ClientProxy;
 import quarris.enchantability.common.CommonProxy;
+import quarris.enchantability.common.network.PacketHandler;
 import quarris.enchantability.common.util.ModRef;
 
 @Mod(ModRef.MOD_ID)
@@ -18,7 +19,6 @@ public class Enchantability {
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {
-
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
     }
 
