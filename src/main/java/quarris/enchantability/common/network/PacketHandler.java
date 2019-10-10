@@ -16,6 +16,6 @@ public class PacketHandler {
 
     public static void init() {
         int id = 0;
-        INSTANCE.registerMessage(id++, OpenEnderChestPacket.class, OpenEnderChestPacket::encode, OpenEnderChestPacket::decode, OpenEnderChestPacket::handle);
+        INSTANCE.registerMessage(id++, OpenCloseEnderChestPacket.class, OpenCloseEnderChestPacket::encode, OpenCloseEnderChestPacket::decode, OpenCloseEnderChestPacket::handle);
     }
 }
