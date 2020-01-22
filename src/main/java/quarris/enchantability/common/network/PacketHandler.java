@@ -15,7 +15,7 @@ public class PacketHandler {
     );
 
     public static void init() {
-        int id = 0;
-        INSTANCE.registerMessage(id++, OpenCloseEnderChestPacket.class, OpenCloseEnderChestPacket::encode, OpenCloseEnderChestPacket::decode, OpenCloseEnderChestPacket::handle);
+        INSTANCE.registerMessage(0, EnderChestInteractPacket.class, EnderChestInteractPacket::encode, EnderChestInteractPacket::decode, EnderChestInteractPacket::handle);
+        INSTANCE.registerMessage(1, ClickEnchButtonPacket.class, ClickEnchButtonPacket::encode, ClickEnchButtonPacket::decode, ClickEnchButtonPacket::handle);
     }
 }
