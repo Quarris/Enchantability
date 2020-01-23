@@ -1,8 +1,8 @@
-package quarris.enchantability.common.network;
+package quarris.enchantability.mod.common.network;
 
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import quarris.enchantability.common.util.ModRef;
+import quarris.enchantability.mod.common.util.ModRef;
 
 public class PacketHandler {
 

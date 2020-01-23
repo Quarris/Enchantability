@@ -1,12 +1,13 @@
-package quarris.enchantability.client.screen;
+package quarris.enchantability.mod.client.screen;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.ResourceLocation;
-import quarris.enchantability.common.network.ClickEnchButtonPacket;
-import quarris.enchantability.common.network.PacketHandler;
-import quarris.enchantability.common.util.ModRef;
+import quarris.enchantability.mod.client.ClientEvents;
+import quarris.enchantability.mod.common.network.ClickEnchButtonPacket;
+import quarris.enchantability.mod.common.network.PacketHandler;
+import quarris.enchantability.mod.common.util.ModRef;
 
 public class EnchButton extends ImageButton {
 
@@ -15,10 +16,11 @@ public class EnchButton extends ImageButton {
     private boolean pressed;
 
     public EnchButton(int x, int y, boolean pressed) {
-        super(x, y, 16, 16, 0, 0, 0, TEXTURE, (button) -> {
-            // TODO Send packet to open the Enchant Screen
-            ((EnchButton)button).pressed = !((EnchButton)button).pressed;
-            PacketHandler.INSTANCE.sendToServer(new ClickEnchButtonPacket(true));
+        super(x, y, 16, 16, 0, 0, 0, TEXTURE, (b) -> {
+            EnchButton button = (EnchButton)b;
+            ClientEvents.clickMouseX = Minecraft.getInstance().mouseHelper.getMouseX();
+            ClientEvents.clickMouseY = Minecraft.getInstance().mouseHelper.getMouseY();
+            PacketHandler.INSTANCE.sendToServer(new ClickEnchButtonPacket(!button.pressed));
         });
         this.pressed = pressed;
     }

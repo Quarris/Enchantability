@@ -1,4 +1,4 @@
-package quarris.enchantability.client;
+package quarris.enchantability.mod.client;
 
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -6,8 +6,8 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import quarris.enchantability.common.container.EnchContainer;
-import quarris.enchantability.common.util.ModRef;
+import quarris.enchantability.mod.common.container.EnchContainer;
+import quarris.enchantability.mod.common.util.ModRef;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientRegistry {

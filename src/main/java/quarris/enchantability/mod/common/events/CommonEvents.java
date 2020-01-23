@@ -1,4 +1,4 @@
-package quarris.enchantability.common.events;
+package quarris.enchantability.mod.common.events;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
@@ -7,9 +7,9 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkDirection;
-import quarris.enchantability.common.network.EnderChestInteractPacket;
-import quarris.enchantability.common.network.PacketHandler;
-import quarris.enchantability.common.util.ModRef;
+import quarris.enchantability.mod.common.network.EnderChestInteractPacket;
+import quarris.enchantability.mod.common.network.PacketHandler;
+import quarris.enchantability.mod.common.util.ModRef;
 
 @Mod.EventBusSubscriber(modid = ModRef.MOD_ID)
 public class CommonEvents {

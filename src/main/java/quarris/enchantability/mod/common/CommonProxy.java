@@ -1,7 +1,7 @@
-package quarris.enchantability.common;
+package quarris.enchantability.mod.common;
 
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import quarris.enchantability.common.network.PacketHandler;
+import quarris.enchantability.mod.common.network.PacketHandler;
 
 public class CommonProxy {
 

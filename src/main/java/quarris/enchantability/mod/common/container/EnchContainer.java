@@ -1,4 +1,4 @@
-package quarris.enchantability.common.container;
+package quarris.enchantability.mod.common.container;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -8,7 +8,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.registries.ObjectHolder;
-import quarris.enchantability.common.util.ModRef;
+import quarris.enchantability.mod.common.util.ModRef;
 
 public class EnchContainer extends Container {
 

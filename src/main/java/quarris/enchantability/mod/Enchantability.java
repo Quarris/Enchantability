@@ -1,4 +1,4 @@
-package quarris.enchantability;
+package quarris.enchantability.mod;
 
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -6,10 +6,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import quarris.enchantability.client.ClientProxy;
-import quarris.enchantability.common.CommonProxy;
-import quarris.enchantability.common.network.PacketHandler;
-import quarris.enchantability.common.util.ModRef;
+import quarris.enchantability.mod.client.ClientProxy;
+import quarris.enchantability.mod.common.CommonProxy;
+import quarris.enchantability.mod.common.util.ModRef;
 
 @Mod(ModRef.MOD_ID)
 public class Enchantability {
@@ -20,6 +19,7 @@ public class Enchantability {
 
     public Enchantability() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+
     }
 
     private void setup(final FMLCommonSetupEvent event) {

@@ -1,4 +1,4 @@
-package quarris.enchantability.common.network;
+package quarris.enchantability.mod.common.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -7,15 +7,18 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.network.NetworkEvent;
-import quarris.enchantability.client.ClientEvents;
-import quarris.enchantability.client.screen.EnchButton;
+import quarris.enchantability.mod.client.ClientEvents;
+import quarris.enchantability.mod.client.screen.EnchButton;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
 public class EnderChestInteractPacket {
 
-    public boolean open;
+    private static final Method ADD_BUTTON_METHOD = ObfuscationReflectionHelper.findMethod(Screen.class, "addButton", Widget.class);
+
+    private boolean open;
 
     public EnderChestInteractPacket(boolean open) {
         this.open = open;
@@ -30,24 +33,21 @@ public class EnderChestInteractPacket {
     }
 
     public static void handle(EnderChestInteractPacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() ->     {
+        ctx.get().enqueueWork(() -> {
             if (packet.open) {
-                EnchButton button = new EnchButton(0, 0, false);
-                Minecraft mc = Minecraft.getInstance();
-                ChestScreen screen = (ChestScreen) mc.currentScreen;
-                //List<Widget> buttons = ObfuscationReflectionHelper.getPrivateValue(Screen.class, screen, "buttons");
-                //buttons.add(button);
-                //List<IGuiEventListener> children = ObfuscationReflectionHelper.getPrivateValue(Screen.class, screen, "children");
-                //children.add(button);
+                ChestScreen screen = (ChestScreen) Minecraft.getInstance().currentScreen;
+                if (screen == null)
+                    return;
+                EnchButton button = new EnchButton(screen.getGuiLeft() - 18, screen.getGuiTop() + 143, false);
                 try {
-                    ObfuscationReflectionHelper.findMethod(Screen.class, "addButton", Widget.class).invoke(screen, button);
+                    ADD_BUTTON_METHOD.invoke(screen, button);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
                 ClientEvents.isEnderOpen = true;
-            }
-            else
+            } else {
                 ClientEvents.isEnderOpen = false;
+            }
         });
         ctx.get().setPacketHandled(true);
     }

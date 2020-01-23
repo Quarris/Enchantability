@@ -1,4 +1,4 @@
-package quarris.enchantability.common.util;
+package quarris.enchantability.mod.common.util;
 
 import net.minecraft.util.ResourceLocation;
 
