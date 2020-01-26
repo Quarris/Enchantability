@@ -59,7 +59,7 @@ public class EnchantabilityApi {
 
         List<IEffectSupplier> getEnchantEffects(Enchantment enchantment);
 
-        IEffectSupplier getEnchantEffects(ResourceLocation name);
+        IEffectSupplier getEnchantEffect(ResourceLocation name);
 
         /**
          * You can add your own foods with a special effect to the Mending Enchant food list.

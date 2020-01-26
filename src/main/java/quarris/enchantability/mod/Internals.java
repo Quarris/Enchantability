@@ -29,7 +29,7 @@ public class Internals implements EnchantabilityApi.IInternals {
     }
 
     @Override
-    public IEffectSupplier getEnchantEffects(ResourceLocation name) {
+    public IEffectSupplier getEnchantEffect(ResourceLocation name) {
         return EnchantEffectRegistry.getEffect(name);
     }
 }
