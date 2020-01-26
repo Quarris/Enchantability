@@ -103,8 +103,7 @@ public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
             ResourceLocation name = new ResourceLocation(tag.getString("Name"));
             int level = tag.getInt("Level");
             Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("Enchantment")));
-
-            IEnchantEffect effect = EnchantEffectRegistry.getEffect(name).apply(enchantment, level);
+            IEnchantEffect effect = EnchantEffectRegistry.getEffect(name).create(this.getPlayer(), enchantment, level);
             effect.deserializeNBT(tag);
             this.getEnchants().add(effect);
         }

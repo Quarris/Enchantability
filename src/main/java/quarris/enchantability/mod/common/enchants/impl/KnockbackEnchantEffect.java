@@ -1,20 +1,35 @@
 package quarris.enchantability.mod.common.enchants.impl;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import quarris.enchantability.api.enchants.IEnchantEffect;
+import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 
-public class KnockbackEnchantEffect implements IEnchantEffect {
+import java.util.UUID;
+
+public class KnockbackEnchantEffect extends AbstractEnchantEffect {
 
     public static final ResourceLocation NAME = ModRef.createRes("far_reach");
 
-    public final Enchantment origin;
-    public final int level;
+    public KnockbackEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
+        super(player, enchantment, level);
+    }
 
-    public KnockbackEnchantEffect(Enchantment enchantment, int level) {
-        this.origin = enchantment;
-        this.level = level;
+    @Override
+    public void onApplied() {
+        player.getAttribute(PlayerEntity.REACH_DISTANCE).applyModifier(new AttributeModifier(
+                UUID.fromString("0DD5A1AD-CA11-ADD5-1CED-C0FFEEEFFEC7"),
+                NAME::toString,
+                this.level() * 2,
+                AttributeModifier.Operation.ADDITION
+        ));
+    }
+
+    @Override
+    public void onRemoved() {
+        player.getAttribute(PlayerEntity.REACH_DISTANCE).removeModifier(UUID.fromString("0DD5A1AD-CA11-ADD5-1CED-C0FFEEEFFEC7"));
     }
 
     @Override
@@ -30,15 +45,5 @@ public class KnockbackEnchantEffect implements IEnchantEffect {
     @Override
     public ResourceLocation getName() {
         return NAME;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("KnockbackEnchantEffect{");
-        sb.append("hash=").append(Integer.toHexString(hashCode()));
-        sb.append(", origin=").append(origin);
-        sb.append(", level=").append(level);
-        sb.append('}');
-        return sb.toString();
     }
 }

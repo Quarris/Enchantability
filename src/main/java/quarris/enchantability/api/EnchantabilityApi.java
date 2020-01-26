@@ -10,7 +10,6 @@ import quarris.enchantability.api.enchants.IEnchantEffect;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 public class EnchantabilityApi {
     private static IInternals instance = null;
@@ -47,18 +46,17 @@ public class EnchantabilityApi {
      */
     public interface IInternals {
 
-
         /**
          * Adds an {@link IEnchantEffect} to the registry.
          * You can implement your own {@link IEnchantEffect} or extend {@link AbstractEnchantEffect} and override the needed methods (recommended).
          *
          * @param effect The effect itself.
          */
-        void registerEnchantEffect(ResourceLocation name, Enchantment enchantment, BiFunction<Enchantment, Integer, IEnchantEffect> effectSupplier);
+        void registerEnchantEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier);
 
-        List<BiFunction<Enchantment, Integer, IEnchantEffect>> getEnchantEffects(Enchantment enchantment);
+        List<IEffectSupplier> getEnchantEffects(Enchantment enchantment);
 
-        BiFunction<Enchantment, Integer, IEnchantEffect> getEnchantEffects(ResourceLocation name);
+        IEffectSupplier getEnchantEffects(ResourceLocation name);
 
         /**
          * You can add your own foods with a special effect to the Mending Enchant food list.

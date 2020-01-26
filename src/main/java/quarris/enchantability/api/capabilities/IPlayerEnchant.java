@@ -8,10 +8,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import quarris.enchantability.api.EnchantabilityApi;
+import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 
 import java.util.*;
-import java.util.function.BiFunction;
 
 public interface IPlayerEnchant extends IItemHandlerModifiable, ICapabilitySerializable<CompoundNBT> {
 
@@ -50,6 +50,7 @@ public interface IPlayerEnchant extends IItemHandlerModifiable, ICapabilitySeria
         for (int i = enchants.size() - 1; i >= 0; i--) {
             IEnchantEffect effect = enchants.get(i);
             if (!this.isEffectIn(effect, storedEnchantments)) {
+                effect.onRemoved();
                 enchants.remove(i);
             } else {
                 currentEnchantments.add(effect.origin());
@@ -59,9 +60,11 @@ public interface IPlayerEnchant extends IItemHandlerModifiable, ICapabilitySeria
         for (Map.Entry<Enchantment, Integer> entry : storedEnchantments.entrySet()) {
             Enchantment enchantment = entry.getKey();
             if (!currentEnchantments.contains(enchantment)) {
-                List<BiFunction<Enchantment, Integer, IEnchantEffect>> effects = EnchantabilityApi.getInstance().getEnchantEffects(enchantment);
-                for (BiFunction<Enchantment, Integer, IEnchantEffect> effect : effects) {
-                    enchants.add(effect.apply(enchantment, entry.getValue()));
+                List<IEffectSupplier> effects = EnchantabilityApi.getInstance().getEnchantEffects(enchantment);
+                for (IEffectSupplier effectSupplier : effects) {
+                    IEnchantEffect effect = effectSupplier.create(this.getPlayer(), enchantment, entry.getValue());
+                    effect.onApplied();
+                    enchants.add(effect);
                 }
             }
         }

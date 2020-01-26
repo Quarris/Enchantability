@@ -7,11 +7,13 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IEnchantEffect extends INBTSerializable<CompoundNBT> {
 
+    void onApplied();
+
+    void onRemoved();
+
     Enchantment origin();
 
     int level();
-
-    ResourceLocation getName();
 
     @Override
     default CompoundNBT serializeNBT() {
@@ -26,4 +28,6 @@ public interface IEnchantEffect extends INBTSerializable<CompoundNBT> {
     default void deserializeNBT(CompoundNBT nbt) {
 
     }
+
+    ResourceLocation getName();
 }
