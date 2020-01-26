@@ -29,11 +29,16 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
         GLFW.glfwSetCursorPos(Minecraft.getInstance().mainWindow.getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
     }
 
+    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
+        this.renderBackground();
+        super.render(p_render_1_, p_render_2_, p_render_3_);
+        this.renderHoveredToolTip(p_render_1_, p_render_2_);
+    }
+
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.renderBackground();
 
         this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }

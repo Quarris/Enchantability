@@ -6,6 +6,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.mod.client.ClientProxy;
 import quarris.enchantability.mod.common.CommonProxy;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -18,8 +19,8 @@ public class Enchantability {
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {
+        EnchantabilityApi.setInstance(new Internals());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-
     }
 
     private void setup(final FMLCommonSetupEvent event) {
