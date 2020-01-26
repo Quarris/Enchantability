@@ -20,7 +20,7 @@ import quarris.enchantability.mod.common.network.PacketHandler;
 import quarris.enchantability.mod.common.network.SyncClientPacket;
 import quarris.enchantability.mod.common.util.ModRef;
 
-@Mod.EventBusSubscriber(modid = ModRef.MOD_ID)
+@Mod.EventBusSubscriber(modid = ModRef.ID)
 public class CommonEvents {
 
     @SubscribeEvent

@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.eventbus.api.Event;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 
@@ -53,6 +54,8 @@ public class EnchantabilityApi {
          * @param effect The effect itself.
          */
         void registerEnchantEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier);
+
+        <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component);
 
         List<IEffectSupplier> getEnchantEffects(Enchantment enchantment);
 

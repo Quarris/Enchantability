@@ -14,7 +14,7 @@ import quarris.enchantability.mod.common.util.ModRef;
 
 public class EnchContainer extends Container {
 
-    @ObjectHolder(ModRef.MOD_ID + ":ench_type")
+    @ObjectHolder(ModRef.ID + ":ench_type")
     public static ContainerType<EnchContainer> TYPE;
 
     public final IPlayerEnchant enchant;

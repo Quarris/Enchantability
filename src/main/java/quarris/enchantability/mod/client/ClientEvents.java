@@ -10,7 +10,7 @@ import quarris.enchantability.mod.client.screen.EnchButton;
 import quarris.enchantability.mod.common.util.ModRef;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = ModRef.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = ModRef.ID)
 @SuppressWarnings("unused")
 public class ClientEvents {
 

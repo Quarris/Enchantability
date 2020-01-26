@@ -5,8 +5,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.common.enchants.Enchants;
@@ -17,10 +15,8 @@ import quarris.enchantability.mod.proxy.ClientProxy;
 import quarris.enchantability.mod.proxy.IProxy;
 import quarris.enchantability.mod.proxy.ServerProxy;
 
-@Mod(ModRef.MOD_ID)
+@Mod(ModRef.ID)
 public class Enchantability {
-    // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
@@ -33,7 +29,7 @@ public class Enchantability {
     private void setup(final FMLCommonSetupEvent event) {
         PacketHandler.init();
         ModUtil.registerCap(IPlayerEnchant.class);
-        Enchants.register();
+        Enchants.registerEffect();
     }
 
     private void setupClient(final FMLClientSetupEvent event) {
