@@ -15,6 +15,7 @@ import quarris.enchantability.mod.proxy.ClientProxy;
 import quarris.enchantability.mod.proxy.IProxy;
 import quarris.enchantability.mod.proxy.ServerProxy;
 
+@SuppressWarnings("unused")
 @Mod(ModRef.ID)
 public class Enchantability {
 
