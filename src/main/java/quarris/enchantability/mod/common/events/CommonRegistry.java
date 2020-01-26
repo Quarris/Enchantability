@@ -16,6 +16,5 @@ public class CommonRegistry {
         event.getRegistry().register(
                 IForgeContainerType.create(((windowId, inv, data) -> new EnchContainer(windowId, inv.player))).setRegistryName("ench_type")
         );
-        System.out.println("Registering Container");
     }
 }
