@@ -28,11 +28,7 @@ public class SyncClientPacket {
         ctx.get().enqueueWork(new Runnable() {
             @Override
             public void run() {
-                System.out.println("Packet " + packet.data);
-                Minecraft.getInstance().player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> {
-                    cap.deserializeEffects(packet.data);
-                    System.out.println(cap.getEnchants());
-                });
+                Minecraft.getInstance().player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> cap.deserializeEffects(packet.data));
             }
         });
         ctx.get().setPacketHandled(true);
