@@ -24,7 +24,6 @@ public class EnchContainer extends Container {
 
     public EnchContainer(int id, PlayerEntity player) {
         super(TYPE, id);
-
         this.player = player;
         this.playerInv = player.inventory;
         this.enderInv = player.getInventoryEnderChest();

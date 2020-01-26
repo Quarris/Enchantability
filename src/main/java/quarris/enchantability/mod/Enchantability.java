@@ -11,15 +11,14 @@ import quarris.enchantability.mod.common.enchants.Enchants;
 import quarris.enchantability.mod.common.network.PacketHandler;
 import quarris.enchantability.mod.common.util.ModRef;
 import quarris.enchantability.mod.common.util.ModUtil;
-import quarris.enchantability.mod.proxy.ClientProxy;
-import quarris.enchantability.mod.proxy.IProxy;
-import quarris.enchantability.mod.proxy.ServerProxy;
+import quarris.enchantability.mod.client.ClientProxy;
+import quarris.enchantability.mod.common.CommonProxy;
 
 @SuppressWarnings("unused")
 @Mod(ModRef.ID)
 public class Enchantability {
 
-    public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {
         EnchantabilityApi.setInstance(new Internals());
@@ -29,6 +28,7 @@ public class Enchantability {
 
     private void setup(final FMLCommonSetupEvent event) {
         PacketHandler.init();
+        proxy.populateEventPlayerGetters();
         ModUtil.registerCap(IPlayerEnchant.class);
         Enchants.registerEffect();
     }

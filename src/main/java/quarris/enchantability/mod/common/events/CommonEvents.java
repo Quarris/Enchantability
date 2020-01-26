@@ -74,4 +74,6 @@ public class CommonEvents {
                         NetworkDirection.PLAY_TO_CLIENT)
         );
     }
+
+    // TODO Clone Capabilities
 }
