@@ -26,7 +26,7 @@ public interface IEnchantEffect extends INBTSerializable<CompoundNBT> {
 
     @Override
     default void deserializeNBT(CompoundNBT nbt) {
-
+        this.onApplied();
     }
 
     ResourceLocation getName();

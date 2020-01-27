@@ -18,6 +18,8 @@ import quarris.enchantability.mod.common.CommonProxy;
 @Mod(ModRef.ID)
 public class Enchantability {
 
+    // TODO Configs, Tooltips
+
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {

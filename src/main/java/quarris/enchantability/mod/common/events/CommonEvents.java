@@ -15,6 +15,7 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkDirection;
 import quarris.enchantability.api.EnchantabilityApi;
+import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.common.capabilities.PlayerEnchant;
 import quarris.enchantability.mod.common.network.EnderChestInteractPacket;
 import quarris.enchantability.mod.common.network.PacketHandler;
@@ -75,5 +76,19 @@ public class CommonEvents {
         );
     }
 
-    // TODO Clone Capabilities
+    @SubscribeEvent
+    public static void cloneCapabilities(PlayerEvent.Clone e) {
+        System.out.println("Cloning");
+        if (e.isWasDeath()) {
+            try {
+                IPlayerEnchant original = e.getOriginal().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
+                CompoundNBT nbt = original.serializeNBT();
+                System.out.println(nbt);
+                IPlayerEnchant clone = e.getPlayer().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
+                clone.deserializeNBT(nbt);
+            } catch (Exception exp) {
+                ModRef.LOGGER.warn("Failed to clone player " + e.getOriginal().getName(), exp);
+            }
+        }
+    }
 }
