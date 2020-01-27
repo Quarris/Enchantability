@@ -7,27 +7,27 @@ import net.minecraft.util.ResourceLocation;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 
-public class KnockbackEnchantEffect extends AbstractEnchantEffect {
+public class GravityEnchantEffect extends AbstractEnchantEffect {
 
-    public static final ResourceLocation NAME = ModRef.createRes("far_reach");
+    public static final ResourceLocation NAME = ModRef.createRes("gravity");
 
-    public KnockbackEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
+    public GravityEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
         super(player, enchantment, level);
     }
 
     @Override
     public void onApplied() {
-        player.getAttribute(PlayerEntity.REACH_DISTANCE).applyModifier(new AttributeModifier(
+        this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).applyModifier(new AttributeModifier(
                 ModRef.ENCHANT_UUID,
                 NAME::toString,
-                this.level() * 2,
+                -this.level * 0.01f,
                 AttributeModifier.Operation.ADDITION
         ));
     }
 
     @Override
     public void onRemoved() {
-        player.getAttribute(PlayerEntity.REACH_DISTANCE).removeModifier(ModRef.ENCHANT_UUID);
+        this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).removeModifier(ModRef.ENCHANT_UUID);
     }
 
     @Override

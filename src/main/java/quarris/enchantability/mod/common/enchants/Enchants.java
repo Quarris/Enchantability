@@ -9,6 +9,7 @@ import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.IEffectComponent;
 import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
+import quarris.enchantability.mod.common.enchants.impl.GravityEnchantEffect;
 import quarris.enchantability.mod.common.enchants.impl.KnockbackEnchantEffect;
 import quarris.enchantability.mod.common.enchants.impl.PunchEnchantEffect;
 
@@ -18,6 +19,7 @@ public class Enchants {
         // Effects
         registerEffect(KnockbackEnchantEffect.NAME, Enchantments.KNOCKBACK, KnockbackEnchantEffect::new);
         registerEffect(PunchEnchantEffect.NAME, Enchantments.PUNCH, PunchEnchantEffect::new);
+        registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
 
         // Components
         registerComponent(PunchEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, PunchEnchantEffect::handBreak);
