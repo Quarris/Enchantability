@@ -9,11 +9,14 @@ import net.minecraftforge.eventbus.api.Event;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.Function;
 
 public class ModUtil {
 
     private static final Map<Class<? extends Event>, Function<? extends Event, PlayerEntity>> EVENT_PLAYER_GETTER = new HashMap<>();
+
+    public static final Random RANDOM = new Random();
 
     public static void addEventPlayerGetter(Class<? extends Event> clazz, Function<? extends Event, PlayerEntity> getter) {
         EVENT_PLAYER_GETTER.put(clazz, getter);

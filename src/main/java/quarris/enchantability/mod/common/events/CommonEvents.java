@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.network.NetworkDirection;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
@@ -83,12 +84,16 @@ public class CommonEvents {
             try {
                 IPlayerEnchant original = e.getOriginal().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
                 CompoundNBT nbt = original.serializeNBT();
-                System.out.println(nbt);
                 IPlayerEnchant clone = e.getPlayer().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
                 clone.deserializeNBT(nbt);
             } catch (Exception exp) {
                 ModRef.LOGGER.warn("Failed to clone player " + e.getOriginal().getName(), exp);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void configChanged(ModConfig.ModConfigEvent e) {
+        quarris.enchantability.mod.ModConfig.get().reload();
     }
 }

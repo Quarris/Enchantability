@@ -17,9 +17,7 @@ import quarris.enchantability.api.enchants.IEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 import quarris.enchantability.mod.common.util.ModUtil;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -64,8 +62,14 @@ public class EnchantEffectRegistry {
                     player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> {
                         for (IEnchantEffect effect : cap.getEnchants()) {
                             if (effect.getName().equals(name)) {
-                                IEffectComponent<F, T> comp = (IEffectComponent<F, T>) COMPONENTS.get(effect.getName(), event.getClass());
-                                comp.run((F) effect, event);
+                                for (Map.Entry<Class<? extends Event>, IEffectComponent<? extends IEnchantEffect, ? extends Event>> entry : COMPONENTS.row(name).entrySet()) {
+                                    if (entry.getKey().isAssignableFrom(event.getClass())) {
+                                        IEffectComponent<F, T> comp = (IEffectComponent<F, T>) COMPONENTS.get(effect.getName(), entry.getKey());
+                                        if (comp != null) {
+                                            comp.run((F) effect, event);
+                                        }
+                                    }
+                                }
                             }
                         }
                     });

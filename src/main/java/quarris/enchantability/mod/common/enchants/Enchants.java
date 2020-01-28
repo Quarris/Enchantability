@@ -3,12 +3,15 @@ package quarris.enchantability.mod.common.enchants;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Event;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.IEffectComponent;
 import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
+import quarris.enchantability.mod.ModConfig;
+import quarris.enchantability.mod.common.enchants.impl.DeflectionEnchantEffect;
 import quarris.enchantability.mod.common.enchants.impl.GravityEnchantEffect;
 import quarris.enchantability.mod.common.enchants.impl.KnockbackEnchantEffect;
 import quarris.enchantability.mod.common.enchants.impl.PunchEnchantEffect;
@@ -16,13 +19,17 @@ import quarris.enchantability.mod.common.enchants.impl.PunchEnchantEffect;
 public class Enchants {
 
     public static void registerEffect() {
+        ModConfig config = ModConfig.get();
+
         // Effects
-        registerEffect(KnockbackEnchantEffect.NAME, Enchantments.KNOCKBACK, KnockbackEnchantEffect::new);
-        registerEffect(PunchEnchantEffect.NAME, Enchantments.PUNCH, PunchEnchantEffect::new);
-        registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
+        if (config.enableFarReach.get())    registerEffect(KnockbackEnchantEffect.NAME, Enchantments.KNOCKBACK, KnockbackEnchantEffect::new);
+        if (config.enableFastBreak.get())   registerEffect(PunchEnchantEffect.NAME, Enchantments.PUNCH, PunchEnchantEffect::new);
+        if (config.enableGravity.get())     registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
+        if (config.enableDeflection.get())  registerEffect(DeflectionEnchantEffect.NAME, Enchantments.PROJECTILE_PROTECTION, DeflectionEnchantEffect::new);
 
         // Components
-        registerComponent(PunchEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, PunchEnchantEffect::handBreak);
+        if (config.enableFastBreak.get())   registerComponent(PunchEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, PunchEnchantEffect::handBreak);
+        if (config.enableDeflection.get())  registerComponent(DeflectionEnchantEffect.NAME, ProjectileImpactEvent.class, DeflectionEnchantEffect::deflect);
     }
 
     private static void registerEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier) {

@@ -19,10 +19,10 @@ public class ClientEvents {
     public static double clickMouseY;
 
 	@SubscribeEvent
-	public static void addEnchantButton(GuiScreenEvent.InitGuiEvent e) {
-		if (isEnderOpen && e.getGui() instanceof ChestScreen) {
-		    ChestScreen screen = (ChestScreen) e.getGui();
-			e.addWidget(new EnchButton(screen.getGuiLeft() - 18, screen.getGuiTop() + 143, false));
+	public static void addEnchantButton(GuiScreenEvent.InitGuiEvent.Post event) {
+		if (isEnderOpen && event.getGui() instanceof ChestScreen) {
+		    ChestScreen screen = (ChestScreen) event.getGui();
+			event.addWidget(new EnchButton(screen.getGuiLeft() - 18, screen.getGuiTop() + 143, false));
 		}
 	}
 }

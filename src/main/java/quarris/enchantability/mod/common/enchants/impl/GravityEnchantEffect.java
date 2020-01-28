@@ -3,6 +3,7 @@ package quarris.enchantability.mod.common.enchants.impl;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -28,6 +29,13 @@ public class GravityEnchantEffect extends AbstractEnchantEffect {
     @Override
     public void onRemoved() {
         this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).removeModifier(ModRef.ENCHANT_UUID);
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        if (this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).getModifier(ModRef.ENCHANT_UUID) == null) {
+            this.onApplied();
+        }
     }
 
     @Override
