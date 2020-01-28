@@ -79,16 +79,13 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void cloneCapabilities(PlayerEvent.Clone e) {
-        System.out.println("Cloning");
-        if (e.isWasDeath()) {
-            try {
-                IPlayerEnchant original = e.getOriginal().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
-                CompoundNBT nbt = original.serializeNBT();
-                IPlayerEnchant clone = e.getPlayer().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
-                clone.deserializeNBT(nbt);
-            } catch (Exception exp) {
-                ModRef.LOGGER.warn("Failed to clone player " + e.getOriginal().getName(), exp);
-            }
+        try {
+            IPlayerEnchant original = e.getOriginal().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
+            CompoundNBT nbt = original.serializeNBT();
+            IPlayerEnchant clone = e.getPlayer().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
+            clone.deserializeNBT(nbt);
+        } catch (Exception exp) {
+            ModRef.LOGGER.warn("Failed to clone player " + e.getOriginal().getName(), exp);
         }
     }
 

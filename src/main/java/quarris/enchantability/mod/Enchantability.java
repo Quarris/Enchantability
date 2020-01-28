@@ -37,7 +37,6 @@ public class Enchantability {
 
     private void setup(final FMLCommonSetupEvent event) {
         PacketHandler.init();
-        proxy.populateEventPlayerGetters();
         Enchants.registerEffect();
         ModUtil.registerCap(IPlayerEnchant.class);
     }

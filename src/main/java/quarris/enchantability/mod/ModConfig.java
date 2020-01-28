@@ -8,6 +8,8 @@ public class ModConfig {
     public ForgeConfigSpec.BooleanValue enableFastBreak;
     public ForgeConfigSpec.BooleanValue enableGravity;
     public ForgeConfigSpec.BooleanValue enableDeflection;
+    public ForgeConfigSpec.BooleanValue enableVoid;
+    public ForgeConfigSpec.BooleanValue enableSmite;
 
     private static ModConfig instance;
     public static ModConfig get() {
@@ -24,6 +26,8 @@ public class ModConfig {
         enableFastBreak = builder.define("enableFastBreak", true);
         enableGravity = builder.define("enableGravity", true);
         enableDeflection = builder.define("enableDeflection", true);
+        enableVoid = builder.define("enableVoid", true);
+        enableSmite = builder.define("enableSmite", true);
         builder.pop();
     }
 
