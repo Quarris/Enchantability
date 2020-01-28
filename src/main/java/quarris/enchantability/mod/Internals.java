@@ -10,6 +10,7 @@ import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 import quarris.enchantability.mod.common.enchants.EnchantEffectRegistry;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -21,7 +22,7 @@ public class Internals implements EnchantabilityApi.IInternals {
     }
 
     @Override
-    public <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, PlayerEntity> playerGetter) {
+    public <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, Collection<PlayerEntity>> playerGetter) {
         EnchantEffectRegistry.registerComponent(name, eventClass, component, playerGetter);
     }
 

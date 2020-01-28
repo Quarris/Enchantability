@@ -11,6 +11,7 @@ import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -57,7 +58,7 @@ public class EnchantabilityApi {
          */
         void registerEnchantEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier);
 
-        <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, PlayerEntity> playerGetter);
+        <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, Collection<PlayerEntity>> playerGetter);
 
         List<IEffectSupplier> getEnchantEffects(Enchantment enchantment);
 
