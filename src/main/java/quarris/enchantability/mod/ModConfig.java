@@ -11,6 +11,7 @@ public class ModConfig {
     public ForgeConfigSpec.BooleanValue enableVoid;
     public ForgeConfigSpec.BooleanValue enableSmite;
     public ForgeConfigSpec.BooleanValue enableBlastResist;
+    public ForgeConfigSpec.BooleanValue enableFirePraise;
 
     private static ModConfig instance;
     public static ModConfig get() {
@@ -30,6 +31,7 @@ public class ModConfig {
         enableVoid = builder.define("enableVoid", true);
         enableSmite = builder.define("enableSmite", true);
         enableBlastResist = builder.define("enableBlastResist", true);
+        enableFirePraise = builder.define("enableFirePraise", true);
         builder.pop();
     }
 

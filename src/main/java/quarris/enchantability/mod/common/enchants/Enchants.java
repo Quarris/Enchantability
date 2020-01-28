@@ -30,10 +30,10 @@ public class Enchants {
 
         // Effects
         if (config.enableFarReach.get())
-            registerEffect(KnockbackEnchantEffect.NAME, Enchantments.KNOCKBACK, KnockbackEnchantEffect::new);
+            registerEffect(FarReachEnchantEffect.NAME, Enchantments.KNOCKBACK, FarReachEnchantEffect::new);
 
         if (config.enableFastBreak.get())
-            registerEffect(PunchEnchantEffect.NAME, Enchantments.PUNCH, PunchEnchantEffect::new);
+            registerEffect(FastBreakEnchantEffect.NAME, Enchantments.PUNCH, FastBreakEnchantEffect::new);
 
         if (config.enableGravity.get())
             registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
@@ -50,10 +50,13 @@ public class Enchants {
         if (config.enableBlastResist.get())
             registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
 
+        if (config.enableFirePraise.get())
+            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
+
 
         // Components
         if (config.enableFastBreak.get())
-            registerComponent(PunchEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, PunchEnchantEffect::handBreak, e -> Collections.singleton(e.getPlayer()));
+            registerComponent(FastBreakEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, FastBreakEnchantEffect::handBreak, e -> Collections.singleton(e.getPlayer()));
 
         if (config.enableDeflection.get())
             registerComponent(DeflectionEnchantEffect.NAME, ProjectileImpactEvent.class, DeflectionEnchantEffect::deflect,
@@ -78,6 +81,11 @@ public class Enchants {
                             .filter(entity -> entity instanceof PlayerEntity)
                             .map(entity -> (PlayerEntity) entity)
                             .collect(Collectors.toList()));
+
+        if (config.enableFirePraise.get())
+            registerComponent(FirePraiseEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, FirePraiseEnchantEffect::praiseTheSun,
+                    e -> Collections.singleton(e.player));
+
     }
 
     private static void registerEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier) {

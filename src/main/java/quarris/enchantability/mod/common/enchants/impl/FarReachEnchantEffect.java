@@ -8,11 +8,11 @@ import net.minecraft.util.ResourceLocation;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 
-public class KnockbackEnchantEffect extends AbstractEnchantEffect {
+public class FarReachEnchantEffect extends AbstractEnchantEffect {
 
     public static final ResourceLocation NAME = ModRef.createRes("far_reach");
 
-    public KnockbackEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
+    public FarReachEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
         super(player, enchantment, level);
     }
 
