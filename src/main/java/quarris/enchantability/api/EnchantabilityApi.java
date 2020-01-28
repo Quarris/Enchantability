@@ -1,6 +1,7 @@
 package quarris.enchantability.api;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -11,6 +12,7 @@ import quarris.enchantability.api.enchants.IEnchantEffect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class EnchantabilityApi {
     private static IInternals instance = null;
@@ -55,7 +57,7 @@ public class EnchantabilityApi {
          */
         void registerEnchantEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier);
 
-        <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component);
+        <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, PlayerEntity> playerGetter);
 
         List<IEffectSupplier> getEnchantEffects(Enchantment enchantment);
 

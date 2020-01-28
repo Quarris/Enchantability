@@ -14,10 +14,10 @@ import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.IEffectComponent;
 import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
-import quarris.enchantability.mod.common.util.ModRef;
-import quarris.enchantability.mod.common.util.ModUtil;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -40,7 +40,8 @@ public class EnchantEffectRegistry {
         return BY_NAME.get(name);
     }
 
-    public static <F extends IEnchantEffect, T extends Event> void registerComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component) {
+    public static <F extends IEnchantEffect, T extends Event> void registerComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, PlayerEntity> playerGetter) {
+        /*
         Function<T, PlayerEntity> playerGetter = ModUtil.getPlayerFromEvent(eventClass);
         if (playerGetter == null) {
             ModRef.LOGGER.error(new RuntimeException("Event " + eventClass + " is not supported for a component."));
@@ -49,6 +50,7 @@ public class EnchantEffectRegistry {
             ModRef.LOGGER.error(new RuntimeException("Cannot add component for " + name.toString() + " as it does not exist."));
             return;
         }
+         */
         COMPONENTS.put(name, eventClass, component);
 
         MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, eventClass, new Consumer<T>() {
