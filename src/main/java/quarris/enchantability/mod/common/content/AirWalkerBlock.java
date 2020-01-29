@@ -4,50 +4,72 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import quarris.enchantability.api.EnchantabilityApi;
-import quarris.enchantability.api.enchants.IEnchantEffect;
+import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.common.enchants.impl.AirWalkerEnchantEffect;
 
-import java.util.List;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class AirWalkerBlock extends Block {
 
+    public static final VoxelShape SHAPE = VoxelShapes.create(0, 0.9, 0, 1, 1, 1);
+
     public AirWalkerBlock() {
-        super(Block.Properties.create(Material.BARRIER).noDrops().tickRandomly());
+        super(Block.Properties.create(Material.BARRIER).noDrops().variableOpacity());
         this.setRegistryName("air");
     }
 
     public void tick(BlockState state, World world, BlockPos pos, Random random) {
-        List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos).expand(0, 3, 0).grow(5, 0, 5), p -> p.getCapability(EnchantabilityApi.playerEnchant).isPresent());
 
-        boolean shouldRemove = true;
-        for (PlayerEntity player : players) {
-            IEnchantEffect effect = player.getCapability(EnchantabilityApi.playerEnchant).orElse(null).getEnchant(AirWalkerEnchantEffect.NAME);
-            if (effect != null && player.getDistanceSq(new Vec3d(pos)) <= effect.level()) {
-                shouldRemove = false;
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return AirWalkerTileEntity.TYPE.create();
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile != null && context.getEntity() != null) {
+            IPlayerEnchant cap = context.getEntity().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
+            if (cap == null || !cap.hasEnchant(AirWalkerEnchantEffect.NAME) || context.getEntity().posY < (pos.getY() + 1)) {
+                return VoxelShapes.empty();
+            } else {
+                return SHAPE;
             }
         }
+        return VoxelShapes.empty();
+    }
 
-        if (shouldRemove)
-            world.removeBlock(pos, false);
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return VoxelShapes.empty();
+    }
+
+    @Override
+    public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return VoxelShapes.empty();
     }
 
     @Override
     public int tickRate(IWorldReader worldIn) {
         return 3;
-    }
-
-    @Override
-    public boolean isAir(BlockState state, IBlockReader world, BlockPos pos) {
-        return true;
     }
 
     @Override
