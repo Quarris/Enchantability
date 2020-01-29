@@ -74,8 +74,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'enchantability', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'enchantability', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
+            environment 'target', 'fmluserdevdata'
+            
             mods {
                 enchantability {
                     source sourceSets.main

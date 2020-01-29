@@ -43,6 +43,16 @@ public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
     }
 
     @Override
+    public boolean hasEnchant(ResourceLocation name) {
+        return this.getEnchants().stream().anyMatch(effect -> name.equals(effect.getName()));
+    }
+
+    @Override
+    public IEnchantEffect getEnchant(ResourceLocation name) {
+        return this.getEnchants().stream().filter(effect -> name.equals(effect.getName())).findFirst().orElse(null);
+    }
+
+    @Override
     public PlayerEntity getPlayer() {
         return this.player;
     }

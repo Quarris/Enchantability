@@ -5,6 +5,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import quarris.enchantability.api.EnchantabilityApi;
@@ -18,6 +19,10 @@ public interface IPlayerEnchant extends IItemHandlerModifiable, ICapabilitySeria
     List<IEnchantEffect> getEnchants();
 
     PlayerEntity getPlayer();
+
+    boolean hasEnchant(ResourceLocation name);
+
+    IEnchantEffect getEnchant(ResourceLocation name);
 
     default Map<Enchantment, Integer> getStoredEnchantments() {
         Map<Enchantment, Integer> storedEnchantments = new HashMap<>();

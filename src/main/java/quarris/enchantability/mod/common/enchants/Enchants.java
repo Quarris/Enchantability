@@ -53,6 +53,9 @@ public class Enchants {
         if (config.enableFirePraise.get())
             registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
 
+        if (config.enableAirWalker.get())
+            registerEffect(AirWalkerEnchantEffect.NAME, Enchantments.FROST_WALKER, AirWalkerEnchantEffect::new);
+
 
         // Components
         if (config.enableFastBreak.get())
@@ -84,6 +87,10 @@ public class Enchants {
 
         if (config.enableFirePraise.get())
             registerComponent(FirePraiseEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, FirePraiseEnchantEffect::praiseTheSun,
+                    e -> Collections.singleton(e.player));
+
+        if (config.enableAirWalker.get())
+            registerComponent(AirWalkerEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AirWalkerEnchantEffect::airWalk,
                     e -> Collections.singleton(e.player));
 
     }

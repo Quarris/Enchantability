@@ -24,6 +24,8 @@ public class Enchantability {
 
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
+
+
     public Enchantability() {
 
         EnchantabilityApi.setInstance(new Internals());
