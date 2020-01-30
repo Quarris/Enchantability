@@ -1,0 +1,14 @@
+{
+    "enchant.desc.empty": "Enchantability: No enchants available",
+    "enchant.desc.short": "Enchantability: Press LSHIFT to expand",
+
+    "enchantability:air_walker.enchant.desc": "Walk on air",
+    "enchantability:blast_resistance.enchant.desc": "Protect area from explosions",
+    "enchantability:deflection.enchant.desc": "Deflect projectiles",
+    "enchantability:far_reach.enchant.desc": "Increased reach",
+    "enchantability:fast_break.enchant.desc": "Break faster with hands",
+    "enchantability:fire_praise.enchant.desc": "Stronger at day, weaker at night",
+    "enchantability:gravity.enchant.desc": "Lowered gravity",
+    "enchantability:smite.enchant.desc": "Strike foes with your sword",
+    "enchantability:void.enchant.desc": "Teleport back from the end void"
+}

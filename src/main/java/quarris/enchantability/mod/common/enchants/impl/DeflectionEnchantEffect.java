@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
@@ -60,4 +61,5 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
     public ResourceLocation getName() {
         return NAME;
     }
+
 }

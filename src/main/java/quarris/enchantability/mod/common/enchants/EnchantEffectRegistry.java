@@ -7,6 +7,8 @@ import com.google.common.collect.Table;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -19,20 +21,29 @@ import quarris.enchantability.api.enchants.IEnchantEffect;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class EnchantEffectRegistry {
 
-    public static final ListMultimap<Enchantment, IEffectSupplier> BY_ENCHANTMENT = ArrayListMultimap.create();
+    public static final ListMultimap<Enchantment, ResourceLocation> BY_ENCHANTMENT = ArrayListMultimap.create();
     public static final Map<ResourceLocation, IEffectSupplier> BY_NAME = new HashMap<>();
+    public static final Map<ResourceLocation, ITextComponent> DESCRIPTIONS = new HashMap<>();
     public static final Table<ResourceLocation, Class<? extends Event>, IEffectComponent<? extends IEnchantEffect, ? extends Event>> COMPONENTS = HashBasedTable.create();
 
     public static void register(ResourceLocation name, Enchantment enchantment, IEffectSupplier effect) {
-        BY_ENCHANTMENT.put(enchantment, effect);
+        BY_ENCHANTMENT.put(enchantment, name);
         BY_NAME.put(name, effect);
+        DESCRIPTIONS.put(name, new TranslationTextComponent(name.toString()+".enchant.desc"));
+    }
+
+    public static void register(ResourceLocation name, Enchantment enchantment, ITextComponent description, IEffectSupplier effect) {
+        BY_ENCHANTMENT.put(enchantment, name);
+        BY_NAME.put(name, effect);
+        DESCRIPTIONS.put(name, description);
     }
 
     public static List<IEffectSupplier> getEffects(Enchantment enchantment) {
-        return BY_ENCHANTMENT.get(enchantment);
+        return BY_ENCHANTMENT.get(enchantment).stream().map(BY_NAME::get).collect(Collectors.toList());
     }
 
     public static IEffectSupplier getEffect(ResourceLocation name) {
