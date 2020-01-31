@@ -1,7 +1,10 @@
 package quarris.enchantability.api;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -9,10 +12,13 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.eventbus.api.Event;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.api.enchants.IEnchantEffect;
+import quarris.enchantability.mod.common.enchants.impl.GluttonyEnchantEffect;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class EnchantabilityApi {
@@ -20,7 +26,7 @@ public class EnchantabilityApi {
 
     public static final List<ItemStack> EFFICIENCY_ITEMSTACKS = new ArrayList<>();
     public static final List<String> EFFICIENCY_OREDICT = new ArrayList<>();
-    //public static final Multimap<Food, MendingAction> MENDING_EFFECTS = HashMultimap.create();
+    public static final Multimap<Food, BiConsumer<GluttonyEnchantEffect, ItemStack>> MENDING_EFFECTS = HashMultimap.create();
 
     /**
      * Use this to interact with the API. Note this is initialised in {@link net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent}
@@ -70,7 +76,7 @@ public class EnchantabilityApi {
          * @param food The ItemFood
          * @param action The action to take when the food is eaten, the item stack is provided so the meta can be accessed.
          */
-        //void addToMendingList(Food food, MendingAction action);
+        void addToMendingList(Food food, BiConsumer<GluttonyEnchantEffect, ItemStack> action);
 
         /**
          * Add to the Efficiency list for use in the Efficiency Enchant.

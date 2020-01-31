@@ -13,6 +13,7 @@ public class ModConfig {
     public ForgeConfigSpec.BooleanValue enableBlastResist;
     public ForgeConfigSpec.BooleanValue enableFirePraise;
     public ForgeConfigSpec.BooleanValue enableAirWalker;
+    public ForgeConfigSpec.BooleanValue enableGluttony;
 
     private static ModConfig instance;
     public static ModConfig get() {
@@ -34,6 +35,7 @@ public class ModConfig {
         enableBlastResist = builder.define("enableBlastResist", true);
         enableFirePraise = builder.define("enableFirePraise", true);
         enableAirWalker = builder.define("enableAirWalker", true);
+        enableGluttony = builder.define("enableGluttony", true);
         builder.pop();
     }
 

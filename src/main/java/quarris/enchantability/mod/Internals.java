@@ -2,6 +2,8 @@ package quarris.enchantability.mod;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.Event;
 import quarris.enchantability.api.EnchantabilityApi;
@@ -9,9 +11,11 @@ import quarris.enchantability.api.IEffectComponent;
 import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 import quarris.enchantability.mod.common.enchants.EnchantEffectRegistry;
+import quarris.enchantability.mod.common.enchants.impl.GluttonyEnchantEffect;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class Internals implements EnchantabilityApi.IInternals {
@@ -34,5 +38,10 @@ public class Internals implements EnchantabilityApi.IInternals {
     @Override
     public IEffectSupplier getEnchantEffect(ResourceLocation name) {
         return EnchantEffectRegistry.getEffect(name);
+    }
+
+    @Override
+    public void addToMendingList(Food food, BiConsumer<GluttonyEnchantEffect, ItemStack> action) {
+        EnchantabilityApi.MENDING_EFFECTS.put(food, action);
     }
 }

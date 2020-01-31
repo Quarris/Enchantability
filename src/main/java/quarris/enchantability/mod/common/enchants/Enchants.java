@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -56,6 +57,9 @@ public class Enchants {
         if (config.enableAirWalker.get())
             registerEffect(AirWalkerEnchantEffect.NAME, Enchantments.FROST_WALKER, AirWalkerEnchantEffect::new);
 
+        if (config.enableGluttony.get())
+            registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
+
 
         // Components
         if (config.enableFastBreak.get())
@@ -93,6 +97,14 @@ public class Enchants {
             registerComponent(AirWalkerEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AirWalkerEnchantEffect::airWalk,
                     e -> Collections.singleton(e.player));
 
+        if (config.enableGluttony.get()) {
+            registerComponent(GluttonyEnchantEffect.NAME, LivingEntityUseItemEvent.Finish.class, GluttonyEnchantEffect::consume,
+                    e -> e.getEntity() instanceof PlayerEntity ?
+                            Collections.singleton((PlayerEntity) e.getEntity()) :
+                            Collections.emptyList()
+            );
+            GluttonyFoods.initMendingFoods();
+        }
     }
 
     private static void registerEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier) {
