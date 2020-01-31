@@ -57,12 +57,6 @@ public class EnchantabilityApi {
      */
     public interface IInternals {
 
-        /**
-         * Adds an {@link IEnchantEffect} to the registry.
-         * You can implement your own {@link IEnchantEffect} or extend {@link AbstractEnchantEffect} and override the needed methods (recommended).
-         *
-         * @param effect The effect itself.
-         */
         void registerEnchantEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier);
 
         <F extends IEnchantEffect, T extends Event> void registerEffectComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, Collection<PlayerEntity>> playerGetter);
