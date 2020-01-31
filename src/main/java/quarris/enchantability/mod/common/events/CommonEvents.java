@@ -7,16 +7,17 @@ import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.network.NetworkDirection;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
+import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.common.capabilities.PlayerEnchant;
 import quarris.enchantability.mod.common.network.EnderChestInteractPacket;
 import quarris.enchantability.mod.common.network.PacketHandler;
@@ -54,6 +55,11 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
+    public static void reloadTags(TagsUpdatedEvent event) {
+        ModConfig.get().reloadTags();
+    }
+
+    @SubscribeEvent
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END && event.side == LogicalSide.SERVER) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
@@ -87,11 +93,5 @@ public class CommonEvents {
         } catch (Exception exp) {
             ModRef.LOGGER.warn("Failed to clone player " + e.getOriginal().getName(), exp);
         }
-    }
-
-    @SubscribeEvent
-    public static void configChanged(ModConfig.ModConfigEvent e) {
-        System.out.println("Reloaded Configs");
-        quarris.enchantability.mod.ModConfig.get().reload();
     }
 }

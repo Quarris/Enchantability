@@ -70,22 +70,23 @@ public class ModConfig {
         builder.pop();
     }
 
-    public void reload() {
+    public void reloadTags() {
         for (String itemName : this.dexterityItems.get()) {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
             if (item != null) {
                 EnchantabilityApi.getInstance().addToDexterityList(item);
             } else {
-                ModRef.LOGGER.warn("Registered item for dexterity doesn't extst, " + itemName);
+                ModRef.LOGGER.warn("Registered item for dexterity doesn't exist, " + itemName);
             }
         }
 
         for (String tagName : this.dexterityTags.get()) {
             Tag<Item> tag = ItemTags.getCollection().get(new ResourceLocation(tagName));
+
             if (tag != null) {
                 EnchantabilityApi.getInstance().addToDexterityList(tag);
             } else {
-                ModRef.LOGGER.warn("Registered tag for dexterity doesn't extst, " + tagName);
+                ModRef.LOGGER.warn("Registered tag for dexterity doesn't exist, " + tagName);
             }
         }
     }
