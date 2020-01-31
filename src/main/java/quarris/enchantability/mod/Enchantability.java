@@ -20,12 +20,9 @@ import quarris.enchantability.mod.common.util.ModUtil;
 @Mod(ModRef.ID)
 public class Enchantability {
 
-    // TODO Tooltips
-
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {
-
         EnchantabilityApi.setInstance(new Internals());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
@@ -39,6 +36,7 @@ public class Enchantability {
         PacketHandler.init();
         Enchants.registerEffect();
         ModUtil.registerCap(IPlayerEnchant.class);
+        ModConfig.get().reload();
     }
 
     private void setupClient(final FMLClientSetupEvent event) {

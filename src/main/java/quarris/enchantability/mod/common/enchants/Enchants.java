@@ -60,6 +60,9 @@ public class Enchants {
         if (config.enableGluttony.get())
             registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
 
+        if (config.enableDexterity.get())
+            registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
+
 
         // Components
         if (config.enableFastBreak.get())
@@ -104,6 +107,10 @@ public class Enchants {
                             Collections.emptyList()
             );
             GluttonyFoods.initMendingFoods();
+        }
+
+        if (config.enableDexterity.get()) {
+            registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
         }
     }
 

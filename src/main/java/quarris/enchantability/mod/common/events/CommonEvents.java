@@ -91,6 +91,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void configChanged(ModConfig.ModConfigEvent e) {
+        System.out.println("Reloaded Configs");
         quarris.enchantability.mod.ModConfig.get().reload();
     }
 }

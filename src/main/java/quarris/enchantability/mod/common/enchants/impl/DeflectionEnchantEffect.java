@@ -8,7 +8,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
@@ -25,7 +24,7 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
 
     public static void deflect(DeflectionEnchantEffect effect, ProjectileImpactEvent event) {
         if (!effect.player.world.isRemote()) {
-            float chance = effect.level / 5f;
+            float chance = effect.level * 0.2f;
             if (chance >= ModUtil.RANDOM.nextFloat()) {
                 Entity projectile = event.getEntity();
                 System.out.println(projectile);

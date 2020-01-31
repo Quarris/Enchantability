@@ -5,7 +5,9 @@ import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -18,15 +20,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class EnchantabilityApi {
     private static IInternals instance = null;
 
-    public static final List<ItemStack> EFFICIENCY_ITEMSTACKS = new ArrayList<>();
-    public static final List<String> EFFICIENCY_OREDICT = new ArrayList<>();
-    public static final Multimap<Food, BiConsumer<GluttonyEnchantEffect, ItemStack>> MENDING_EFFECTS = HashMultimap.create();
+    public static final List<ItemStack> DEXTERITY_ITEMSTACKS = new ArrayList<>();
+    public static final List<Tag<Item>> DEXTERITY_TAGS = new ArrayList<>();
+    public static final Multimap<Food, BiConsumer<GluttonyEnchantEffect, ItemStack>> GLUTTONY_FOODS = HashMultimap.create();
 
     /**
      * Use this to interact with the API. Note this is initialised in {@link net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent}
@@ -82,7 +83,7 @@ public class EnchantabilityApi {
          * Add to the Efficiency list for use in the Efficiency Enchant.
          * @param things Array of objects which are ItemStack for Items and String for Oredicts
          */
-        //void addToEfficiencyList(Object... things);
+        void addToDexterityList(Object... things);
 
 
     }
