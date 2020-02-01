@@ -26,7 +26,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
         this.guiLeft -= 25;
         this.guiTop -= 1;
         this.addButton(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
-        GLFW.glfwSetCursorPos(Minecraft.getInstance().mainWindow.getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
+        GLFW.glfwSetCursorPos(Minecraft.getInstance().getMainWindow().getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
     }
 
     public void render(int p_render_1_, int p_render_2_, float p_render_3_) {

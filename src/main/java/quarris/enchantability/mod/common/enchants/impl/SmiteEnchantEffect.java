@@ -28,7 +28,7 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
                 float chance = 0.05f * effect.level;
                 if (chance >= ModUtil.RANDOM.nextFloat()) {
                     Entity target = event.getTarget();
-                    LightningBoltEntity bolt = new LightningBoltEntity(player.world, target.posX, target.posY, target.posZ, false);
+                    LightningBoltEntity bolt = new LightningBoltEntity(player.world, target.getPosX(), target.getPosY(), target.getPosZ(), false);
                     bolt.setCaster((ServerPlayerEntity)player);
                     ((ServerWorld)player.world).addLightningBolt(bolt);
                 }

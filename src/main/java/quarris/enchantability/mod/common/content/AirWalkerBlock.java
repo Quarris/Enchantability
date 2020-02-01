@@ -48,7 +48,7 @@ public class AirWalkerBlock extends Block {
         TileEntity tile = world.getTileEntity(pos);
         if (tile != null && context.getEntity() != null) {
             IPlayerEnchant cap = context.getEntity().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
-            if (cap == null || !cap.hasEnchant(AirWalkerEnchantEffect.NAME) || context.getEntity().posY < (pos.getY() + 1)) {
+            if (cap == null || !cap.hasEnchant(AirWalkerEnchantEffect.NAME) || context.getEntity().getPosY() < (pos.getY() + 1)) {
                 return VoxelShapes.empty();
             } else {
                 return SHAPE;

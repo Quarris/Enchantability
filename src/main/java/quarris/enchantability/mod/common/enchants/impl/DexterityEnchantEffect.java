@@ -31,7 +31,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                     if (ItemStack.areItemsEqual(output, stack)) {
                         ItemStack copy = output.copy();
                         copy.setCount(1);
-                        ItemEntity item = new ItemEntity(player.world, player.posX, player.posY, player.posZ, copy);
+                        ItemEntity item = new ItemEntity(player.world, player.getPosX(), player.getPosY(), player.getPosZ(), copy);
                         item.setNoPickupDelay();
                         player.world.addEntity(item);
                         if (ModUtil.RANDOM.nextFloat() >= chance) {
@@ -45,7 +45,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                     if (tag.contains(output.getItem())) {
                         ItemStack copy = output.copy();
                         copy.setCount(1);
-                        ItemEntity item = new ItemEntity(player.world, player.posX, player.posY, player.posZ, copy);
+                        ItemEntity item = new ItemEntity(player.world, player.getPosX(), player.getPosY(), player.getPosZ(), copy);
                         item.setNoPickupDelay();
                         player.world.addEntity(item);
                         if (ModUtil.RANDOM.nextFloat() >= chance) {

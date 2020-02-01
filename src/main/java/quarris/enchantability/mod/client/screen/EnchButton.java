@@ -1,6 +1,6 @@
 package quarris.enchantability.mod.client.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.ResourceLocation;
@@ -29,17 +29,17 @@ public class EnchButton extends ImageButton {
     public void renderButton(int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(TEXTURE);
-        GlStateManager.disableDepthTest();
+        RenderSystem.disableDepthTest();
         int j = 0;
         if (this.pressed) {
             j = 16;
         }
         if (!this.isHovered()) {
-            GlStateManager.color3f(0.75f, 0.75f, 0.75f);
+            RenderSystem.color3f(0.75f, 0.75f, 0.75f);
         }
 
         blit(this.x, this.y, 0, j, this.width, this.height, 256, 256);
-        GlStateManager.enableDepthTest();
+        RenderSystem.enableDepthTest();
     }
 
 

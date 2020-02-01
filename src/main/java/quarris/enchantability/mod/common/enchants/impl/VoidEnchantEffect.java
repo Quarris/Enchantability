@@ -19,7 +19,7 @@ public class VoidEnchantEffect extends AbstractEnchantEffect {
     public static void voidTeleport(VoidEnchantEffect effect, TickEvent.PlayerTickEvent event) {
         PlayerEntity player = effect.player;
         if (event.phase == TickEvent.Phase.START && !player.world.isRemote()) {
-            if (player.dimension == DimensionType.THE_END && player.posY <= -60) {
+            if (player.dimension == DimensionType.THE_END && player.getPosY() <= -60) {
                 player.changeDimension(DimensionType.OVERWORLD);
             }
         }

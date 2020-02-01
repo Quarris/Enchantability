@@ -50,7 +50,7 @@ public class ClientEvents {
         if (!(event.getItemStack().getItem() instanceof EnchantedBookItem)) return;
 
         ItemStack stack = event.getItemStack();
-        PlayerEntity player = event.getEntityPlayer();
+        PlayerEntity player = event.getPlayer();
         List<ITextComponent> tooltips = new ArrayList<>();
         Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(stack).keySet();
 
@@ -74,7 +74,7 @@ public class ClientEvents {
                 event.getToolTip().add(text);
             }
         } else {
-            if (InputMappings.isKeyDown(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
+            if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
                 event.getToolTip().add(new StringTextComponent("Enchantability:").applyTextStyle(TextFormatting.GOLD));
                 for (ITextComponent tooltip : tooltips) {
                     ITextComponent text = new StringTextComponent(" - ").applyTextStyle(TextFormatting.BLUE);
