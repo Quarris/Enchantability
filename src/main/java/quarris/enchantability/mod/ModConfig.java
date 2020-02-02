@@ -27,6 +27,7 @@ public class ModConfig {
     public ForgeConfigSpec.BooleanValue enableGluttony;
     public ForgeConfigSpec.BooleanValue enableGravity;
     public ForgeConfigSpec.BooleanValue enableSmite;
+    public ForgeConfigSpec.BooleanValue enableSwiftCharge;
     public ForgeConfigSpec.BooleanValue enableVoid;
 
     public ForgeConfigSpec.BooleanValue enableCookie;
@@ -56,6 +57,7 @@ public class ModConfig {
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
         enableSmite = builder.define("enableSmite", true);
+        enableSwiftCharge = builder.define("enableSwiftCharge", true);
         enableVoid = builder.define("enableVoid", true);
         builder.pop();
 

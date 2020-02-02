@@ -63,6 +63,9 @@ public class Enchants {
         if (config.enableDexterity.get())
             registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
 
+        if (config.enableSwiftCharge.get())
+            registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
+
 
         // Components
         if (config.enableFastBreak.get())
@@ -111,6 +114,15 @@ public class Enchants {
 
         if (config.enableDexterity.get()) {
             registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
+        }
+
+        if (config.enableSwiftCharge.get()) {
+            registerComponent(SwiftChargeEnchantEffect.NAME, LivingEntityUseItemEvent.Start.class, SwiftChargeEnchantEffect::itemUse, e -> {
+                if (e.getEntity() instanceof PlayerEntity) {
+                    return Collections.singleton((PlayerEntity) e.getEntity());
+                }
+                return Collections.emptyList();
+            });
         }
     }
 
