@@ -14,5 +14,5 @@
     "enchantability:smite.enchant.desc": "Strike Lightning at foes with your sword or axe.",
     "enchantability:void.enchant.desc": "Teleport back from the end void.",
     "enchantability:gluttony.enchant.desc": "Have special effects when eating foods.",
-    "enchantability:swift_charge.enchant.desc": "Swiftly complete action with your hands."
+    "enchantability:swift_charge.enchant.desc": "Swiftly complete actions (Eating/Drinking, Swinging)."
 }
