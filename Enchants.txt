@@ -7,6 +7,13 @@ Sharpness:
     - Gain more experience
     - Level = experience
 
+    - Increases the mining level for each level of sharpness
+        - 1 -> Wooden
+        - 2 -> Stone
+        - 3 -> Iron
+        - 4 -> Diamond
+        - 5 -> Diamond+? OR Diamond + Haste
+
 Flame:
     - Furnaces around player smelt faster
 

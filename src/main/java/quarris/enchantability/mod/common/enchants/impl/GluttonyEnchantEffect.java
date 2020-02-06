@@ -10,6 +10,7 @@ import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 
 public class GluttonyEnchantEffect extends AbstractEnchantEffect {
+    // TODO Add tooltips to foods which are affected by Gluttony
 
 	public static final ResourceLocation NAME = ModRef.createRes("gluttony");
 

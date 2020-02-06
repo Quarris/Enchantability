@@ -1,16 +1,18 @@
 {
     "enchant.desc.empty": "Enchantability: No enchants available",
     "enchant.desc.short": "Enchantability: Press LSHIFT to expand",
+    "enchant.desc.expanded": "Insert into Ender Chest Book Slot to:",
 
-    "enchantability:air_walker.enchant.desc": "Walk on air",
-    "enchantability:blast_resistance.enchant.desc": "Protect area from explosions",
-    "enchantability:deflection.enchant.desc": "Deflect projectiles",
-    "enchantability:dexterity.enchant.desc": "Efficiently use of items in crafting",
-    "enchantability:far_reach.enchant.desc": "Increased reach",
-    "enchantability:fast_break.enchant.desc": "Break faster with hands",
-    "enchantability:fire_praise.enchant.desc": "Stronger at day, weaker at night",
-    "enchantability:gravity.enchant.desc": "Lowered gravity",
-    "enchantability:smite.enchant.desc": "Strike foes with your sword",
-    "enchantability:void.enchant.desc": "Teleport back from the end void",
-    "enchantability:gluttony.enchant.desc": "Special effects when eating foods"
+    "enchantability:air_walker.enchant.desc": "Walk on air. Sprint jump to get off. (Air Walker)",
+    "enchantability:blast_resistance.enchant.desc": "Protect area from explosions which affected you. (Blast Resistance)",
+    "enchantability:deflection.enchant.desc": "Deflect projectiles. (Deflection)",
+    "enchantability:dexterity.enchant.desc": "Have a chance for increased crafting output. (Dexterity)",
+    "enchantability:far_reach.enchant.desc": "Far Reach: Increase reach.",
+    "enchantability:fast_break.enchant.desc": "Fast Break: Break faster with hands.",
+    "enchantability:fire_praise.enchant.desc": "Fire Praise: Get stronger when watching sun, but weaker at night.",
+    "enchantability:gravity.enchant.desc": "Have lowered gravity.",
+    "enchantability:smite.enchant.desc": "Strike Lightning at foes with your sword or axe.",
+    "enchantability:void.enchant.desc": "Teleport back from the end void.",
+    "enchantability:gluttony.enchant.desc": "Have special effects when eating foods.",
+    "enchantability:swift_charge.enchant.desc": "Swiftly complete action with your hands."
 }

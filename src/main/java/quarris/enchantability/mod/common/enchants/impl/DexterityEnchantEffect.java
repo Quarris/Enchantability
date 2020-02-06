@@ -14,6 +14,7 @@ import quarris.enchantability.mod.common.util.ModRef;
 import quarris.enchantability.mod.common.util.ModUtil;
 
 public class DexterityEnchantEffect extends AbstractEnchantEffect {
+    // TODO Add tooltip saying if an item is affected by Dexterity
 
     public static final ResourceLocation NAME = ModRef.createRes("dexterity");
 
