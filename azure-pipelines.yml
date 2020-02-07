@@ -23,12 +23,12 @@ steps:
     ACCESS_TOKEN: $(System.AccessToken)
   inputs:
     workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      options: '--no-daemon --build-cache'
-      gradleOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
-      jdkArchitectureOption: 'x64'
-      publishJUnitResults: true
-      testResultsFiles: '**/TEST-*.xml'
-      tasks: 'clean build publish'
+    gradleWrapperFile: 'gradlew'
+    options: '--no-daemon --build-cache'
+    gradleOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'clean build publish'
