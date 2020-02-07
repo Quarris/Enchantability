@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -33,8 +34,19 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
                     Entity target = event.getTarget();
                     LightningBoltEntity bolt = new LightningBoltEntity(player.world, target.getPosX(), target.getPosY(), target.getPosZ(), false);
                     bolt.setCaster((ServerPlayerEntity)player);
-                    // TODO Add a way to remove the player themselves from being hit by the bolt
+                    bolt.getPersistentData().putUniqueId("Enchantibility", player.getUniqueID());
                     ((ServerWorld)player.world).addLightningBolt(bolt);
+                }
+            }
+        }
+    }
+
+    public static void avoidPlayer(SmiteEnchantEffect effect, EntityStruckByLightningEvent event) {
+        if (event.getEntity() instanceof PlayerEntity) {
+            PlayerEntity player = effect.player;
+            if (!player.world.isRemote()) {
+                if (event.getLightning().getPersistentData().getUniqueId("Enchantibility").equals(player.getUniqueID())) {
+                    event.setCanceled(true);
                 }
             }
         }
