@@ -156,8 +156,8 @@ publishing {
     }
     repositories {
         maven {
-            url 'https://pkgs.dev.azure.com/quarris/_packaging/quarris/maven/v1'
-            name 'quarris'
+            url 'https://pkgs.dev.azure.com/quarris/Enchantability/_packaging/Release/maven/v1'
+            name 'Release'
             credentials {
                 username "Azure DevOps Services"
                 password System.getenv('ACCESS_TOKEN')
