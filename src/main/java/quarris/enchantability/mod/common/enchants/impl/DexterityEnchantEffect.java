@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
@@ -14,7 +16,6 @@ import quarris.enchantability.mod.common.util.ModRef;
 import quarris.enchantability.mod.common.util.ModUtil;
 
 public class DexterityEnchantEffect extends AbstractEnchantEffect {
-    // TODO Add tooltip saying if an item is affected by Dexterity
 
     public static final ResourceLocation NAME = ModRef.createRes("dexterity");
 
@@ -56,6 +57,30 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                     }
                 }
             }
+        }
+    }
+
+    public static void addTooltips(DexterityEnchantEffect effect, ItemTooltipEvent event) {
+        boolean shouldAddTooltip = false;
+
+        for (ItemStack stack : EnchantabilityApi.DEXTERITY_ITEMSTACKS) {
+            if (ItemStack.areItemsEqual(stack, event.getItemStack())) {
+                shouldAddTooltip = true;
+                break;
+            }
+        }
+
+        if (!shouldAddTooltip) {
+            for (Tag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
+                if (tag.contains(event.getItemStack().getItem())) {
+                    shouldAddTooltip = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldAddTooltip) {
+            event.getToolTip().add(new TranslationTextComponent("dexterity.tooltip"));
         }
     }
 

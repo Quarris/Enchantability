@@ -3,10 +3,10 @@
     "enchant.desc.short": "Enchantability: Press LSHIFT to expand",
     "enchant.desc.expanded": "Insert into Ender Chest Book Slot to:",
 
-    "enchantability:air_walker.enchant.desc": "Walk on air. Sprint jump to get off. (Air Walker)",
-    "enchantability:blast_resistance.enchant.desc": "Protect area from explosions which affected you. (Blast Resistance)",
-    "enchantability:deflection.enchant.desc": "Deflect projectiles. (Deflection)",
-    "enchantability:dexterity.enchant.desc": "Have a chance for increased crafting output. (Dexterity)",
+    "enchantability:air_walker.enchant.desc": "Walk on air. Sprint jump to get off.",
+    "enchantability:blast_resistance.enchant.desc": "Protect area from explosions which affected you.",
+    "enchantability:deflection.enchant.desc": "Deflect projectiles.",
+    "enchantability:dexterity.enchant.desc": "Have a chance for increased crafting output.",
     "enchantability:far_reach.enchant.desc": "Far Reach: Increase reach.",
     "enchantability:fast_break.enchant.desc": "Fast Break: Break faster with hands.",
     "enchantability:fire_praise.enchant.desc": "Fire Praise: Get stronger when watching sun, but weaker at night.",
@@ -14,5 +14,8 @@
     "enchantability:smite.enchant.desc": "Strike Lightning at foes with your sword or axe.",
     "enchantability:void.enchant.desc": "Teleport back from the end void.",
     "enchantability:gluttony.enchant.desc": "Have special effects when eating foods.",
-    "enchantability:swift_charge.enchant.desc": "Swiftly complete actions (Eating/Drinking, Swinging)."
+    "enchantability:swift_charge.enchant.desc": "Swiftly complete actions (Eating/Drinking, Swinging).",
+
+    "dexterity.tooltip": "Enchantability: Is affected by Efficiency.",
+    "mending.tooltip": "Enchantability: Is affected by Mending."
 }

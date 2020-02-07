@@ -61,6 +61,7 @@ public class ModConfig {
         enableVoid = builder.define("enableVoid", true);
         builder.pop();
 
+        // TODO Fix the configs into right areas
         builder.comment("Enchant Configs").push("enchants");
         builder.comment("Dexterity");
         dexterityTags = builder.define("dexterityTags", defaultTags());

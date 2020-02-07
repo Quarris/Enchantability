@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -61,8 +62,9 @@ public class Enchants {
         if (config.enableGluttony.get())
             registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
 
-        if (config.enableDexterity.get())
+        if (config.enableDexterity.get()) {
             registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
+        }
 
         if (config.enableSwiftCharge.get())
             registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
@@ -83,8 +85,19 @@ public class Enchants {
                         return null;
                     });
 
-        if (config.enableVoid.get())
+        if (config.enableDexterity.get()) {
+            registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
+            registerComponent(DexterityEnchantEffect.NAME, ItemTooltipEvent.class, DexterityEnchantEffect::addTooltips, e -> {
+                if (e.getPlayer() != null) {
+                    return Collections.singleton(e.getPlayer());
+                }
+                return Collections.emptyList();
+            });
+        }
+
+        if (config.enableVoid.get()) {
             registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
+        }
 
         if (config.enableSmite.get()) {
             registerComponent(SmiteEnchantEffect.NAME, AttackEntityEvent.class, SmiteEnchantEffect::smite, e -> Collections.singleton(e.getPlayer()));
@@ -96,20 +109,23 @@ public class Enchants {
             });
         }
 
-        if (config.enableBlastResist.get())
+        if (config.enableBlastResist.get()) {
             registerComponent(BlastResistanceEnchantEffect.NAME, ExplosionEvent.Detonate.class, BlastResistanceEnchantEffect::resistBlast,
                     evt -> evt.getAffectedEntities().stream()
                             .filter(entity -> entity instanceof PlayerEntity)
                             .map(entity -> (PlayerEntity) entity)
                             .collect(Collectors.toList()));
+        }
 
-        if (config.enableFirePraise.get())
+        if (config.enableFirePraise.get()) {
             registerComponent(FirePraiseEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, FirePraiseEnchantEffect::praiseTheSun,
                     e -> Collections.singleton(e.player));
+        }
 
-        if (config.enableAirWalker.get())
+        if (config.enableAirWalker.get()) {
             registerComponent(AirWalkerEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AirWalkerEnchantEffect::airWalk,
                     e -> Collections.singleton(e.player));
+        }
 
         if (config.enableGluttony.get()) {
             registerComponent(GluttonyEnchantEffect.NAME, LivingEntityUseItemEvent.Finish.class, GluttonyEnchantEffect::consume,
@@ -117,12 +133,15 @@ public class Enchants {
                             Collections.singleton((PlayerEntity) e.getEntity()) :
                             Collections.emptyList()
             );
+            registerComponent(GluttonyEnchantEffect.NAME, ItemTooltipEvent.class, GluttonyEnchantEffect::addTooltips, e -> {
+                if (e.getPlayer() != null) {
+                    return Collections.singleton(e.getPlayer());
+                }
+                return Collections.emptyList();
+            });
             GluttonyFoods.initMendingFoods();
         }
 
-        if (config.enableDexterity.get()) {
-            registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
-        }
 
         if (config.enableSwiftCharge.get()) {
             registerComponent(SwiftChargeEnchantEffect.NAME, LivingEntityUseItemEvent.Start.class, SwiftChargeEnchantEffect::itemUse, e -> {
