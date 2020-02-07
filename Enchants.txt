@@ -7,7 +7,7 @@ Sharpness:
     - Gain more experience
     - Level = experience
 
-    - Increases the mining level for each level of sharpness
+    - Increases the mining level for each level of sharpness with fist
         - 1 -> Wooden
         - 2 -> Stone
         - 3 -> Iron

@@ -27,12 +27,13 @@ public class Enchantability {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 
-        ForgeConfigSpec.Builder configBuilder = new ForgeConfigSpec.Builder();
-        ModConfig.init(configBuilder);
-        ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, configBuilder.build());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        ForgeConfigSpec.Builder configBuilder = new ForgeConfigSpec.Builder();
+        ModConfig.init(configBuilder);
+        ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, configBuilder.build());
+
         PacketHandler.init();
         Enchants.registerEffect();
         ModUtil.registerCap(IPlayerEnchant.class);

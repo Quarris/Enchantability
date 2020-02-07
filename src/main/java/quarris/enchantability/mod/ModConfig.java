@@ -4,11 +4,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import quarris.enchantability.api.EnchantabilityApi;
+import quarris.enchantability.mod.common.content.AirWalkerTileEntity;
 import quarris.enchantability.mod.common.util.ModRef;
 
 import java.util.Arrays;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class ModConfig {
 
+    // Enabled Features
     public ForgeConfigSpec.BooleanValue enableAirWalker;
     public ForgeConfigSpec.BooleanValue enableBlastResist;
     public ForgeConfigSpec.BooleanValue enableDeflection;
@@ -26,15 +29,23 @@ public class ModConfig {
     public ForgeConfigSpec.BooleanValue enableFirePraise;
     public ForgeConfigSpec.BooleanValue enableGluttony;
     public ForgeConfigSpec.BooleanValue enableGravity;
+    public ForgeConfigSpec.BooleanValue enableHeat;
     public ForgeConfigSpec.BooleanValue enableSmite;
     public ForgeConfigSpec.BooleanValue enableSwiftCharge;
     public ForgeConfigSpec.BooleanValue enableVoid;
 
+    // Dexterity
+    public ForgeConfigSpec.ConfigValue<List<String>> dexterityTags;
+    public ForgeConfigSpec.ConfigValue<List<String>> dexterityItems;
+
+    // Gluttony
     public ForgeConfigSpec.BooleanValue enableCookie;
     public ForgeConfigSpec.BooleanValue enableRabbitStew;
 
-    public ForgeConfigSpec.ConfigValue<List<String>> dexterityTags;
-    public ForgeConfigSpec.ConfigValue<List<String>> dexterityItems;
+    // Heat
+    public ForgeConfigSpec.IntValue additionalTickSpeed;
+    public ForgeConfigSpec.BooleanValue treatBlacklistAsWhitelist;
+    public ForgeConfigSpec.ConfigValue<List<String>> tileBlacklist;
 
     private static ModConfig instance;
     public static ModConfig get() {
@@ -56,6 +67,7 @@ public class ModConfig {
         enableFirePraise = builder.define("enableFirePraise", true);
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
+        enableHeat = builder.define("enableHeat", true);
         enableSmite = builder.define("enableSmite", true);
         enableSwiftCharge = builder.define("enableSwiftCharge", true);
         enableVoid = builder.define("enableVoid", true);
@@ -63,13 +75,23 @@ public class ModConfig {
 
         // TODO Fix the configs into right areas
         builder.comment("Enchant Configs").push("enchants");
-        builder.comment("Dexterity");
+
+        builder.comment("Dexterity").push("dexterity");
         dexterityTags = builder.define("dexterityTags", defaultTags());
         dexterityItems = builder.define("dexterityItems", defaultItems());
+        builder.pop();
 
-        builder.comment("Gluttony");
+        builder.comment("Gluttony").push("gluttony");
         enableRabbitStew = builder.define("enableRabbitStew", true);
         enableCookie = builder.define("enableCookie", true);
+        builder.pop();
+
+        builder.comment("Heat").push("heat");
+        additionalTickSpeed = builder.defineInRange("additionalTickSpeed", 3, 1, Integer.MAX_VALUE);
+        treatBlacklistAsWhitelist = builder.define("treatBlacklistAsWhitelist", false);
+        tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
+        builder.pop();
+
         builder.pop();
     }
 
@@ -126,6 +148,24 @@ public class ModConfig {
 
         return Arrays.stream(items)
                 .map(item -> item.getRegistryName().toString())
+                .collect(Collectors.toList());
+    }
+
+    private static List<String> defaultTileBlacklist() {
+        TileEntityType[] types = new TileEntityType[] {
+                TileEntityType.HOPPER,
+                TileEntityType.PISTON,
+                TileEntityType.BEACON,
+                TileEntityType.CONDUIT,
+                TileEntityType.BELL,
+                TileEntityType.field_226985_G_,
+                TileEntityType.DAYLIGHT_DETECTOR,
+                AirWalkerTileEntity.TYPE,
+                TileEntityType.END_GATEWAY
+        };
+
+        return Arrays.stream(types)
+                .map(type -> type.getRegistryName().toString())
                 .collect(Collectors.toList());
     }
 }

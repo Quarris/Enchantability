@@ -6,11 +6,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -18,6 +16,7 @@ import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.IEffectComponent;
 import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
+import quarris.enchantability.mod.Enchantability;
 import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.common.enchants.impl.*;
 
@@ -69,8 +68,13 @@ public class Enchants {
         if (config.enableSwiftCharge.get())
             registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
 
+        if (config.enableHeat.get())
+            registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
+
 
         // Components
+        Enchantability.proxy.registerClientComponents();
+
         if (config.enableFastBreak.get())
             registerComponent(FastBreakEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, FastBreakEnchantEffect::handBreak, e -> Collections.singleton(e.getPlayer()));
 
@@ -87,12 +91,6 @@ public class Enchants {
 
         if (config.enableDexterity.get()) {
             registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
-            registerComponent(DexterityEnchantEffect.NAME, ItemTooltipEvent.class, DexterityEnchantEffect::addTooltips, e -> {
-                if (e.getPlayer() != null) {
-                    return Collections.singleton(e.getPlayer());
-                }
-                return Collections.emptyList();
-            });
         }
 
         if (config.enableVoid.get()) {
@@ -101,12 +99,6 @@ public class Enchants {
 
         if (config.enableSmite.get()) {
             registerComponent(SmiteEnchantEffect.NAME, AttackEntityEvent.class, SmiteEnchantEffect::smite, e -> Collections.singleton(e.getPlayer()));
-            registerComponent(SmiteEnchantEffect.NAME, EntityStruckByLightningEvent.class, SmiteEnchantEffect::avoidPlayer, e -> {
-                if (e.getEntity() instanceof PlayerEntity) {
-                    return Collections.singleton((PlayerEntity) e.getEntity());
-                }
-                return Collections.emptyList();
-            });
         }
 
         if (config.enableBlastResist.get()) {
@@ -133,12 +125,6 @@ public class Enchants {
                             Collections.singleton((PlayerEntity) e.getEntity()) :
                             Collections.emptyList()
             );
-            registerComponent(GluttonyEnchantEffect.NAME, ItemTooltipEvent.class, GluttonyEnchantEffect::addTooltips, e -> {
-                if (e.getPlayer() != null) {
-                    return Collections.singleton(e.getPlayer());
-                }
-                return Collections.emptyList();
-            });
             GluttonyFoods.initMendingFoods();
         }
 
@@ -150,6 +136,10 @@ public class Enchants {
                 }
                 return Collections.emptyList();
             });
+        }
+
+        if (config.enableHeat.get()) {
+            registerComponent(HeatEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, HeatEnchantEffect::heat, e -> Collections.singleton(e.player));
         }
     }
 
