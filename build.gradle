@@ -136,6 +136,7 @@ task deobfJar(type: Jar) {
     from(sourceSets.main.output)
     archiveName = "${baseName}-${version}-deobf.${extension}"
 }
+
 artifacts {
     archives deobfJar
 }
@@ -151,6 +152,11 @@ publishing {
 
             artifact deobfJar {
                 classifier 'deobf'
+            }
+            pom.withXml {
+                def node = asNode()
+                if(node.dependencies.size() > 0)
+                    node.remove(node.dependencies) // Remove deps, as they are all mappings-dependent and/or forge
             }
         }
     }
