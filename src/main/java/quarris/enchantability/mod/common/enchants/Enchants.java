@@ -136,6 +136,8 @@ public class Enchants {
                 }
                 return Collections.emptyList();
             });
+            registerComponent(SwiftChargeEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, SwiftChargeEnchantEffect::transition,
+                    e -> Collections.singleton(e.player));
         }
 
         if (config.enableHeat.get()) {
