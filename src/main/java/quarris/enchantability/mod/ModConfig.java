@@ -31,6 +31,7 @@ public class ModConfig {
     public ForgeConfigSpec.BooleanValue enableGravity;
     public ForgeConfigSpec.BooleanValue enableHeat;
     public ForgeConfigSpec.BooleanValue enableSmite;
+    public ForgeConfigSpec.BooleanValue enableStrike;
     public ForgeConfigSpec.BooleanValue enableSwiftCharge;
     public ForgeConfigSpec.BooleanValue enableVoid;
 
@@ -69,11 +70,11 @@ public class ModConfig {
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
         enableSmite = builder.define("enableSmite", true);
+        enableStrike = builder.define("enableStrike", true);
         enableSwiftCharge = builder.define("enableSwiftCharge", true);
         enableVoid = builder.define("enableVoid", true);
         builder.pop();
 
-        // TODO Fix the configs into right areas
         builder.comment("Enchant Configs").push("enchants");
 
         builder.comment("Dexterity").push("dexterity");

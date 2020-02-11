@@ -8,6 +8,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -46,24 +47,29 @@ public class Enchants {
         if (config.enableVoid.get())
             registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
 
-        if (config.enableSmite.get())
-            registerEffect(SmiteEnchantEffect.NAME, Enchantments.SMITE, SmiteEnchantEffect::new);
-
         if (config.enableBlastResist.get())
             registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
+
 
         if (config.enableFirePraise.get())
             registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
 
+
         if (config.enableAirWalker.get())
             registerEffect(AirWalkerEnchantEffect.NAME, Enchantments.FROST_WALKER, AirWalkerEnchantEffect::new);
+
 
         if (config.enableGluttony.get())
             registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
 
-        if (config.enableDexterity.get()) {
+        if (config.enableDexterity.get())
             registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
-        }
+
+        if (config.enableSmite.get())
+            registerEffect(SmiteEnchantEffect.NAME, Enchantments.SMITE, SmiteEnchantEffect::new);
+
+        if (config.enableStrike.get())
+            registerEffect(StrikeEnchantEffect.NAME, Enchantments.POWER, StrikeEnchantEffect::new);
 
         if (config.enableSwiftCharge.get())
             registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
@@ -138,6 +144,16 @@ public class Enchants {
             });
             registerComponent(SwiftChargeEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, SwiftChargeEnchantEffect::transition,
                     e -> Collections.singleton(e.player));
+        }
+
+        if (config.enableStrike.get()) {
+            registerComponent(StrikeEnchantEffect.NAME, LivingHurtEvent.class, StrikeEnchantEffect::strike,
+                    e -> {
+                        if (e.getSource().damageType.equals("player")) {
+                            return Collections.singleton((PlayerEntity) e.getSource().getTrueSource());
+                        }
+                        return Collections.emptyList();
+                    });
         }
 
         if (config.enableHeat.get()) {

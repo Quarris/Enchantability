@@ -5,7 +5,7 @@ Bane of Arthropods:
 
 Sharpness:
     - Gain more experience
-    - Level = experience
+        - Enchantment Lvl = experience
 
     - Increases the mining level for each level of sharpness with fist
         - 1 -> Wooden
@@ -14,21 +14,22 @@ Sharpness:
         - 4 -> Diamond
         - 5 -> Diamond+? OR Diamond + Haste
 
-Flame:
-    - Furnaces around player smelt faster
+    - Hightlights mobs in the glowing effect.
+        - Possibly different colours for Hostile/Neutral/Passive
 
 Power:
     - Increase damage from punching with bare hand
-    - or Discount from villagers (Power = Authority)
+
+    - Discount from villagers (Power = Authority)
 
 Looting:
     - Increased loot from dungeons on generate
 
 Sweeping Edge:
     - Deal a large dmg + knockback around the player
-    - Activates automatically when low health
-    - Has Cooldown
-    - Level = Lower cooldown + Higher Damage/Knockback
+        - Activates automatically when low health
+        - Has Cooldown
+        - Level = Lower cooldown + Higher Damage/Knockback
 
 Silk Touch:
     - Root/Slow enemies hit
@@ -37,7 +38,7 @@ TODO Fortune
 
 Luck of the Sea:
     - Swim faster with fish
-    - Fish follow you
+        - Fish follow you
 
 Lure:
     - Randomly spawn passive mobs around player
