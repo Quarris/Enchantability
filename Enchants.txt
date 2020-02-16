@@ -67,35 +67,5 @@ Quick Charge:
         - Sleeping in bed
         - Sword Progress
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Piercing:
+	- Arrows go through enemy while still danaging them
