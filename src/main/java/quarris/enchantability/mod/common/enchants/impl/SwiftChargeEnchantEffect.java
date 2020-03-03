@@ -21,8 +21,8 @@ import java.lang.reflect.Field;
 public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
 
     public static final ResourceLocation NAME = ModRef.createRes("swift_charge");
-    private static final Field PORTAL_COUNTER = ObfuscationReflectionHelper.findField(Entity.class, "portalCounter");
-    private static final Field SLEEP_TIMER = ObfuscationReflectionHelper.findField(PlayerEntity.class, "sleepTimer");
+    private static final Field PORTAL_COUNTER = ObfuscationReflectionHelper.findField(Entity.class, "field_82153_h");
+    private static final Field SLEEP_TIMER = ObfuscationReflectionHelper.findField(PlayerEntity.class, "field_71076_b");
 
     public SwiftChargeEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
         super(player, enchantment, level);
@@ -49,7 +49,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
 
     public static void transition(SwiftChargeEnchantEffect effect, TickEvent.PlayerTickEvent event) {
         PlayerEntity player = effect.player;
-        boolean inPortal = ObfuscationReflectionHelper.getPrivateValue(Entity.class, player, "inPortal");
+        boolean inPortal = ObfuscationReflectionHelper.getPrivateValue(Entity.class, player, "field_71087_bX");
         if (inPortal) {
             try {
                 int portalTicks = PORTAL_COUNTER.getInt(player);
