@@ -6,7 +6,10 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.chunk.AbstractChunkProvider;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
@@ -53,14 +56,23 @@ public class HeatEnchantEffect extends AbstractEnchantEffect {
         List<TileEntity> list = new ArrayList<>();
         for (int x = pos.getX() - radius >> 4; x <= pos.getX() + radius >> 4; x++) {
             for (int z = pos.getZ() - radius >> 4; z <= pos.getZ() + radius >> 4; z++) {
-                IChunk chunk = world.getChunk(x, z);
-                for (BlockPos tilePos : chunk.getTileEntitiesPos()) {
-                    if (tilePos.distanceSq(pos) <= radius * radius)
-                        list.add(world.getTileEntity(tilePos));
+                IChunk chunk = getLoadedChunk(world, x, z);
+                if (chunk != null) {
+                    for (BlockPos tilePos : chunk.getTileEntitiesPos()) {
+                        if (tilePos.distanceSq(pos) <= radius * radius)
+                            list.add(world.getTileEntity(tilePos));
+                    }
                 }
             }
         }
         return list;
+    }
+
+    public static Chunk getLoadedChunk(IWorld world, int x, int z) {
+        AbstractChunkProvider provider = world.getChunkProvider();
+        if (provider.isChunkLoaded(new ChunkPos(x, z)))
+            return provider.getChunk(x, z, false);
+        return null;
     }
 
     @Override

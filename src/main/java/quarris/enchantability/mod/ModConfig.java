@@ -45,6 +45,7 @@ public class ModConfig {
 
     // Heat
     public ForgeConfigSpec.IntValue additionalTickSpeed;
+    public ForgeConfigSpec.IntValue heatRange;
     public ForgeConfigSpec.BooleanValue treatBlacklistAsWhitelist;
     public ForgeConfigSpec.ConfigValue<List<String>> tileBlacklist;
 
@@ -89,6 +90,7 @@ public class ModConfig {
 
         builder.comment("Heat").push("heat");
         additionalTickSpeed = builder.defineInRange("additionalTickSpeed", 3, 1, Integer.MAX_VALUE);
+        heatRange = builder.defineInRange("heatRange", 32, 1, 256);
         treatBlacklistAsWhitelist = builder.define("treatBlacklistAsWhitelist", false);
         tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
         builder.pop();
