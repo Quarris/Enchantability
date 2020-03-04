@@ -10,7 +10,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import quarris.enchantability.api.EnchantabilityApi;
-import quarris.enchantability.mod.common.content.AirWalkerTileEntity;
 import quarris.enchantability.mod.common.util.ModRef;
 
 import java.util.Arrays;
@@ -90,7 +89,7 @@ public class ModConfig {
 
         builder.comment("Heat").push("heat");
         additionalTickSpeed = builder.defineInRange("additionalTickSpeed", 3, 1, Integer.MAX_VALUE);
-        heatRange = builder.defineInRange("heatRange", 32, 1, 256);
+        heatRange = builder.defineInRange("heatRange - radius", 32, 1, 256);
         treatBlacklistAsWhitelist = builder.define("treatBlacklistAsWhitelist", false);
         tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
         builder.pop();
@@ -163,12 +162,14 @@ public class ModConfig {
                 TileEntityType.BELL,
                 TileEntityType.field_226985_G_,
                 TileEntityType.DAYLIGHT_DETECTOR,
-                AirWalkerTileEntity.TYPE,
                 TileEntityType.END_GATEWAY
         };
 
-        return Arrays.stream(types)
+        List<String> list = Arrays.stream(types)
                 .map(type -> type.getRegistryName().toString())
                 .collect(Collectors.toList());
+
+        list.add("enchantability:air");
+        return list;
     }
 }
