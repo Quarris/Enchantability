@@ -13,6 +13,7 @@ import quarris.enchantability.mod.common.util.ModRef;
 public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
 
     private static final ResourceLocation TEXTURE = ModRef.createRes("textures/gui/gui_ender_chest.png");
+    private static final ResourceLocation EXTENDED_TEXTURE = ModRef.createRes("textures/gui/gui_ender_chest_large.png");
 
     public EnchScreen(EnchContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -38,7 +39,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.getTextureManager().bindTexture(TEXTURE);
+        minecraft.getTextureManager().bindTexture(this.container.enchant.isExtended() ? EXTENDED_TEXTURE : TEXTURE);
 
         this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
@@ -27,14 +28,17 @@ import java.util.stream.Collectors;
 public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
 
     public static final int ENCHANT_SLOT_SIZE = 4;
+    public static final int EXTENDED_ENCHANT_SLOT_SIZE = ENCHANT_SLOT_SIZE + 1;
     private final List<IEnchantEffect> effects;
     public PlayerEntity player;
+    public boolean isExtended;
     private boolean dirty;
 
     public PlayerEnchant(PlayerEntity player) {
         super(ENCHANT_SLOT_SIZE);
         this.effects = new ArrayList<>();
         this.player = player;
+        this.isExtended = false;
     }
 
     @Override
@@ -68,6 +72,29 @@ public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
     }
 
     @Override
+    public ItemStack setExtended(boolean extended) {
+        this.isExtended = extended;
+        NonNullList<ItemStack> current = this.stacks;
+        if (extended) {
+            this.setSize(EXTENDED_ENCHANT_SLOT_SIZE);
+        } else {
+            this.setSize(ENCHANT_SLOT_SIZE);
+        }
+
+        int currSize = Math.min(current.size(), this.stacks.size());
+        for (int i = 0; i < currSize; i++) {
+            this.setStackInSlot(i, current.get(i));
+        }
+
+        return extended ? ItemStack.EMPTY : current.get(4);
+    }
+
+    @Override
+    public boolean isExtended() {
+        return this.isExtended;
+    }
+
+    @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         if (stack.isEmpty() || !(stack.getItem() instanceof EnchantedBookItem)) {
             return false;
@@ -79,19 +106,21 @@ public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == EnchantabilityApi.playerEnchant ? LazyOptional.of(() -> (T) this): LazyOptional.empty();
+        return cap == EnchantabilityApi.playerEnchant ? LazyOptional.of(() -> (T) this) : LazyOptional.empty();
     }
 
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = super.serializeNBT();
         this.serializeEffects(nbt);
+        nbt.putBoolean("Extended", this.isExtended);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         this.deserializeEffects(nbt);
+        this.isExtended = nbt.getBoolean("Extended");
         super.deserializeNBT(nbt);
     }
 

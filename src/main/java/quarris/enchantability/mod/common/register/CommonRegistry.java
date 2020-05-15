@@ -2,6 +2,7 @@ package quarris.enchantability.mod.common.register;
 
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import quarris.enchantability.mod.common.container.EnchContainer;
 import quarris.enchantability.mod.common.content.AirWalkerBlock;
 import quarris.enchantability.mod.common.content.AirWalkerTileEntity;
+import quarris.enchantability.mod.common.content.WitherHeartItem;
 import quarris.enchantability.mod.common.util.ModRef;
 
 @Mod.EventBusSubscriber(modid = ModRef.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -31,6 +33,13 @@ public class CommonRegistry {
     public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> registry) {
         registry.getRegistry().register(
                 TileEntityType.Builder.create(AirWalkerTileEntity::new, ModRef.AIR).build(null).setRegistryName("air")
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> registry) {
+        registry.getRegistry().register(
+            new WitherHeartItem().setRegistryName("enchantability:wither_heart")
         );
     }
 }

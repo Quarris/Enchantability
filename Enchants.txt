@@ -60,12 +60,5 @@ Respiration:
         - Jump Boost
         - etc.
 
-Quick Charge:
-    - Increase speed of certain actions
-        - Eating
-        - Portal transition
-        - Sleeping in bed
-        - Sword Progress
-
 Piercing:
-	- Arrows go through enemy while still danaging them
+	- Arrows go through enemy while still damaging them

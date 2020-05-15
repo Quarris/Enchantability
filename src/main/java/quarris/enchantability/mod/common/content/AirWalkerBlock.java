@@ -11,13 +11,11 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.common.enchants.impl.AirWalkerEnchantEffect;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class AirWalkerBlock extends Block {
 
@@ -26,10 +24,6 @@ public class AirWalkerBlock extends Block {
     public AirWalkerBlock() {
         super(Block.Properties.create(Material.BARRIER).noDrops().variableOpacity());
         this.setRegistryName("air");
-    }
-
-    public void tick(BlockState state, World world, BlockPos pos, Random random) {
-
     }
 
     @Override
