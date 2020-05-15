@@ -20,12 +20,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 import quarris.enchantability.mod.client.screen.EnchButton;
+import quarris.enchantability.mod.common.content.WitherHeartItem;
 import quarris.enchantability.mod.common.enchants.EnchantEffectRegistry;
 import quarris.enchantability.mod.common.util.ModRef;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
@@ -85,5 +87,25 @@ public class ClientEvents {
                 event.getToolTip().add(new TranslationTextComponent("enchant.desc.short").applyTextStyle(TextFormatting.GRAY));
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void setTooltips(ItemTooltipEvent event) {
+        ItemStack item = event.getItemStack();
+        if (item.getItem() != WitherHeartItem.WITHER_HEART)
+            return;
+
+        ITextComponent translation;
+
+        if (item.getTag() == null || event.getPlayer() == null) {
+            translation = new TranslationTextComponent("wither_heart.tooltip.no_owner");
+        } else {
+            UUID ownerUUID = item.getTag().contains("Owner") ? item.getTag().getUniqueId("Owner") : null;
+            String ownerName = item.getTag().contains("OwnerName") ? item.getTag().getString("OwnerName") : "Unknown"+(ownerUUID == null ? "" : "{"+ownerUUID+"}");
+            translation = new TranslationTextComponent("wither_heart.tooltip.heart_owner", ownerName);
+        }
+
+        event.getToolTip().add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").applyTextStyle(TextFormatting.RED));
+        event.getToolTip().add(translation.applyTextStyle(TextFormatting.WHITE));
     }
 }

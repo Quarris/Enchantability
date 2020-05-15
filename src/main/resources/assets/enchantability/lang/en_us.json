@@ -19,5 +19,12 @@
     "enchantability:swift_charge.enchant.desc": "Swiftly complete actions (Eating/Drinking, Swinging).",
 
     "dexterity.tooltip": "Enchantability: Is affected by Efficiency.",
-    "mending.tooltip": "Enchantability: Is affected by Mending."
+    "mending.tooltip": "Enchantability: Is affected by Mending.",
+
+    "item.enchantability.wither_heart": "Wither Heart",
+    "wither_heart.tooltip.only_worthy": "Only the worthy will be rewarded!",
+    "wither_heart.tooltip.no_owner": "Anyone is worthy of this heart.",
+    "wither_heart.tooltip.heart_owner": "Worthy: %s",
+    "wither_heart.already_eaten": "You have already eaten a Wither Heart",
+    "wither_heart.not_worthy": "You were not worthy"
 }

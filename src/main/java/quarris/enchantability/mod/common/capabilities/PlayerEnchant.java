@@ -73,6 +73,11 @@ public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
 
     @Override
     public ItemStack setExtended(boolean extended) {
+        if (this.isExtended == extended)
+            return ItemStack.EMPTY;
+
+        this.markDirty(true);
+
         this.isExtended = extended;
         NonNullList<ItemStack> current = this.stacks;
         if (extended) {
