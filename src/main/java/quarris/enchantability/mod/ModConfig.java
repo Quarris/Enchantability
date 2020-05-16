@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class ModConfig {
 
     // Enabled Features
+    public ForgeConfigSpec.BooleanValue enableAdrenaline;
     public ForgeConfigSpec.BooleanValue enableAirWalker;
     public ForgeConfigSpec.BooleanValue enableBlastResist;
     public ForgeConfigSpec.BooleanValue enableDeflection;
@@ -59,6 +60,7 @@ public class ModConfig {
 
     public ModConfig(ForgeConfigSpec.Builder builder) {
         builder.comment("Enabled Features").push("features");
+        enableAdrenaline = builder.define("enableAdrenaline", true);
         enableAirWalker = builder.define("enableAirWalker", true);
         enableBlastResist = builder.define("enableBlastResist", true);
         enableDeflection = builder.define("enableDeflection", true);

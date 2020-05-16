@@ -2,11 +2,15 @@ package quarris.enchantability.mod.common.enchants;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -32,32 +36,42 @@ public class Enchants {
         ModConfig config = ModConfig.get();
 
         // Effects
-        if (config.enableFarReach.get())
-            registerEffect(FarReachEnchantEffect.NAME, Enchantments.KNOCKBACK, FarReachEnchantEffect::new);
+        if (config.enableAdrenaline.get()) {
+            registerEffect(AdrenalineEnchantEffect.NAME, Enchantments.RESPIRATION, AdrenalineEnchantEffect::new);
+        }
 
-        if (config.enableFastBreak.get())
-            registerEffect(FastBreakEnchantEffect.NAME, Enchantments.PUNCH, FastBreakEnchantEffect::new);
-
-        if (config.enableGravity.get())
-            registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
-
-        if (config.enableDeflection.get())
-            registerEffect(DeflectionEnchantEffect.NAME, Enchantments.PROJECTILE_PROTECTION, DeflectionEnchantEffect::new);
-
-        if (config.enableVoid.get())
-            registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
-
-        if (config.enableBlastResist.get())
-            registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
-
-
-        if (config.enableFirePraise.get())
-            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
-
-
-        if (config.enableAirWalker.get())
+        if (config.enableAirWalker.get()) {
             registerEffect(AirWalkerEnchantEffect.NAME, Enchantments.FROST_WALKER, AirWalkerEnchantEffect::new);
+        }
 
+        if (config.enableFarReach.get()) {
+            registerEffect(FarReachEnchantEffect.NAME, Enchantments.KNOCKBACK, FarReachEnchantEffect::new);
+        }
+
+        if (config.enableFastBreak.get()) {
+            registerEffect(FastBreakEnchantEffect.NAME, Enchantments.PUNCH, FastBreakEnchantEffect::new);
+        }
+
+        if (config.enableGravity.get()) {
+            registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
+        }
+
+        if (config.enableDeflection.get()) {
+            registerEffect(DeflectionEnchantEffect.NAME, Enchantments.PROJECTILE_PROTECTION, DeflectionEnchantEffect::new);
+        }
+
+        if (config.enableVoid.get()) {
+            registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
+        }
+
+        if (config.enableBlastResist.get()) {
+            registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
+        }
+
+
+        if (config.enableFirePraise.get()) {
+            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
+        }
 
         if (config.enableGluttony.get())
             registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
@@ -80,6 +94,23 @@ public class Enchants {
 
         // Components
         Enchantability.proxy.registerClientComponents();
+
+        if (config.enableAdrenaline.get()) {
+            registerComponent(AdrenalineEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AdrenalineEnchantEffect::tick, e -> Collections.singleton(e.player));
+
+            registerComponent(AdrenalineEnchantEffect.NAME, LivingDamageEvent.class, AdrenalineEnchantEffect::onDamageTaken, e -> e.getEntityLiving() instanceof PlayerEntity ? Collections.singleton((PlayerEntity) e.getEntityLiving()) : null);
+
+            registerComponent(AdrenalineEnchantEffect.NAME, LivingAttackEvent.class, AdrenalineEnchantEffect::onDamageDealt, e -> {
+                if (e.getSource() instanceof EntityDamageSource) {
+                    Entity entity = e.getSource().getTrueSource();
+
+                    if (entity instanceof PlayerEntity) {
+                        return Collections.singleton((PlayerEntity) entity);
+                    }
+                }
+                return null;
+            });
+        }
 
         if (config.enableFastBreak.get())
             registerComponent(FastBreakEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, FastBreakEnchantEffect::handBreak, e -> Collections.singleton(e.getPlayer()));

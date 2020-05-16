@@ -51,8 +51,6 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = ModRef.ID)
 public class CommonEvents {
 
-    // /ench <player> extended <true|false>
-
     @SubscribeEvent
     public static void registerCommands(FMLServerStartingEvent event) {
         LiteralCommandNode<CommandSource> root = event.getCommandDispatcher().register(Commands.literal("ench")
@@ -126,7 +124,7 @@ public class CommonEvents {
     public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         event.getPlayer().getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap ->
                 PacketHandler.INSTANCE.sendTo(
-                        new SyncClientPacket(cap.serializeEffects(new CompoundNBT())),
+                        new SyncClientPacket(cap.serializeNBT()),
                         ((ServerPlayerEntity) event.getPlayer()).connection.getNetworkManager(),
                         NetworkDirection.PLAY_TO_CLIENT)
         );
