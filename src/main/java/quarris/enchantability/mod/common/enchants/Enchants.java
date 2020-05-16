@@ -91,7 +91,6 @@ public class Enchants {
         if (config.enableHeat.get())
             registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
 
-
         // Components
         Enchantability.proxy.registerClientComponents();
 

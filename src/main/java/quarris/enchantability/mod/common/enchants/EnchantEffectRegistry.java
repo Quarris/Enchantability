@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import quarris.enchantability.api.EnchantabilityApi;
@@ -61,21 +60,19 @@ public class EnchantEffectRegistry {
             public void accept(T event) {
                 Collection<PlayerEntity> players = getPlayer.apply(event);
                 if (players != null) {
-
                     players.stream().filter(Objects::nonNull).forEach(player -> player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> {
-                                if (event instanceof ExplosionEvent.Detonate)
-                                    for (IEnchantEffect effect : cap.getEnchants()) {
-                                        if (effect.getName().equals(name)) {
-                                            for (Map.Entry<Class<? extends Event>, IEffectComponent<? extends IEnchantEffect, ? extends Event>> entry : COMPONENTS.row(name).entrySet()) {
-                                                if (entry.getKey().isAssignableFrom(event.getClass())) {
-                                                    IEffectComponent<F, T> comp = (IEffectComponent<F, T>) COMPONENTS.get(effect.getName(), entry.getKey());
-                                                    if (comp != null) {
-                                                        comp.run((F) effect, event);
-                                                    }
+                                for (IEnchantEffect effect : cap.getEnchants()) {
+                                    if (effect.getName().equals(name)) {
+                                        for (Map.Entry<Class<? extends Event>, IEffectComponent<? extends IEnchantEffect, ? extends Event>> entry : COMPONENTS.row(name).entrySet()) {
+                                            if (entry.getKey().isAssignableFrom(event.getClass())) {
+                                                IEffectComponent<F, T> comp = (IEffectComponent<F, T>) COMPONENTS.get(effect.getName(), entry.getKey());
+                                                if (comp != null) {
+                                                    comp.run((F) effect, event);
                                                 }
                                             }
                                         }
                                     }
+                                }
                             })
                     );
                 }
