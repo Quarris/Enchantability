@@ -6,7 +6,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import quarris.enchantability.api.EnchantabilityApi;
@@ -16,49 +15,62 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static net.minecraftforge.common.ForgeConfigSpec.*;
+
 public class ModConfig {
 
     // Enabled Features
-    public ForgeConfigSpec.BooleanValue enableAdrenaline;
-    public ForgeConfigSpec.BooleanValue enableAirWalker;
-    public ForgeConfigSpec.BooleanValue enableBlastResist;
-    public ForgeConfigSpec.BooleanValue enableDeflection;
-    public ForgeConfigSpec.BooleanValue enableDexterity;
-    public ForgeConfigSpec.BooleanValue enableFarReach;
-    public ForgeConfigSpec.BooleanValue enableFastBreak;
-    public ForgeConfigSpec.BooleanValue enableFirePraise;
-    public ForgeConfigSpec.BooleanValue enableGluttony;
-    public ForgeConfigSpec.BooleanValue enableGravity;
-    public ForgeConfigSpec.BooleanValue enableHeat;
-    public ForgeConfigSpec.BooleanValue enableSmite;
-    public ForgeConfigSpec.BooleanValue enableStrike;
-    public ForgeConfigSpec.BooleanValue enableSwiftCharge;
-    public ForgeConfigSpec.BooleanValue enableVoid;
+    public BooleanValue enableAdrenaline;
+    public BooleanValue enableAirWalker;
+    public BooleanValue enableBlastResist;
+    public BooleanValue enableDeflection;
+    public BooleanValue enableDexterity;
+    public BooleanValue enableFarReach;
+    public BooleanValue enableFastBreak;
+    public BooleanValue enableFirePraise;
+    public BooleanValue enableGluttony;
+    public BooleanValue enableGravity;
+    public BooleanValue enableHeat;
+    public BooleanValue enableSmite;
+    public BooleanValue enableStrike;
+    public BooleanValue enableSwiftCharge;
+    public BooleanValue enableVoid;
+
+    // Adrenaline
+    public IntValue adrenalineCooldown;
+    public IntValue adrenalineDamageTakenTime;
+    public IntValue adrenalineDamageDealtTime;
+    public DoubleValue adrenalineDamageTakenThreshold;
+    public DoubleValue adrenalineDamageDealtThreshold;
+    public IntValue adrenalineDuration1;
+    public IntValue adrenalineDuration2;
+    public IntValue adrenalineDuration3;
 
     // Dexterity
-    public ForgeConfigSpec.ConfigValue<List<String>> dexterityTags;
-    public ForgeConfigSpec.ConfigValue<List<String>> dexterityItems;
+    public ConfigValue<List<String>> dexterityTags;
+    public ConfigValue<List<String>> dexterityItems;
 
     // Gluttony
-    public ForgeConfigSpec.BooleanValue enableCookie;
-    public ForgeConfigSpec.BooleanValue enableRabbitStew;
+    public BooleanValue enableCookie;
+    public BooleanValue enableRabbitStew;
 
     // Heat
-    public ForgeConfigSpec.IntValue additionalTickSpeed;
-    public ForgeConfigSpec.IntValue heatRange;
-    public ForgeConfigSpec.BooleanValue treatBlacklistAsWhitelist;
-    public ForgeConfigSpec.ConfigValue<List<String>> tileBlacklist;
+    public IntValue additionalTickSpeed;
+    public IntValue heatRange;
+    public BooleanValue treatBlacklistAsWhitelist;
+    public ConfigValue<List<String>> tileBlacklist;
+
 
     private static ModConfig instance;
     public static ModConfig get() {
         return instance;
     }
 
-    public static void init(ForgeConfigSpec.Builder builder) {
+    public static void init(Builder builder) {
         instance = new ModConfig(builder);
     }
 
-    public ModConfig(ForgeConfigSpec.Builder builder) {
+    public ModConfig(Builder builder) {
         builder.comment("Enabled Features").push("features");
         enableAdrenaline = builder.define("enableAdrenaline", true);
         enableAirWalker = builder.define("enableAirWalker", true);
@@ -79,6 +91,33 @@ public class ModConfig {
 
         builder.comment("Enchant Configs").push("enchants");
 
+        builder.comment("Adrenaline").push("adrenaline");
+        adrenalineCooldown = builder
+                .comment("The cooldown (in ticks) after the adrenaline has worn off")
+                .defineInRange("adrenalineCooldown", 600, 0, 72000);
+
+        adrenalineDamageTakenTime = builder
+                .comment("The time (in ticks) to track the damage dealt for the corresponding threshold for activation")
+                .defineInRange("adrenalineDamageTakenTime", 80, 10, Integer.MAX_VALUE);
+
+        adrenalineDamageDealtTime = builder
+                .comment("The time (in ticks) to track the damage taken for the corresponding threshold for activation")
+                .defineInRange("adrenalineDamageDealtTime", 100, 10, Integer.MAX_VALUE);
+
+        adrenalineDamageTakenThreshold = builder
+                .comment("The damage needed to be taken within the tracked time to activate")
+                .defineInRange("adrenalineDamageTakenThreshold", 12d, 1d, 100d);
+
+        adrenalineDamageDealtThreshold = builder
+                .comment("The damage needed to be dealt within the tracked time to activate")
+                .defineInRange("adrenalineDamageDealtThreshold", 200, 1d, 2000d);
+
+        builder.comment("Duration (in ticks) for the effects of Adrenaline per level of enchant");
+        adrenalineDuration1 = builder.defineInRange("adrenalineDuration1", 100, 1, 12000);
+        adrenalineDuration2 = builder.defineInRange("adrenalineDuration2", 300, 1, 12000);
+        adrenalineDuration3 = builder.defineInRange("adrenalineDuration3", 800, 1, 12000);
+        builder.pop();
+
         builder.comment("Dexterity").push("dexterity");
         dexterityTags = builder.define("dexterityTags", defaultTags());
         dexterityItems = builder.define("dexterityItems", defaultItems());
@@ -90,7 +129,7 @@ public class ModConfig {
         builder.pop();
 
         builder.comment("Heat").push("heat");
-        additionalTickSpeed = builder.defineInRange("additionalTickSpeed", 3, 1, Integer.MAX_VALUE);
+        additionalTickSpeed = builder.defineInRange("additionalTickSpeed", 3, 1, 64);
         heatRange = builder.defineInRange("heatRange - radius", 32, 1, 256);
         treatBlacklistAsWhitelist = builder.define("treatBlacklistAsWhitelist", false);
         tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
