@@ -102,7 +102,7 @@ public class ModConfig {
 
         adrenalineDamageDealtTime = builder
                 .comment("The time (in ticks) to track the damage taken for the corresponding threshold for activation")
-                .defineInRange("adrenalineDamageDealtTime", 100, 10, Integer.MAX_VALUE);
+                .defineInRange("adrenalineDamageDealtTime", 40, 10, Integer.MAX_VALUE);
 
         adrenalineDamageTakenThreshold = builder
                 .comment("The damage needed to be taken within the tracked time to activate")
@@ -110,7 +110,7 @@ public class ModConfig {
 
         adrenalineDamageDealtThreshold = builder
                 .comment("The damage needed to be dealt within the tracked time to activate")
-                .defineInRange("adrenalineDamageDealtThreshold", 200, 1d, 2000d);
+                .defineInRange("adrenalineDamageDealtThreshold", 50d, 1d, 2000d);
 
         builder.comment("Duration (in ticks) for the effects of Adrenaline per level of enchant");
         adrenalineDuration1 = builder.defineInRange("adrenalineDuration1", 100, 1, 12000);

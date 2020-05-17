@@ -42,7 +42,8 @@ public class WitherHeartItem extends Item {
             PlayerEntity player = (PlayerEntity) entity;
 
             if (stack.getTag() == null || player.getUniqueID().equals(stack.getTag().getUniqueId("Owner"))) {
-                player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> cap.setExtended(!cap.isExtended()));
+                player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> cap.setExtended(true));
+                player.sendStatusMessage(new TranslationTextComponent("wither_heart.eaten"), true);
             } else {
                 player.sendStatusMessage(new TranslationTextComponent("wither_heart.not_worthy").applyTextStyle(TextFormatting.RED), true);
             }

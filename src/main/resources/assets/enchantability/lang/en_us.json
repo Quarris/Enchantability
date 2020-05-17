@@ -19,6 +19,9 @@
     "enchantability:gluttony.enchant.desc": "Gluttony: Special effects when eating certain foods.",
     "enchantability:swift_charge.enchant.desc": "Swift Charge: Swiftly complete actions (Eating/Drinking, Swinging, etc.).",
 
+    "enchantability:adrenaline.enchant.ready": "Your energy fades",
+    "enchantability:adrenaline.enchant.activated": "You feel a rush of adrenaline",
+
     "dexterity.tooltip": "Enchantability: Is affected by Efficiency.",
     "mending.tooltip": "Enchantability: Is affected by Mending.",
 
@@ -27,5 +30,6 @@
     "wither_heart.tooltip.no_owner": "Anyone is worthy of this heart.",
     "wither_heart.tooltip.heart_owner": "Worthy: %s",
     "wither_heart.already_eaten": "You have already eaten a Wither Heart",
-    "wither_heart.not_worthy": "You were not worthy"
+    "wither_heart.not_worthy": "You were not worthy",
+    "wither_heart.eaten": "You feel empowered and unlocked a new slot for your enchants"
 }

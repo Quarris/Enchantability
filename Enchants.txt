@@ -49,16 +49,5 @@ Unbreaking:
     - New item when tool breaks
     - Level = Higher chance to make the item, lvl 3 = 100%
 
-Respiration:
-    - Adrenaline Rush
-    - Activated on intense combat
-        - High damage taken in short time
-        - High damage dealt in short time
-    - Gives agility
-        - Strength
-        - Speed
-        - Jump Boost
-        - etc.
-
 Piercing:
 	- Arrows go through enemy while still damaging them

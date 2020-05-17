@@ -29,6 +29,25 @@ public class AdrenalineEnchantEffect extends AbstractEnchantEffect {
     public final Map<Long, Float> damageTaken;
     public final Map<Long, Float> damageDealt;
 
+    /* Some code if I ever want to add an icon to show if Adrenaline is on cooldown
+    if (event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
+            Minecraft.getMinecraft().getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);
+            //this.drawTexturedModalRect(k, l, 141, 166, 24, 24);
+            int k = event.getResolution().getScaledWidth()-25;
+            int l = 51;
+
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            float f = 1.0F;
+
+            Gui.drawModalRectWithCustomSizedTexture(k, l, 141, 166, 24, 24, 256, 256);
+
+            Minecraft.getMinecraft().getTextureManager().bindTexture(HIDDEN_STATUS);
+
+
+            Gui.drawModalRectWithCustomSizedTexture(k, l, 141, 166, 24, 24, 256, 256);
+        }
+    */
+
     public AdrenalineEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
         super(player, enchantment, level);
 
