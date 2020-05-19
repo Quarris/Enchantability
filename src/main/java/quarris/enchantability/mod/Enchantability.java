@@ -23,7 +23,7 @@ public class Enchantability {
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {
-        EnchantabilityApi.setInstance(new Internals());
+        EnchantabilityApi.setInternals(new Internals());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 

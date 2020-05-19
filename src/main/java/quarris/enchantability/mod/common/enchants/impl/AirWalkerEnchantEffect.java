@@ -27,7 +27,7 @@ public class AirWalkerEnchantEffect extends AbstractEnchantEffect {
             World world = player.world;
             if (player.isShiftKeyDown() || (player.onGround && world.getBlockState(new BlockPos(player).down()).getBlock() == ModRef.AIR)) {
                 BlockPos pos = new BlockPos(player);
-                float f = (float) Math.min(4, effect.level);
+                float f = (float) Math.min(4, effect.level());
                 BlockPos.Mutable mutPosUp = new BlockPos.Mutable(0, 0, 0);
 
                 for (BlockPos mutPos : BlockPos.getAllInBoxMutable(pos.add((double) (-f), -1.0D, (double) (-f)), pos.add((double) f, -1.0D, (double) f))) {

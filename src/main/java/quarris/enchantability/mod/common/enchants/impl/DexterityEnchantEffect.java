@@ -27,7 +27,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
         PlayerEntity player = effect.player;
         if (!player.world.isRemote()) {
             ItemStack output = event.getCrafting();
-            float chance = effect.level * 0.0375f;
+            float chance = effect.level() * 0.0375f;
             if (chance >= ModUtil.RANDOM.nextFloat()) {
                 for (ItemStack stack : EnchantabilityApi.DEXTERITY_ITEMSTACKS) {
                     if (ItemStack.areItemsEqual(output, stack)) {
@@ -37,7 +37,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                         item.setNoPickupDelay();
                         player.world.addEntity(item);
                         if (ModUtil.RANDOM.nextFloat() >= chance) {
-                            player.giveExperiencePoints(effect.level);
+                            player.giveExperiencePoints(effect.level());
                         }
                         return;
                     }
@@ -51,7 +51,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                         item.setNoPickupDelay();
                         player.world.addEntity(item);
                         if (ModUtil.RANDOM.nextFloat() >= chance) {
-                            player.giveExperiencePoints(effect.level);
+                            player.giveExperiencePoints(effect.level());
                         }
                         return;
                     }

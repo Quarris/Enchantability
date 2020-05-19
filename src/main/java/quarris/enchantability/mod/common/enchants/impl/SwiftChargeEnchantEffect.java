@@ -31,7 +31,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
     @Override
     public void onApplied() {
         player.getAttribute(SharedMonsterAttributes.ATTACK_SPEED).applyModifier(new AttributeModifier(
-                ModRef.ENCHANT_UUID, NAME::toString, this.level/2f, AttributeModifier.Operation.ADDITION
+                ModRef.ENCHANT_UUID, NAME::toString, this.level()/2f, AttributeModifier.Operation.ADDITION
         ));
     }
 
@@ -43,7 +43,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
     public static void itemUse(SwiftChargeEnchantEffect effect, LivingEntityUseItemEvent.Start event) {
         ItemStack item = event.getItem();
         if (item.isFood() || item.getItem() instanceof PotionItem) {
-            event.setDuration(event.getDuration() / (effect.level + 1));
+            event.setDuration(event.getDuration() / (effect.level() + 1));
         }
     }
 
@@ -53,7 +53,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
         if (inPortal) {
             try {
                 int portalTicks = PORTAL_COUNTER.getInt(player);
-                PORTAL_COUNTER.setInt(player, portalTicks+effect.level);
+                PORTAL_COUNTER.setInt(player, portalTicks+effect.level());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -63,7 +63,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
         if (player.isSleeping()) {
             try {
                 int sleepTicks = SLEEP_TIMER.getInt(player);
-                SLEEP_TIMER.setInt(player, sleepTicks+effect.level);
+                SLEEP_TIMER.setInt(player, sleepTicks+effect.level());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }

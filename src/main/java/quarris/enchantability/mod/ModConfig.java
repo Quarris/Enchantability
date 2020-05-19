@@ -31,6 +31,7 @@ public class ModConfig {
     public BooleanValue enableGluttony;
     public BooleanValue enableGravity;
     public BooleanValue enableHeat;
+    public BooleanValue enableMetalFist;
     public BooleanValue enableSmite;
     public BooleanValue enableStrike;
     public BooleanValue enableSwiftCharge;
@@ -83,6 +84,7 @@ public class ModConfig {
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
+        enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);
         enableSwiftCharge = builder.define("enableSwiftCharge", true);
@@ -142,7 +144,7 @@ public class ModConfig {
         for (String itemName : this.dexterityItems.get()) {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
             if (item != null) {
-                EnchantabilityApi.getInstance().addToDexterityList(item);
+                EnchantabilityApi.addToDexterityList(item);
             } else {
                 ModRef.LOGGER.warn("Registered item for dexterity doesn't exist, " + itemName);
             }
@@ -152,7 +154,7 @@ public class ModConfig {
             Tag<Item> tag = ItemTags.getCollection().get(new ResourceLocation(tagName));
 
             if (tag != null) {
-                EnchantabilityApi.getInstance().addToDexterityList(tag);
+                EnchantabilityApi.addToDexterityList(tag);
             } else {
                 ModRef.LOGGER.warn("Registered tag for dexterity doesn't exist, " + tagName);
             }

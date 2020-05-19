@@ -17,7 +17,7 @@ public class StrikeEnchantEffect extends AbstractEnchantEffect {
 
     public static void strike(StrikeEnchantEffect effect, LivingHurtEvent event) {
         if (effect.player.getHeldItemMainhand().isEmpty()) {
-            event.setAmount(event.getAmount() + effect.level);
+            event.setAmount(event.getAmount() + effect.level());
         }
     }
 

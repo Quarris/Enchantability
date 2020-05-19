@@ -72,7 +72,7 @@ public interface IPlayerEnchant extends IItemHandlerModifiable, ICapabilitySeria
         for (Map.Entry<Enchantment, Integer> entry : storedEnchantments.entrySet()) {
             Enchantment enchantment = entry.getKey();
             if (!currentEnchantments.contains(enchantment)) {
-                List<IEffectSupplier> effects = EnchantabilityApi.getInstance().getEnchantEffects(enchantment);
+                List<IEffectSupplier> effects = EnchantabilityApi.getEnchantEffects(enchantment);
                 for (IEffectSupplier effectSupplier : effects) {
 
                     IEnchantEffect effect = effectSupplier.create(this.getPlayer(), enchantment, entry.getValue());
