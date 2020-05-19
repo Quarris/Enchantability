@@ -17,11 +17,6 @@ Sharpness:
     - Hightlights mobs in the glowing effect.
         - Possibly different colours for Hostile/Neutral/Passive
 
-Power:
-    - Increase damage from punching with bare hand
-
-    - Discount from villagers (Power = Authority)
-
 Looting:
     - Increased loot from dungeons on generate
 
@@ -34,7 +29,20 @@ Sweeping Edge:
 Silk Touch:
     - Root/Slow enemies hit
 
-TODO Fortune
+Fortune: Fortune's Touch
+    - Ability to performs actions with bare hands
+        - Level 1
+            - Break and Replant crops with RClick
+            - Additional wheat when breaking wheat crops (amount based on lvl)
+            - Additional beetroot when breaking beet crops (amount based on lvl)
+            - RClick bat to ride them on shoulder (If possible) (cosmetic only, or maybe add a sonar thing which highlights the enemies to the player)
+        - Level 2
+            - Pluck feathers from chickens (causes dmg) (amount based on lvl)
+            - Shear sheep (amount based on lvl)
+            - Shear mooshrooms (amount based on lvl) (turns into cow)
+            - (?????) Skin cows for leather (causes dmg) (amount based on lvl)
+        - Level 3
+            - Chance to tame animals by petting them (1 second cooldown per try)
 
 Luck of the Sea:
     - Swim faster with fish
