@@ -99,7 +99,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "enchantability",
+                "Specification-Title"     : "Enchantability",
                 "Specification-Vendor"    : "Quarris",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
@@ -112,7 +112,7 @@ jar {
 
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
-    archiveName = "${baseName}-${version}-deobf.${extension}"
+    archiveName = "${baseName}-${version}-sources.${extension}"
 }
 
 artifacts {
@@ -129,7 +129,7 @@ publishing {
             from components.java
 
             artifact deobfJar {
-                classifier 'deobf'
+                classifier 'sources'
             }
             pom.withXml {
                 def node = asNode()
