@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
+import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.common.util.ModRef;
 
 public class MetalFistEnchantEffect extends AbstractEnchantEffect {
@@ -19,7 +20,7 @@ public class MetalFistEnchantEffect extends AbstractEnchantEffect {
         if (effect.player.getHeldItemMainhand().isEmpty()) {
             if (effect.level() >= 5) {
                 event.setCanHarvest(true);
-            } else if (effect.level() >= event.getTargetBlock().getHarvestLevel()+1) { // effect.level starts from 1
+            } else if (effect.level() >= event.getTargetBlock().getHarvestLevel() + 1) { // effect.level starts from 1
                 event.setCanHarvest(true);
             }
         }
@@ -27,7 +28,7 @@ public class MetalFistEnchantEffect extends AbstractEnchantEffect {
 
     public static void breakSpeed(MetalFistEnchantEffect effect, PlayerEvent.BreakSpeed event) {
         if (effect.level() >= 5) {
-            event.setNewSpeed(event.getNewSpeed()*2);
+            event.setNewSpeed(event.getNewSpeed() * ModConfig.get().speedMultiplier.get().floatValue());
         }
     }
 

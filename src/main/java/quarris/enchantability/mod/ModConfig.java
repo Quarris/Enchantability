@@ -61,8 +61,12 @@ public class ModConfig {
     public BooleanValue treatBlacklistAsWhitelist;
     public ConfigValue<List<String>> tileBlacklist;
 
+    // Metal Fist
+    public DoubleValue speedMultiplier;
+
 
     private static ModConfig instance;
+
     public static ModConfig get() {
         return instance;
     }
@@ -137,6 +141,13 @@ public class ModConfig {
         tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
         builder.pop();
 
+        builder.comment("Metal Fist").push("metal_fist");
+        speedMultiplier = builder
+                .comment("The multiplier for the break speed when wearing Sharpness 5+ book",
+                        "Set to '1.0' to disable increased speed on Sharpness 5")
+                .defineInRange("speedMultiplier", 2D, 1D, 10D);
+        builder.pop();
+
         builder.pop();
     }
 
@@ -162,7 +173,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultTags() {
-        Tag[] tags = new Tag[] {
+        Tag[] tags = new Tag[]{
                 Tags.Items.SANDSTONE,
                 Tags.Items.RODS_WOODEN,
                 ItemTags.FENCES,
@@ -184,7 +195,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultItems() {
-        Item[] items = new Item[] {
+        Item[] items = new Item[]{
                 Items.FIRE_CHARGE,
                 Items.SUGAR,
                 Items.FIREWORK_STAR,
@@ -197,7 +208,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultTileBlacklist() {
-        TileEntityType[] types = new TileEntityType[] {
+        TileEntityType[] types = new TileEntityType[]{
                 TileEntityType.HOPPER,
                 TileEntityType.PISTON,
                 TileEntityType.BEACON,
