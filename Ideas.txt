@@ -1,0 +1,6 @@
+Allow enchanting of other entities? Like Villagers?
+
+Fire Praise:
+    - Build up power when watching sun
+    - Release the power when stopped watching it, giving regen and strength
+    - Weakness still affected during night
