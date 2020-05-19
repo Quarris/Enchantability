@@ -17,7 +17,7 @@ public class FastBreakEnchantEffect extends AbstractEnchantEffect {
 
     public static void handBreak(FastBreakEnchantEffect effect, PlayerEvent.BreakSpeed event) {
         if (effect.player.getHeldItemMainhand().isEmpty()) {
-            event.setNewSpeed(event.getOriginalSpeed() + effect.level * 2);
+            event.setNewSpeed(event.getOriginalSpeed() + effect.level() * 2);
         }
     }
 

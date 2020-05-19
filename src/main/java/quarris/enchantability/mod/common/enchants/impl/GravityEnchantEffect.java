@@ -21,7 +21,7 @@ public class GravityEnchantEffect extends AbstractEnchantEffect {
         this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).applyModifier(new AttributeModifier(
                 ModRef.ENCHANT_UUID,
                 NAME::toString,
-                -this.level * 0.01f,
+                -this.level() * 0.01f,
                 AttributeModifier.Operation.ADDITION
         ));
     }

@@ -25,7 +25,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerClientComponents() {
         if (ModConfig.get().enableDexterity.get()) {
-            EnchantabilityApi.getInstance().registerEffectComponent(DexterityEnchantEffect.NAME, ItemTooltipEvent.class, DexterityEnchantEffect::addTooltips, e -> {
+            EnchantabilityApi.registerEffectComponent(DexterityEnchantEffect.NAME, ItemTooltipEvent.class, DexterityEnchantEffect::addTooltips, e -> {
                 if (e.getPlayer() != null) {
                     return Collections.singleton(e.getPlayer());
                 }
@@ -34,7 +34,7 @@ public class ClientProxy extends CommonProxy {
         }
 
         if (ModConfig.get().enableGluttony.get()) {
-            EnchantabilityApi.getInstance().registerEffectComponent(GluttonyEnchantEffect.NAME, ItemTooltipEvent.class, GluttonyEnchantEffect::addTooltips, e -> {
+            EnchantabilityApi.registerEffectComponent(GluttonyEnchantEffect.NAME, ItemTooltipEvent.class, GluttonyEnchantEffect::addTooltips, e -> {
                 if (e.getPlayer() != null) {
                     return Collections.singleton(e.getPlayer());
                 }

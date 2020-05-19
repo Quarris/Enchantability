@@ -24,7 +24,7 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
 
     public static void deflect(DeflectionEnchantEffect effect, ProjectileImpactEvent event) {
         if (!effect.player.world.isRemote()) {
-            float chance = effect.level * 0.2f;
+            float chance = effect.level() * 0.2f;
             if (chance >= ModUtil.RANDOM.nextFloat()) {
                 Entity projectile = event.getEntity();
                 System.out.println(projectile);

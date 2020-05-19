@@ -31,6 +31,7 @@ public class ModConfig {
     public BooleanValue enableGluttony;
     public BooleanValue enableGravity;
     public BooleanValue enableHeat;
+    public BooleanValue enableMetalFist;
     public BooleanValue enableSmite;
     public BooleanValue enableStrike;
     public BooleanValue enableSwiftCharge;
@@ -60,8 +61,12 @@ public class ModConfig {
     public BooleanValue treatBlacklistAsWhitelist;
     public ConfigValue<List<String>> tileBlacklist;
 
+    // Metal Fist
+    public DoubleValue speedMultiplier;
+
 
     private static ModConfig instance;
+
     public static ModConfig get() {
         return instance;
     }
@@ -83,6 +88,7 @@ public class ModConfig {
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
+        enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);
         enableSwiftCharge = builder.define("enableSwiftCharge", true);
@@ -135,6 +141,13 @@ public class ModConfig {
         tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
         builder.pop();
 
+        builder.comment("Metal Fist").push("metal_fist");
+        speedMultiplier = builder
+                .comment("The multiplier for the break speed when wearing Sharpness 5+ book",
+                        "Set to '1.0' to disable increased speed on Sharpness 5")
+                .defineInRange("speedMultiplier", 2D, 1D, 10D);
+        builder.pop();
+
         builder.pop();
     }
 
@@ -142,7 +155,7 @@ public class ModConfig {
         for (String itemName : this.dexterityItems.get()) {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
             if (item != null) {
-                EnchantabilityApi.getInstance().addToDexterityList(item);
+                EnchantabilityApi.addToDexterityList(item);
             } else {
                 ModRef.LOGGER.warn("Registered item for dexterity doesn't exist, " + itemName);
             }
@@ -152,7 +165,7 @@ public class ModConfig {
             Tag<Item> tag = ItemTags.getCollection().get(new ResourceLocation(tagName));
 
             if (tag != null) {
-                EnchantabilityApi.getInstance().addToDexterityList(tag);
+                EnchantabilityApi.addToDexterityList(tag);
             } else {
                 ModRef.LOGGER.warn("Registered tag for dexterity doesn't exist, " + tagName);
             }
@@ -160,7 +173,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultTags() {
-        Tag[] tags = new Tag[] {
+        Tag[] tags = new Tag[]{
                 Tags.Items.SANDSTONE,
                 Tags.Items.RODS_WOODEN,
                 ItemTags.FENCES,
@@ -182,7 +195,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultItems() {
-        Item[] items = new Item[] {
+        Item[] items = new Item[]{
                 Items.FIRE_CHARGE,
                 Items.SUGAR,
                 Items.FIREWORK_STAR,
@@ -195,7 +208,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultTileBlacklist() {
-        TileEntityType[] types = new TileEntityType[] {
+        TileEntityType[] types = new TileEntityType[]{
                 TileEntityType.HOPPER,
                 TileEntityType.PISTON,
                 TileEntityType.BEACON,

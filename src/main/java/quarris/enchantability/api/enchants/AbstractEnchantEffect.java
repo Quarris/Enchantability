@@ -6,8 +6,8 @@ import net.minecraft.entity.player.PlayerEntity;
 public abstract class AbstractEnchantEffect implements IEnchantEffect {
 
     public final PlayerEntity player;
-    public final Enchantment origin;
-    public final int level;
+    private final Enchantment origin;
+    private final int level;
 
     public AbstractEnchantEffect(PlayerEntity player, Enchantment enchantment, int level) {
         this.player = player;

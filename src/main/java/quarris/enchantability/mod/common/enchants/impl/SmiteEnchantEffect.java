@@ -29,7 +29,7 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
         if (!player.world.isRemote()) {
             Item item = player.getHeldItemMainhand().getItem();
             if ((item instanceof SwordItem || item instanceof AxeItem) && !player.isSwingInProgress) {
-                float chance = 0.05f * effect.level;
+                float chance = 0.05f * effect.level();
                 if (chance >= ModUtil.RANDOM.nextFloat()) {
                     Entity target = event.getTarget();
                     LightningBoltEntity bolt = new LightningBoltEntity(player.world, target.getPosX(), target.getPosY(), target.getPosZ(), false);

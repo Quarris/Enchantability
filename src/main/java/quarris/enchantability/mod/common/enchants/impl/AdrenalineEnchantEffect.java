@@ -102,7 +102,7 @@ public class AdrenalineEnchantEffect extends AbstractEnchantEffect {
 
         if (activated) {
             effect.player.sendStatusMessage(new TranslationTextComponent("enchantability:adrenaline.enchant.activated"), true);
-            effect.cooldown = durationFromLevel(effect.level) + ModConfig.get().adrenalineCooldown.get();
+            effect.cooldown = durationFromLevel(effect.level()) + ModConfig.get().adrenalineCooldown.get();
             effect.damageTaken.clear();
             effect.damageDealt.clear();
         }

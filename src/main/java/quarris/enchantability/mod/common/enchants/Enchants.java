@@ -44,6 +44,18 @@ public class Enchants {
             registerEffect(AirWalkerEnchantEffect.NAME, Enchantments.FROST_WALKER, AirWalkerEnchantEffect::new);
         }
 
+        if (config.enableBlastResist.get()) {
+            registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
+        }
+
+        if (config.enableDeflection.get()) {
+            registerEffect(DeflectionEnchantEffect.NAME, Enchantments.PROJECTILE_PROTECTION, DeflectionEnchantEffect::new);
+        }
+
+        if (config.enableDexterity.get()) {
+            registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
+        }
+
         if (config.enableFarReach.get()) {
             registerEffect(FarReachEnchantEffect.NAME, Enchantments.KNOCKBACK, FarReachEnchantEffect::new);
         }
@@ -52,44 +64,41 @@ public class Enchants {
             registerEffect(FastBreakEnchantEffect.NAME, Enchantments.PUNCH, FastBreakEnchantEffect::new);
         }
 
+        if (config.enableFirePraise.get()) {
+            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
+        }
+
+        if (config.enableGluttony.get()) {
+            registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
+        }
+
         if (config.enableGravity.get()) {
             registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
         }
 
-        if (config.enableDeflection.get()) {
-            registerEffect(DeflectionEnchantEffect.NAME, Enchantments.PROJECTILE_PROTECTION, DeflectionEnchantEffect::new);
+        if (config.enableHeat.get()) {
+            registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
+        }
+
+        if (config.enableMetalFist.get()) {
+            registerEffect(MetalFistEnchantEffect.NAME, Enchantments.SHARPNESS, MetalFistEnchantEffect::new);
+        }
+
+        if (config.enableSmite.get()) {
+            registerEffect(SmiteEnchantEffect.NAME, Enchantments.SMITE, SmiteEnchantEffect::new);
+        }
+
+        if (config.enableStrike.get()) {
+            registerEffect(StrikeEnchantEffect.NAME, Enchantments.POWER, StrikeEnchantEffect::new);
+        }
+
+        if (config.enableSwiftCharge.get()) {
+            registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
         }
 
         if (config.enableVoid.get()) {
             registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
         }
-
-        if (config.enableBlastResist.get()) {
-            registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
-        }
-
-
-        if (config.enableFirePraise.get()) {
-            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
-        }
-
-        if (config.enableGluttony.get())
-            registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
-
-        if (config.enableDexterity.get())
-            registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
-
-        if (config.enableSmite.get())
-            registerEffect(SmiteEnchantEffect.NAME, Enchantments.SMITE, SmiteEnchantEffect::new);
-
-        if (config.enableStrike.get())
-            registerEffect(StrikeEnchantEffect.NAME, Enchantments.POWER, StrikeEnchantEffect::new);
-
-        if (config.enableSwiftCharge.get())
-            registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
-
-        if (config.enableHeat.get())
-            registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
 
         // Components
         Enchantability.proxy.registerClientComponents();
@@ -111,30 +120,9 @@ public class Enchants {
             });
         }
 
-        if (config.enableFastBreak.get())
-            registerComponent(FastBreakEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, FastBreakEnchantEffect::handBreak, e -> Collections.singleton(e.getPlayer()));
-
-        if (config.enableDeflection.get())
-            registerComponent(DeflectionEnchantEffect.NAME, ProjectileImpactEvent.class, DeflectionEnchantEffect::deflect,
-                    e -> {
-                        if (e.getRayTraceResult() instanceof EntityRayTraceResult) {
-                            if (((EntityRayTraceResult) e.getRayTraceResult()).getEntity() instanceof PlayerEntity) {
-                                return Collections.singleton((PlayerEntity) ((EntityRayTraceResult) e.getRayTraceResult()).getEntity());
-                            }
-                        }
-                        return null;
-                    });
-
-        if (config.enableDexterity.get()) {
-            registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
-        }
-
-        if (config.enableVoid.get()) {
-            registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
-        }
-
-        if (config.enableSmite.get()) {
-            registerComponent(SmiteEnchantEffect.NAME, AttackEntityEvent.class, SmiteEnchantEffect::smite, e -> Collections.singleton(e.getPlayer()));
+        if (config.enableAirWalker.get()) {
+            registerComponent(AirWalkerEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AirWalkerEnchantEffect::airWalk,
+                    e -> Collections.singleton(e.player));
         }
 
         if (config.enableBlastResist.get()) {
@@ -145,13 +133,28 @@ public class Enchants {
                             .collect(Collectors.toList()));
         }
 
-        if (config.enableFirePraise.get()) {
-            registerComponent(FirePraiseEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, FirePraiseEnchantEffect::praiseTheSun,
-                    e -> Collections.singleton(e.player));
+        if (config.enableDeflection.get()) {
+            registerComponent(DeflectionEnchantEffect.NAME, ProjectileImpactEvent.class, DeflectionEnchantEffect::deflect,
+                    e -> {
+                        if (e.getRayTraceResult() instanceof EntityRayTraceResult) {
+                            if (((EntityRayTraceResult) e.getRayTraceResult()).getEntity() instanceof PlayerEntity) {
+                                return Collections.singleton((PlayerEntity) ((EntityRayTraceResult) e.getRayTraceResult()).getEntity());
+                            }
+                        }
+                        return null;
+                    });
         }
 
-        if (config.enableAirWalker.get()) {
-            registerComponent(AirWalkerEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AirWalkerEnchantEffect::airWalk,
+        if (config.enableDexterity.get()) {
+            registerComponent(DexterityEnchantEffect.NAME, PlayerEvent.ItemCraftedEvent.class, DexterityEnchantEffect::craft, e -> Collections.singleton(e.getPlayer()));
+        }
+
+        if (config.enableFastBreak.get()) {
+            registerComponent(FastBreakEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, FastBreakEnchantEffect::handBreak, e -> Collections.singleton(e.getPlayer()));
+        }
+
+        if (config.enableFirePraise.get()) {
+            registerComponent(FirePraiseEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, FirePraiseEnchantEffect::praiseTheSun,
                     e -> Collections.singleton(e.player));
         }
 
@@ -161,19 +164,20 @@ public class Enchants {
                             Collections.singleton((PlayerEntity) e.getEntity()) :
                             Collections.emptyList()
             );
-            GluttonyFoods.initMendingFoods();
+            GluttonyEnchantEffect.GluttonyFoods.initMendingFoods();
         }
 
+        if (config.enableHeat.get()) {
+            registerComponent(HeatEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, HeatEnchantEffect::heat, e -> Collections.singleton(e.player));
+        }
 
-        if (config.enableSwiftCharge.get()) {
-            registerComponent(SwiftChargeEnchantEffect.NAME, LivingEntityUseItemEvent.Start.class, SwiftChargeEnchantEffect::itemUse, e -> {
-                if (e.getEntity() instanceof PlayerEntity) {
-                    return Collections.singleton((PlayerEntity) e.getEntity());
-                }
-                return Collections.emptyList();
-            });
-            registerComponent(SwiftChargeEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, SwiftChargeEnchantEffect::transition,
-                    e -> Collections.singleton(e.player));
+        if (config.enableMetalFist.get()) {
+            registerComponent(MetalFistEnchantEffect.NAME, PlayerEvent.HarvestCheck.class, MetalFistEnchantEffect::harvestCheck, e -> Collections.singleton(e.getPlayer()));
+            registerComponent(MetalFistEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, MetalFistEnchantEffect::breakSpeed, e -> Collections.singleton(e.getPlayer()));
+        }
+
+        if (config.enableSmite.get()) {
+            registerComponent(SmiteEnchantEffect.NAME, AttackEntityEvent.class, SmiteEnchantEffect::smite, e -> Collections.singleton(e.getPlayer()));
         }
 
         if (config.enableStrike.get()) {
@@ -186,16 +190,27 @@ public class Enchants {
                     });
         }
 
-        if (config.enableHeat.get()) {
-            registerComponent(HeatEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, HeatEnchantEffect::heat, e -> Collections.singleton(e.player));
+        if (config.enableSwiftCharge.get()) {
+            registerComponent(SwiftChargeEnchantEffect.NAME, LivingEntityUseItemEvent.Start.class, SwiftChargeEnchantEffect::itemUse, e -> {
+                if (e.getEntity() instanceof PlayerEntity) {
+                    return Collections.singleton((PlayerEntity) e.getEntity());
+                }
+                return Collections.emptyList();
+            });
+            registerComponent(SwiftChargeEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, SwiftChargeEnchantEffect::transition,
+                    e -> Collections.singleton(e.player));
+        }
+
+        if (config.enableVoid.get()) {
+            registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
         }
     }
 
     private static void registerEffect(ResourceLocation name, Enchantment enchantment, IEffectSupplier effectSupplier) {
-        EnchantabilityApi.getInstance().registerEnchantEffect(name, enchantment, effectSupplier);
+        EnchantabilityApi.registerEnchantEffect(name, enchantment, effectSupplier);
     }
 
     private static <F extends IEnchantEffect, T extends Event> void registerComponent(ResourceLocation name, Class<T> eventClass, IEffectComponent<F, T> component, Function<T, Collection<PlayerEntity>> playerGetter) {
-        EnchantabilityApi.getInstance().registerEffectComponent(name, eventClass, component, playerGetter);
+        EnchantabilityApi.registerEffectComponent(name, eventClass, component, playerGetter);
     }
 }
