@@ -171,6 +171,10 @@ public class Enchants {
             registerComponent(HeatEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, HeatEnchantEffect::heat, e -> Collections.singleton(e.player));
         }
 
+        if (config.enableLure.get()) {
+            registerComponent(LureEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, LureEnchantEffect::spawnAnimals, e -> Collections.singleton(e.player));
+        }
+
         if (config.enableMetalFist.get()) {
             registerComponent(MetalFistEnchantEffect.NAME, PlayerEvent.HarvestCheck.class, MetalFistEnchantEffect::harvestCheck, e -> Collections.singleton(e.getPlayer()));
             registerComponent(MetalFistEnchantEffect.NAME, PlayerEvent.BreakSpeed.class, MetalFistEnchantEffect::breakSpeed, e -> Collections.singleton(e.getPlayer()));

@@ -81,6 +81,7 @@ public class CommonEvents {
         }
     }
 
+    // TODO put into same method
     @SubscribeEvent
     public static void openEnderChestContainer(PlayerContainerEvent.Open event) {
         if (event.getContainer() instanceof ChestContainer) {

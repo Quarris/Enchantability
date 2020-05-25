@@ -31,6 +31,7 @@ public class ModConfig {
     public BooleanValue enableGluttony;
     public BooleanValue enableGravity;
     public BooleanValue enableHeat;
+    public BooleanValue enableLure;
     public BooleanValue enableMetalFist;
     public BooleanValue enableSmite;
     public BooleanValue enableStrike;
@@ -88,6 +89,7 @@ public class ModConfig {
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
+        enableLure = builder.define("enableLure", true);
         enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);
@@ -214,7 +216,7 @@ public class ModConfig {
                 TileEntityType.BEACON,
                 TileEntityType.CONDUIT,
                 TileEntityType.BELL,
-                TileEntityType.field_226985_G_,
+                TileEntityType.BEEHIVE,
                 TileEntityType.DAYLIGHT_DETECTOR,
                 TileEntityType.END_GATEWAY
         };
