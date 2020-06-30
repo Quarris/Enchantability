@@ -1,5 +1,6 @@
 package quarris.enchantability.mod.client.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -20,33 +21,34 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
     }
 
     @Override
-    protected void init() {
-        super.init();
+    protected void func_231160_c_() {
+        super.func_231160_c_();
         this.xSize = 201;
         this.ySize = 167;
         this.guiLeft -= 25;
         this.guiTop -= 1;
-        this.addButton(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
+        this.func_230480_a_(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
         GLFW.glfwSetCursorPos(Minecraft.getInstance().getMainWindow().getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
     }
 
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-        this.renderBackground();
-        super.render(p_render_1_, p_render_2_, p_render_3_);
-        this.renderHoveredToolTip(p_render_1_, p_render_2_);
+    @Override
+    public void func_230430_a_(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
+        this.func_230446_a_(matrix);
+        super.func_230430_a_(matrix, mouseX, mouseY, partialTicks);
+        this.func_230459_a_(matrix, mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void func_230450_a_(MatrixStack matrix, float partialTicks, int mouseX, int mouseY) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(this.container.enchant.isExtended() ? EXTENDED_TEXTURE : TEXTURE);
 
-        this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.func_238474_b_(matrix, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.font.drawString(this.title.getFormattedText(), 33.0F, 6.0F, 4210752);
-        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
+    protected void func_230451_b_(MatrixStack matrix, int mouseX, int mouseY) {
+        this.field_230712_o_.func_238422_b_(matrix, this.field_230704_d_, 33.0F, 6.0F, 4210752);
+        this.field_230712_o_.func_238422_b_(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
     }
 }

@@ -5,7 +5,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.registries.ObjectHolder;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.enchants.IEnchantEffect;
@@ -34,7 +34,7 @@ public class AirWalkerTileEntity extends TileEntity implements ITickableTileEnti
             IEnchantEffect effect = player.getCapability(EnchantabilityApi.playerEnchant).orElse(null).getEnchant(AirWalkerEnchantEffect.NAME);
             if (effect != null) {
                 float range = effect.level() + 1.5f;
-                if (player.getDistanceSq(new Vec3d(pos)) <= (range * range)) {
+                if (player.getDistanceSq(new Vector3d(pos.getX(), pos.getY(), pos.getZ())) <= (range * range)) {
                     shouldRemove = false;
                 }
             }

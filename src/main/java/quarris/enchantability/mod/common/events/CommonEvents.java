@@ -59,7 +59,7 @@ public class CommonEvents {
                         .then(Commands.literal("extended")
                                 .executes(source -> {
                                     ServerPlayerEntity player = EntityArgument.getPlayer(source, "player");
-                                    player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> source.getSource().sendFeedback(new StringTextComponent(player.getDisplayName().getFormattedText() + " has extended slots: " + cap.isExtended()), false));
+                                    player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> source.getSource().sendFeedback(new StringTextComponent(player.getDisplayName() + " has extended slots: " + cap.isExtended()), false));
                                     return 1;
                                 })
                                 .then(Commands.argument("extended", BoolArgumentType.bool())
@@ -67,7 +67,7 @@ public class CommonEvents {
                                             boolean set = BoolArgumentType.getBool(source, "extended");
                                             ServerPlayerEntity player = EntityArgument.getPlayer(source, "player");
                                             player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> cap.setExtended(set));
-                                            source.getSource().sendFeedback(new StringTextComponent("Set extended enchant inventory for " + player.getDisplayName().getFormattedText() + " to " + set), false);
+                                            source.getSource().sendFeedback(new StringTextComponent("Set extended enchant inventory for " + player.getDisplayName() + " to " + set), false);
                                             return 1;
                                         })))));
 
@@ -165,7 +165,7 @@ public class CommonEvents {
                     if (player.getCapability(EnchantabilityApi.playerEnchant).orElse(null).isExtended())
                         continue;
 
-                    fighters.add(Pair.of(player.getUniqueID(), player.getDisplayName().getFormattedText()));
+                    fighters.add(Pair.of(player.getUniqueID(), player.getDisplayName().getString()));
                 }
             }
 

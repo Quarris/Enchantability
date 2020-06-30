@@ -8,10 +8,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -64,27 +61,27 @@ public class ClientEvents {
         }
 
         if (tooltips.isEmpty()) {
-            event.getToolTip().add(new TranslationTextComponent("enchant.desc.empty").applyTextStyle(TextFormatting.GRAY));
+            event.getToolTip().add(new TranslationTextComponent("enchant.desc.empty").func_240699_a_(TextFormatting.GRAY));
             return;
         }
 
         if (player == null) {
             event.getToolTip().add(new StringTextComponent("Enchantability:"));
             for (ITextComponent tooltip : tooltips) {
-                ITextComponent text = new StringTextComponent(" - ");
-                text.appendSibling(tooltip);
+                IFormattableTextComponent text = new StringTextComponent(" - ");
+                text.func_230529_a_(tooltip);
                 event.getToolTip().add(text);
             }
         } else {
             if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
-                event.getToolTip().add(new StringTextComponent("Enchantability:").applyTextStyle(TextFormatting.GOLD));
+                event.getToolTip().add(new StringTextComponent("Enchantability:").func_240699_a_(TextFormatting.GOLD));
                 for (ITextComponent tooltip : tooltips) {
-                    ITextComponent text = new StringTextComponent(" - ").applyTextStyle(TextFormatting.BLUE);
-                    text.appendSibling(tooltip);
+                    IFormattableTextComponent text = new StringTextComponent(" - ").func_240699_a_(TextFormatting.BLUE);
+                    text.func_230529_a_(tooltip);
                     event.getToolTip().add(text);
                 }
             } else {
-                event.getToolTip().add(new TranslationTextComponent("enchant.desc.short").applyTextStyle(TextFormatting.GRAY));
+                event.getToolTip().add(new TranslationTextComponent("enchant.desc.short").func_240699_a_(TextFormatting.GRAY));
             }
         }
     }
@@ -95,7 +92,7 @@ public class ClientEvents {
         if (item.getItem() != WitherHeartItem.WITHER_HEART)
             return;
 
-        ITextComponent translation;
+        IFormattableTextComponent translation;
 
         if (item.getTag() == null || event.getPlayer() == null) {
             translation = new TranslationTextComponent("wither_heart.tooltip.no_owner");
@@ -105,7 +102,7 @@ public class ClientEvents {
             translation = new TranslationTextComponent("wither_heart.tooltip.heart_owner", ownerName);
         }
 
-        event.getToolTip().add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").applyTextStyle(TextFormatting.RED));
-        event.getToolTip().add(translation.applyTextStyle(TextFormatting.WHITE));
+        event.getToolTip().add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").func_240699_a_(TextFormatting.RED));
+        event.getToolTip().add(translation.func_240699_a_(TextFormatting.WHITE));
     }
 }

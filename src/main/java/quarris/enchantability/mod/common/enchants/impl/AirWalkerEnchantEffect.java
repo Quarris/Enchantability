@@ -25,12 +25,12 @@ public class AirWalkerEnchantEffect extends AbstractEnchantEffect {
         PlayerEntity player = effect.player;
         if (!player.world.isRemote() && event.phase == TickEvent.Phase.END) {
             World world = player.world;
-            if (player.isShiftKeyDown() || (player.onGround && world.getBlockState(new BlockPos(player).down()).getBlock() == ModRef.AIR)) {
-                BlockPos pos = new BlockPos(player);
+            if (player.isSneaking() || (player.func_233570_aj_() && world.getBlockState(player.func_233580_cy_().down()).getBlock() == ModRef.AIR)) {
+                BlockPos pos = player.func_233580_cy_();
                 float f = (float) Math.min(4, effect.level());
                 BlockPos.Mutable mutPosUp = new BlockPos.Mutable(0, 0, 0);
 
-                for (BlockPos mutPos : BlockPos.getAllInBoxMutable(pos.add((double) (-f), -1.0D, (double) (-f)), pos.add((double) f, -1.0D, (double) f))) {
+                for (BlockPos mutPos : BlockPos.getAllInBoxMutable(pos.add(-f, -1.0D, -f), pos.add(f, -1.0D, f))) {
                     if (mutPos.distanceSq(player.getPosX(), player.getPosY(), player.getPosZ(), true) <= (double) (f * f)) {
                         mutPosUp.setPos(mutPos.getX(), mutPos.getY() + 1, mutPos.getZ());
                         BlockState stateUp = world.getBlockState(mutPosUp);

@@ -5,6 +5,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeMod;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 
@@ -18,7 +19,7 @@ public class GravityEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onApplied() {
-        this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).applyModifier(new AttributeModifier(
+        this.player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).func_233769_c_(new AttributeModifier(
                 ModRef.ENCHANT_UUID,
                 NAME::toString,
                 -this.level() * 0.01f,
@@ -28,12 +29,12 @@ public class GravityEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onRemoved() {
-        this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).removeModifier(ModRef.ENCHANT_UUID);
+        this.player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).removeModifier(ModRef.ENCHANT_UUID);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        if (this.player.getAttribute(PlayerEntity.ENTITY_GRAVITY).getModifier(ModRef.ENCHANT_UUID) == null) {
+        if (this.player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).getModifier(ModRef.ENCHANT_UUID) == null) {
             this.onApplied();
         }
     }

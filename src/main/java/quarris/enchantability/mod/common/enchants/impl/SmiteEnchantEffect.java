@@ -2,6 +2,7 @@ package quarris.enchantability.mod.common.enchants.impl;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -9,7 +10,6 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
@@ -32,10 +32,11 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
                 float chance = 0.05f * effect.level();
                 if (chance >= ModUtil.RANDOM.nextFloat()) {
                     Entity target = event.getTarget();
-                    LightningBoltEntity bolt = new LightningBoltEntity(player.world, target.getPosX(), target.getPosY(), target.getPosZ(), false);
+                    LightningBoltEntity bolt = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, player.world);
+                    bolt.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
                     bolt.setCaster((ServerPlayerEntity)player);
                     bolt.getPersistentData().putUniqueId("Enchantibility", player.getUniqueID());
-                    ((ServerWorld)player.world).addLightningBolt(bolt);
+                    player.world.addEntity(bolt);
                 }
             }
         }

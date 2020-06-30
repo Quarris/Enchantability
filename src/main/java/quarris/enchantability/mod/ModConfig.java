@@ -2,8 +2,8 @@ package quarris.enchantability.mod;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
@@ -164,7 +164,7 @@ public class ModConfig {
         }
 
         for (String tagName : this.dexterityTags.get()) {
-            Tag<Item> tag = ItemTags.getCollection().get(new ResourceLocation(tagName));
+            ITag<Item> tag = ItemTags.getCollection().get(new ResourceLocation(tagName));
 
             if (tag != null) {
                 EnchantabilityApi.addToDexterityList(tag);
@@ -175,7 +175,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultTags() {
-        Tag[] tags = new Tag[]{
+        ITag.INamedTag<Item>[] tags = new ITag.INamedTag[]{
                 Tags.Items.SANDSTONE,
                 Tags.Items.RODS_WOODEN,
                 ItemTags.FENCES,
@@ -192,7 +192,7 @@ public class ModConfig {
         };
 
         return Arrays.stream(tags)
-                .map(tag -> tag.getId().toString())
+                .map(tag -> tag.func_230234_a_().toString())
                 .collect(Collectors.toList());
     }
 
@@ -210,7 +210,7 @@ public class ModConfig {
     }
 
     private static List<String> defaultTileBlacklist() {
-        TileEntityType[] types = new TileEntityType[]{
+        TileEntityType<?>[] types = new TileEntityType[]{
                 TileEntityType.HOPPER,
                 TileEntityType.PISTON,
                 TileEntityType.BEACON,

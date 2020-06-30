@@ -8,6 +8,7 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -97,7 +98,7 @@ public class Enchants {
         }
 
         if (config.enableVoid.get()) {
-            registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
+            //TODO registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
         }
 
         // Components
@@ -182,6 +183,13 @@ public class Enchants {
 
         if (config.enableSmite.get()) {
             registerComponent(SmiteEnchantEffect.NAME, AttackEntityEvent.class, SmiteEnchantEffect::smite, e -> Collections.singleton(e.getPlayer()));
+            registerComponent(SmiteEnchantEffect.NAME, EntityStruckByLightningEvent.class, SmiteEnchantEffect::avoidPlayer, e -> {
+                if (e.getEntity() instanceof PlayerEntity) {
+                    return Collections.singleton((PlayerEntity)e.getEntity());
+                }
+
+                return Collections.emptyList();
+            });
         }
 
         if (config.enableStrike.get()) {
@@ -206,7 +214,7 @@ public class Enchants {
         }
 
         if (config.enableVoid.get()) {
-            registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
+            //TODO registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
         }
     }
 

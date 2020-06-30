@@ -39,7 +39,7 @@ public class HeatEnchantEffect extends AbstractEnchantEffect {
             List<String> tileBlacklist = config.tileBlacklist.get();
             boolean treatAsWhitelist = config.treatBlacklistAsWhitelist.get();
 
-            List<TileEntity> tiles = getTileEntitiesInArea(world, player.getPosition(), 32);
+            List<TileEntity> tiles = getTileEntitiesInArea(world, player.func_233580_cy_(), 32);
             for (TileEntity tile : tiles) {
                 if (tile instanceof ITickableTileEntity) {
                     if (treatAsWhitelist == tileBlacklist.contains(tile.getType().getRegistryName().toString())) {

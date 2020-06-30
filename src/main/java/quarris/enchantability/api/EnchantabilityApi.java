@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -31,7 +32,7 @@ public class EnchantabilityApi {
     private static IInternals internals = null;
 
     public static final List<ItemStack> DEXTERITY_ITEMSTACKS = new ArrayList<>();
-    public static final List<Tag<Item>> DEXTERITY_TAGS = new ArrayList<>();
+    public static final List<ITag<Item>> DEXTERITY_TAGS = new ArrayList<>();
     public static final Multimap<Food, BiConsumer<GluttonyEnchantEffect, ItemStack>> GLUTTONY_FOODS = HashMultimap.create();
 
     @CapabilityInject(IPlayerEnchant.class)
@@ -46,7 +47,7 @@ public class EnchantabilityApi {
             if (obj instanceof Item) {
                 EnchantabilityApi.DEXTERITY_ITEMSTACKS.add(new ItemStack((Item) obj));
             } else if (obj instanceof Tag) {
-                EnchantabilityApi.DEXTERITY_TAGS.add((Tag<Item>) obj);
+                EnchantabilityApi.DEXTERITY_TAGS.add((ITag<Item>) obj);
             } else {
                 ModRef.LOGGER.error("Tried to add an object to the dexterity list of wrong type");
             }

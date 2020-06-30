@@ -44,7 +44,7 @@ public class EnderChestInteractPacket {
                     EnchButton button = new EnchButton(screen.getGuiLeft() - 18, screen.getGuiTop() + 143, false);
                     try {
                         if (ADD_BUTTON_METHOD == null)
-                            ADD_BUTTON_METHOD = ObfuscationReflectionHelper.findMethod(Screen.class, "addButton", Widget.class);
+                            ADD_BUTTON_METHOD = ObfuscationReflectionHelper.findMethod(Screen.class, "func_230480_a_", Widget.class);
                         ADD_BUTTON_METHOD.invoke(screen, button);
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();

@@ -45,7 +45,7 @@ public class WitherHeartItem extends Item {
                 player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap -> cap.setExtended(true));
                 player.sendStatusMessage(new TranslationTextComponent("wither_heart.eaten"), true);
             } else {
-                player.sendStatusMessage(new TranslationTextComponent("wither_heart.not_worthy").applyTextStyle(TextFormatting.RED), true);
+                player.sendStatusMessage(new TranslationTextComponent("wither_heart.not_worthy").func_240699_a_(TextFormatting.RED), true);
             }
         }
         return super.onItemUseFinish(stack, worldIn, entity);

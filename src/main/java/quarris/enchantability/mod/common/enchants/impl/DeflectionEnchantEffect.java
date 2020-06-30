@@ -7,7 +7,7 @@ import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
@@ -28,10 +28,10 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
             if (chance >= ModUtil.RANDOM.nextFloat()) {
                 Entity projectile = event.getEntity();
                 System.out.println(projectile);
-                Vec3d motion = projectile.getMotion();
+                Vector3d motion = projectile.getMotion();
                 shoot(projectile, -motion.x, -motion.y, -motion.z, (float) motion.length() / 2f, 0);
                 ServerWorld world = (ServerWorld) effect.player.world;
-                world.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(projectile.getPosition()), false)
+                world.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(projectile.func_233580_cy_()), false)
                         .forEach(player -> player.connection.sendPacket(new SEntityVelocityPacket(projectile)));
                 event.setCanceled(true);
             }
@@ -39,7 +39,7 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
     }
 
     private static void shoot(Entity entity, double x, double y, double z, float velocity, float inaccuracy) {
-        Vec3d vec3d = (new Vec3d(x, y, z)).normalize().add(entity.world.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, entity.world.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, entity.world.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy).scale((double) velocity);
+        Vector3d vec3d = (new Vector3d(x, y, z)).normalize().add(entity.world.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, entity.world.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, entity.world.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy).scale((double) velocity);
         entity.setMotion(vec3d);
         float f = MathHelper.sqrt(vec3d.x * vec3d.x + vec3d.z * vec3d.z);
         entity.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));

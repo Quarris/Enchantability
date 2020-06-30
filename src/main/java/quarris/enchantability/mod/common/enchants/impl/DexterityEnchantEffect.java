@@ -5,7 +5,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -43,8 +43,8 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                     }
                 }
 
-                for (Tag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
-                    if (tag.contains(output.getItem())) {
+                for (ITag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
+                    if (tag.func_230236_b_().contains(output.getItem())) {
                         ItemStack copy = output.copy();
                         copy.setCount(1);
                         ItemEntity item = new ItemEntity(player.world, player.getPosX(), player.getPosY(), player.getPosZ(), copy);
@@ -71,8 +71,8 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
         }
 
         if (!shouldAddTooltip) {
-            for (Tag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
-                if (tag.contains(event.getItemStack().getItem())) {
+            for (ITag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
+                if (tag.func_230236_b_().contains(event.getItemStack().getItem())) {
                     shouldAddTooltip = true;
                     break;
                 }

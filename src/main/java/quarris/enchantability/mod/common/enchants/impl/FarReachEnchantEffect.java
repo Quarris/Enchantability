@@ -5,6 +5,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeMod;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
 
@@ -18,7 +19,7 @@ public class FarReachEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onApplied() {
-        this.player.getAttribute(PlayerEntity.REACH_DISTANCE).applyModifier(new AttributeModifier(
+        this.player.getAttribute(ForgeMod.REACH_DISTANCE.get()).func_233769_c_(new AttributeModifier(
                 ModRef.ENCHANT_UUID,
                 NAME::toString,
                 this.level() * 2,
@@ -28,12 +29,12 @@ public class FarReachEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onRemoved() {
-        this.player.getAttribute(PlayerEntity.REACH_DISTANCE).removeModifier(ModRef.ENCHANT_UUID);
+        this.player.getAttribute(ForgeMod.REACH_DISTANCE.get()).removeModifier(ModRef.ENCHANT_UUID);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        if (this.player.getAttribute(PlayerEntity.REACH_DISTANCE).getModifier(ModRef.ENCHANT_UUID) == null) {
+        if (this.player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getModifier(ModRef.ENCHANT_UUID) == null) {
             this.onApplied();
         }
     }

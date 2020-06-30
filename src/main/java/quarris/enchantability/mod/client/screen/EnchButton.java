@@ -1,5 +1,6 @@
 package quarris.enchantability.mod.client.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
@@ -26,7 +27,7 @@ public class EnchButton extends ImageButton {
     }
 
     @Override
-    public void renderButton(int mouseX, int mouseY, float partialTicks) {
+    public void func_230431_b_(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(TEXTURE);
         RenderSystem.disableDepthTest();
@@ -34,11 +35,11 @@ public class EnchButton extends ImageButton {
         if (this.pressed) {
             j = 16;
         }
-        if (!this.isHovered()) {
-            RenderSystem.color3f(0.75f, 0.75f, 0.75f);
+        if (!this.func_230449_g_()) {
+            RenderSystem.clearColor(0.75f, 0.75f, 0.75f, 1f);
         }
 
-        blit(this.x, this.y, 0, j, this.width, this.height, 256, 256);
+        func_238463_a_(matrix, this.field_230690_l_, this.field_230691_m_, 0, j, this.field_230688_j_, this.field_230689_k_, 256, 256);
         RenderSystem.enableDepthTest();
     }
 

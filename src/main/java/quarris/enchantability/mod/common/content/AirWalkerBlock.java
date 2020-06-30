@@ -10,7 +10,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.common.enchants.impl.AirWalkerEnchantEffect;
@@ -59,11 +58,6 @@ public class AirWalkerBlock extends Block {
     @Override
     public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return VoxelShapes.empty();
-    }
-
-    @Override
-    public int tickRate(IWorldReader worldIn) {
-        return 3;
     }
 
     @Override
