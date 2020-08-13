@@ -20,7 +20,7 @@ import quarris.enchantability.mod.common.util.ModUtil;
 @Mod(ModRef.ID)
 public class Enchantability {
 
-    public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static CommonProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public Enchantability() {
         EnchantabilityApi.setInternals(new Internals());

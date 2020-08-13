@@ -98,7 +98,7 @@ public class Enchants {
         }
 
         if (config.enableVoid.get()) {
-            //TODO registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
+            registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
         }
 
         // Components
@@ -214,7 +214,7 @@ public class Enchants {
         }
 
         if (config.enableVoid.get()) {
-            //TODO registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
+            registerComponent(VoidEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, VoidEnchantEffect::voidTeleport, e -> Collections.singleton(e.player));
         }
     }
 

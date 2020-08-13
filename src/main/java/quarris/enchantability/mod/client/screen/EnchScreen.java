@@ -48,7 +48,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
 
     @Override
     protected void func_230451_b_(MatrixStack matrix, int mouseX, int mouseY) {
-        this.field_230712_o_.func_238422_b_(matrix, this.field_230704_d_, 33.0F, 6.0F, 4210752);
-        this.field_230712_o_.func_238422_b_(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
+        this.field_230712_o_.func_243248_b(matrix, this.field_230704_d_, 33.0F, 6.0F, 4210752);
+        this.field_230712_o_.func_243248_b(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
     }
 }
