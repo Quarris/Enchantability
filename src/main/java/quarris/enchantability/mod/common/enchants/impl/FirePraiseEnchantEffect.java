@@ -21,7 +21,7 @@ public class FirePraiseEnchantEffect extends AbstractEnchantEffect {
     public static void praiseTheSun(FirePraiseEnchantEffect effect, TickEvent.PlayerTickEvent event) {
         // Code modified from MonkMod by RWTema
         PlayerEntity player = effect.player;
-        double celestialAngle = player.world.getCelestialAngle(0) * Math.PI * 2;
+        double celestialAngle = player.world.getCelestialAngleRadians(0) * Math.PI * 2;
         double sunHeight = Math.cos(celestialAngle);
         Vector3d vec3d1 = player.getLook(1.0F);
         Vector3d sunDir = new Vector3d(-Math.sin(celestialAngle), sunHeight, 0);

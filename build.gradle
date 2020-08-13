@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-def mcVersion = '1.16.1'
+def mcVersion = '1.16.2'
 version = '8.1'
 group = 'quarris.enchantability' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Enchantability'
@@ -93,11 +93,12 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.1-32.0.30'
+    minecraft 'net.minecraftforge:forge:1.16.2-33.0.2'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
+    archiveName = "${baseName}-${mcVersion}-${version}.${extension}"
     manifest {
         attributes([
                 "Specification-Title"     : "Enchantability",

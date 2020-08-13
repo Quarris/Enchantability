@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
@@ -32,10 +33,11 @@ public class LureEnchantEffect extends AbstractEnchantEffect {
             if (world.getGameTime() % 50 == 0 && world.getRandom().nextFloat() < 0.9f) {
                 Biome biome = world.getBiome(player.func_233580_cy_());
 
-                List<Biome.SpawnListEntry> spawns = biome.getSpawns(EntityClassification.CREATURE);
+                MobSpawnInfo spawnInfo = biome.func_242433_b();
+                List<MobSpawnInfo.Spawners> spawners = spawnInfo.func_242559_a(EntityClassification.CREATURE);
 
-                List<EntityType<?>> animalTypes = spawns.stream()
-                        .map(entry -> entry.entityType)
+                List<EntityType<?>> animalTypes = spawners.stream()
+                        .map(entry -> entry.field_242588_c)
                         .collect(Collectors.toList());
 
                 animalTypes.forEach(type -> System.out.println((type.getName())));

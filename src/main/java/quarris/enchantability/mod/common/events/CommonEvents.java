@@ -20,6 +20,7 @@ import net.minecraft.util.CombatTracker;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -30,7 +31,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 import org.apache.commons.lang3.tuple.Pair;
 import quarris.enchantability.api.EnchantabilityApi;
@@ -52,8 +52,8 @@ import java.util.UUID;
 public class CommonEvents {
 
     @SubscribeEvent
-    public static void registerCommands(FMLServerStartingEvent event) {
-        LiteralCommandNode<CommandSource> root = event.getCommandDispatcher().register(Commands.literal("ench")
+    public static void registerCommands(RegisterCommandsEvent event) {
+        LiteralCommandNode<CommandSource> root = event.getDispatcher().register(Commands.literal("ench")
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(Commands.argument("player", EntityArgument.player())
                         .then(Commands.literal("extended")
@@ -71,7 +71,7 @@ public class CommonEvents {
                                             return 1;
                                         })))));
 
-        event.getCommandDispatcher().register(Commands.literal("enchantability").requires(source -> source.hasPermissionLevel(2)).redirect(root));
+        event.getDispatcher().register(Commands.literal("enchantability").requires(source -> source.hasPermissionLevel(2)).redirect(root));
     }
 
     @SubscribeEvent
@@ -81,23 +81,12 @@ public class CommonEvents {
         }
     }
 
-    // TODO put into same method
     @SubscribeEvent
-    public static void openEnderChestContainer(PlayerContainerEvent.Open event) {
+    public static void enderChestContainerInteraction(PlayerContainerEvent event) {
         if (event.getContainer() instanceof ChestContainer) {
             ChestContainer cont = (ChestContainer) event.getContainer();
             if (cont.getLowerChestInventory() instanceof EnderChestInventory) {
-                PacketHandler.INSTANCE.sendTo(new EnderChestInteractPacket(true), ((ServerPlayerEntity) event.getPlayer()).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void closeEnderChestContainer(PlayerContainerEvent.Close event) {
-        if (event.getContainer() instanceof ChestContainer) {
-            ChestContainer cont = (ChestContainer) event.getContainer();
-            if (cont.getLowerChestInventory() instanceof EnderChestInventory) {
-                PacketHandler.INSTANCE.sendTo(new EnderChestInteractPacket(false), ((ServerPlayerEntity) event.getPlayer()).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+                PacketHandler.INSTANCE.sendTo(new EnderChestInteractPacket(event.getClass().equals(PlayerContainerEvent.Open.class)), ((ServerPlayerEntity) event.getPlayer()).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
             }
         }
     }
