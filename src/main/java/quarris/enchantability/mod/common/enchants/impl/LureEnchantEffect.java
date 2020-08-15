@@ -31,7 +31,7 @@ public class LureEnchantEffect extends AbstractEnchantEffect {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             ServerWorld world = (ServerWorld) event.player.world;
             if (world.getGameTime() % 50 == 0 && world.getRandom().nextFloat() < 0.9f) {
-                Biome biome = world.getBiome(player.func_233580_cy_());
+                Biome biome = world.getBiome(player.getPosition());
 
                 MobSpawnInfo spawnInfo = biome.func_242433_b();
                 List<MobSpawnInfo.Spawners> spawners = spawnInfo.func_242559_a(EntityClassification.CREATURE);

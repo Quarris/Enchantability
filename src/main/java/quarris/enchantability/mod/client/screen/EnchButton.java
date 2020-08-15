@@ -27,7 +27,7 @@ public class EnchButton extends ImageButton {
     }
 
     @Override
-    public void func_230431_b_(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
+    public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(TEXTURE);
         RenderSystem.disableDepthTest();
@@ -35,11 +35,11 @@ public class EnchButton extends ImageButton {
         if (this.pressed) {
             j = 16;
         }
-        if (!this.func_230449_g_()) {
+        if (!this.isHovered()) {
             RenderSystem.clearColor(0.75f, 0.75f, 0.75f, 1f);
         }
 
-        func_238463_a_(matrix, this.field_230690_l_, this.field_230691_m_, 0, j, this.field_230688_j_, this.field_230689_k_, 256, 256);
+        blit(matrix, this.x, this.y, 0, j, this.getWidth(), this.getHeight(), 256, 256);
         RenderSystem.enableDepthTest();
     }
 

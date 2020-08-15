@@ -25,7 +25,7 @@ public class FirePraiseEnchantEffect extends AbstractEnchantEffect {
         double sunHeight = Math.cos(celestialAngle);
         Vector3d vec3d1 = player.getLook(1.0F);
         Vector3d sunDir = new Vector3d(-Math.sin(celestialAngle), sunHeight, 0);
-        if (player.world.canBlockSeeSky(player.func_233580_cy_())) {
+        if (player.world.canBlockSeeSky(player.getPosition())) {
             if (sunHeight >= 0 && sunDir.dotProduct(vec3d1) > 0.996) {
                 PotionEffectHelper.applyPotionEffectAtInterval(player, Effects.REGENERATION, 20, 80, effect.level()-1, true);
             }

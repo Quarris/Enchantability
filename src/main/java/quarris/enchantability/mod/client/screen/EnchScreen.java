@@ -21,34 +21,34 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
     }
 
     @Override
-    protected void func_231160_c_() {
-        super.func_231160_c_();
+    protected void init() {
+        super.init();
         this.xSize = 201;
         this.ySize = 167;
         this.guiLeft -= 25;
         this.guiTop -= 1;
-        this.func_230480_a_(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
+        this.addButton(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
         GLFW.glfwSetCursorPos(Minecraft.getInstance().getMainWindow().getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
     }
 
     @Override
-    public void func_230430_a_(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
-        this.func_230446_a_(matrix);
-        super.func_230430_a_(matrix, mouseX, mouseY, partialTicks);
+    public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrix);
+        super.render(matrix, mouseX, mouseY, partialTicks);
         this.func_230459_a_(matrix, mouseX, mouseY);
     }
 
     @Override
-    protected void func_230450_a_(MatrixStack matrix, float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrix, float partialTicks, int mouseX, int mouseY) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(this.container.enchant.isExtended() ? EXTENDED_TEXTURE : TEXTURE);
 
-        this.func_238474_b_(matrix, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(matrix, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     @Override
-    protected void func_230451_b_(MatrixStack matrix, int mouseX, int mouseY) {
-        this.field_230712_o_.func_243248_b(matrix, this.field_230704_d_, 33.0F, 6.0F, 4210752);
-        this.field_230712_o_.func_243248_b(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
+        this.font.func_243248_b(matrix, this.title, 33.0F, 6.0F, 4210752);
+        this.font.func_243248_b(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
     }
 }

@@ -192,7 +192,7 @@ public class ModConfig {
         };
 
         return Arrays.stream(tags)
-                .map(tag -> tag.func_230234_a_().toString())
+                .map(tag -> tag.getName().toString())
                 .collect(Collectors.toList());
     }
 

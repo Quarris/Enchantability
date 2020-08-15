@@ -44,7 +44,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
                 }
 
                 for (ITag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
-                    if (tag.func_230236_b_().contains(output.getItem())) {
+                    if (tag.contains(output.getItem())) {
                         ItemStack copy = output.copy();
                         copy.setCount(1);
                         ItemEntity item = new ItemEntity(player.world, player.getPosX(), player.getPosY(), player.getPosZ(), copy);
@@ -72,7 +72,7 @@ public class DexterityEnchantEffect extends AbstractEnchantEffect {
 
         if (!shouldAddTooltip) {
             for (ITag<Item> tag : EnchantabilityApi.DEXTERITY_TAGS) {
-                if (tag.func_230236_b_().contains(event.getItemStack().getItem())) {
+                if (tag.contains(event.getItemStack().getItem())) {
                     shouldAddTooltip = true;
                     break;
                 }

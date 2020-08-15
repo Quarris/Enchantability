@@ -61,7 +61,7 @@ public class ClientEvents {
         }
 
         if (tooltips.isEmpty()) {
-            event.getToolTip().add(new TranslationTextComponent("enchant.desc.empty").func_240699_a_(TextFormatting.GRAY));
+            event.getToolTip().add(new TranslationTextComponent("enchant.desc.empty").mergeStyle(TextFormatting.GRAY));
             return;
         }
 
@@ -69,19 +69,19 @@ public class ClientEvents {
             event.getToolTip().add(new StringTextComponent("Enchantability:"));
             for (ITextComponent tooltip : tooltips) {
                 IFormattableTextComponent text = new StringTextComponent(" - ");
-                text.func_230529_a_(tooltip);
+                text.append(tooltip);
                 event.getToolTip().add(text);
             }
         } else {
             if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
-                event.getToolTip().add(new StringTextComponent("Enchantability:").func_240699_a_(TextFormatting.GOLD));
+                event.getToolTip().add(new StringTextComponent("Enchantability:").mergeStyle(TextFormatting.GOLD));
                 for (ITextComponent tooltip : tooltips) {
-                    IFormattableTextComponent text = new StringTextComponent(" - ").func_240699_a_(TextFormatting.BLUE);
-                    text.func_230529_a_(tooltip);
+                    IFormattableTextComponent text = new StringTextComponent(" - ").mergeStyle(TextFormatting.BLUE);
+                    text.append(tooltip);
                     event.getToolTip().add(text);
                 }
             } else {
-                event.getToolTip().add(new TranslationTextComponent("enchant.desc.short").func_240699_a_(TextFormatting.GRAY));
+                event.getToolTip().add(new TranslationTextComponent("enchant.desc.short").mergeStyle(TextFormatting.GRAY));
             }
         }
     }
@@ -102,7 +102,7 @@ public class ClientEvents {
             translation = new TranslationTextComponent("wither_heart.tooltip.heart_owner", ownerName);
         }
 
-        event.getToolTip().add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").func_240699_a_(TextFormatting.RED));
-        event.getToolTip().add(translation.func_240699_a_(TextFormatting.WHITE));
+        event.getToolTip().add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").mergeStyle(TextFormatting.RED));
+        event.getToolTip().add(translation.mergeStyle(TextFormatting.WHITE));
     }
 }

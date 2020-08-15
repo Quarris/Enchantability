@@ -29,7 +29,7 @@ public class VoidEnchantEffect extends AbstractEnchantEffect {
                 return;
 
             if (playerWorld.func_234923_W_().func_240901_a_().equals(DimensionType.field_242712_c) && player.getPosY() <= -60) {
-                player.func_241206_a_(toWorld);
+                player.changeDimension(toWorld);
             }
         }
     }

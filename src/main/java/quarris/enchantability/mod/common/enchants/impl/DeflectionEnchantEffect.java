@@ -31,7 +31,7 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
                 Vector3d motion = projectile.getMotion();
                 shoot(projectile, -motion.x, -motion.y, -motion.z, (float) motion.length() / 2f, 0);
                 ServerWorld world = (ServerWorld) effect.player.world;
-                world.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(projectile.func_233580_cy_()), false)
+                world.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(projectile.getPosition()), false)
                         .forEach(player -> player.connection.sendPacket(new SEntityVelocityPacket(projectile)));
                 event.setCanceled(true);
             }

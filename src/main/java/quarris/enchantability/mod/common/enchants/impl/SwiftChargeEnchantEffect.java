@@ -30,16 +30,14 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onApplied() {
-        // Attack Speed Attribute
-        player.getAttribute(Attributes.field_233825_h_).func_233769_c_(new AttributeModifier(
+        player.getAttribute(Attributes.ATTACK_SPEED).applyPersistentModifier(new AttributeModifier(
                 ModRef.ENCHANT_UUID, NAME::toString, this.level()/2f, AttributeModifier.Operation.ADDITION
         ));
     }
 
     @Override
     public void onRemoved() {
-        // Attack Speed Attribute
-        player.getAttribute(Attributes.field_233825_h_).removeModifier(ModRef.ENCHANT_UUID);
+        player.getAttribute(Attributes.ATTACK_SPEED).removeModifier(ModRef.ENCHANT_UUID);
     }
 
     public static void itemUse(SwiftChargeEnchantEffect effect, LivingEntityUseItemEvent.Start event) {
@@ -74,8 +72,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        // Attack Speed Attribute
-        if (this.player.getAttribute(Attributes.field_233825_h_).getModifier(ModRef.ENCHANT_UUID) == null) {
+        if (this.player.getAttribute(Attributes.ATTACK_SPEED).getModifier(ModRef.ENCHANT_UUID) == null) {
             this.onApplied();
         }
     }
