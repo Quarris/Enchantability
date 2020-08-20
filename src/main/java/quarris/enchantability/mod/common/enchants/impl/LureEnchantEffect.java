@@ -49,7 +49,7 @@ public class LureEnchantEffect extends AbstractEnchantEffect {
 
                 Entity animal = type.create(world);
                 if (animal != null) {
-                    animal.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+                    animal.setPositionAndRotation(player.getPosX(), player.getPosY(), player.getPosZ(), 360 * (float)Math.random(), 0);
                     world.addEntity(animal);
                 }
             }
