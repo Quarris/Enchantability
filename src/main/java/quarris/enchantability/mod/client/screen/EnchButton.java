@@ -39,7 +39,7 @@ public class EnchButton extends ImageButton {
             RenderSystem.clearColor(0.75f, 0.75f, 0.75f, 1f);
         }
 
-        blit(matrix, this.x, this.y, 0, j, this.getWidth(), this.getHeight(), 256, 256);
+        blit(matrix, this.x, this.y, 0, j, this.getWidth(), this.getWidth_CLASH(), 256, 256);
         RenderSystem.enableDepthTest();
     }
 
