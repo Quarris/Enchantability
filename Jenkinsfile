@@ -15,7 +15,7 @@ pipeline {
 
     stage('Publish') {
       when { 
-        branch 'master' 
+        branch '1.15'
       }
       steps {
         sh './gradlew publish'
