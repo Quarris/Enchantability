@@ -9,10 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -165,6 +162,13 @@ public class Enchants {
                             Collections.emptyList()
             );
             GluttonyEnchantEffect.GluttonyFoods.initMendingFoods();
+        }
+
+        if (config.enableGravity.get()) {
+            registerComponent(GravityEnchantEffect.NAME, LivingFallEvent.class, GravityEnchantEffect::reduceFallDamage,
+                    e -> e.getEntity() instanceof PlayerEntity ?
+                            Collections.singleton((PlayerEntity) e.getEntity()) :
+                            Collections.emptyList());
         }
 
         if (config.enableHeat.get()) {
