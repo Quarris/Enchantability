@@ -12,7 +12,7 @@ import quarris.enchantability.mod.common.util.ModRef;
 
 public class GravityEnchantEffect extends AbstractEnchantEffect {
 
-    private static final float[] DISTANCE_REDUCTIONS = new float[] {0.1387018f, 0.333524f, 0.9101194f, 2.079199f};
+    private static final float[] DISTANCE_REDUCTIONS = new float[]{0.1387018f, 0.333524f, 0.9101194f, 2.079199f};
 
     public static final ResourceLocation NAME = ModRef.createRes("gravity");
 
@@ -21,11 +21,7 @@ public class GravityEnchantEffect extends AbstractEnchantEffect {
     }
 
     public static void reduceFallDamage(GravityEnchantEffect effect, LivingFallEvent event) {
-        event.setDistance(event.getDistance() - DISTANCE_REDUCTIONS[effect.level()-1]);
-        if (!effect.player.world.isRemote()) {
-            System.out.println("Level: " + effect.level());
-            System.out.println("Distance: " + event.getDistance());
-        }
+        event.setDistance(event.getDistance() - DISTANCE_REDUCTIONS[effect.level() - 1]);
     }
 
     @Override
