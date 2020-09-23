@@ -13,10 +13,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-def mcVersion = '1.15.2'
 version = '8.1'
 group = 'quarris.enchantability' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'Enchantability'
+archivesBaseName = 'Enchantability-1.15'
 
 if (System.getenv('BUILD_NUMBER') != null) {
     version += "." + System.getenv('BUILD_NUMBER')
@@ -113,7 +112,7 @@ jar {
 
 task sourcesJar(type: Jar) {
     from(sourceSets.main.allSource)
-    archiveName = "${baseName}-${mcVersion}-${version}-sources.${extension}"
+    archiveName = "${baseName}-${version}-sources.${extension}"
 }
 
 artifacts {
