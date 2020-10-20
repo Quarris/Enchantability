@@ -13,5 +13,11 @@
         "nbt": {
             "patchouli:book": "enchantability:book"
         }
-    }
+    },
+    "conditions": [
+        {
+            "type": "forge:item_exists",
+            "item": "patchouli:guide_book"
+        }
+    ]
 }
