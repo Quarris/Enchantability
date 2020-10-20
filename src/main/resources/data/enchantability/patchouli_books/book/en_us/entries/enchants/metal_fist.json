@@ -1,0 +1,13 @@
+{
+    "name": "Metal Fist",
+    "icon": "minecraft:iron_ingot",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:metal_fist",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:sharpness', lvl:1}]}",
+            "text": "Metal Fist uses the $(d)Sharpness$() enchantment to allow you to mine $(l)tougher materials$() with you bare fists. It also increases the break speed of breaking them if you have $(d)Sharpness 5+$()."
+        }
+    ]
+}

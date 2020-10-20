@@ -11,12 +11,12 @@ import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.client.ClientProxy;
 import quarris.enchantability.mod.common.CommonProxy;
+import quarris.enchantability.mod.common.compat.CompatManager;
 import quarris.enchantability.mod.common.enchants.Enchants;
 import quarris.enchantability.mod.common.network.PacketHandler;
 import quarris.enchantability.mod.common.util.ModRef;
 import quarris.enchantability.mod.common.util.ModUtil;
 
-@SuppressWarnings("unused")
 @Mod(ModRef.ID)
 public class Enchantability {
 
@@ -33,6 +33,7 @@ public class Enchantability {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        CompatManager.init();
         PacketHandler.init();
         Enchants.registerEffect();
         ModUtil.registerCap(IPlayerEnchant.class);

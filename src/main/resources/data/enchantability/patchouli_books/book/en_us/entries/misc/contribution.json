@@ -1,0 +1,22 @@
+{
+    "name": "Contributions",
+    "icon": "minecraft:paper",
+    "category": "enchantability:misc",
+    "priority": true,
+    "pages": [
+        {
+            "type": "text",
+            "text": "I personally feel like this mod will never be complete. The ultimate goal is to add a meaningful and/or fun enchant to every enchantment into the game which is not an easy task."
+        },
+        {
+            "type": "text",
+            "title": "Additions and Remakes",
+            "text": "If you have any ideas on any of the enchantments, whether they are remakes of ones that are added, or ones which are not yet implemented, then please do let me know on $(l:https://github.com/Quarris/Enchantability/issues)Github$() page.$(br)If you do have ideas, you have to remember the principle of this mod; never replace the intent of the original enchantment. Attempt to add to the enchantment or have it reflect its name."
+        },
+        {
+            "type": "text",
+            "title": "Modded Enchantments",
+            "text": "I provide an $(l:https://github.com/Quarris/Enchantability/blob/master/src/main/java/quarris/enchantability/api)api package$() attached to my mod. I hope that it's enough for other authors to be able to add $(enchants) if they so desire. I will probably refrain from adding $(enchants) from other mods unless I make a dedicated addon for it."
+        }
+    ]
+}

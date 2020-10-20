@@ -1,0 +1,5 @@
+{
+    "name": "Miscellaneous",
+    "icon": "minecraft:writable_book",
+    "description": "This category contains various pages of things that are not $(enchants)."
+}

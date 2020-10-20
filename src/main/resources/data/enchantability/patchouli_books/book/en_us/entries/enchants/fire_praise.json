@@ -1,0 +1,13 @@
+{
+    "name": "Fire Praise",
+    "icon": "minecraft:sunflower",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:fire_praise",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:fire_aspect', lvl:1}]}",
+            "text": "Fire Praise uses the $(d)Fire Aspect$() enchantment and it gives you $(l)regeneration$() when you look at the sun during the day, and $(l)weakness$() at night at all times. Use it wisely."
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Fast Break",
+    "icon": "minecraft:diamond_pickaxe",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:fast_break",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:punch', lvl:1}]}",
+            "text": "Fast Break uses the $(d)Punch$() enchantment and simply increases you break speed with bare fists. This is one of many $(enchants) which requires bare fists."
+        }
+    ]
+}

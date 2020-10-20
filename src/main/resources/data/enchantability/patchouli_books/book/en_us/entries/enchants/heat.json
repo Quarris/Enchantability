@@ -1,0 +1,13 @@
+{
+    "name": "Heat",
+    "icon": "minecraft:furnace",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:heat",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:flame', lvl:1}]}",
+            "text": "Heat uses the $(d)Flame$() enchantment to speed up the $(l)Tile Entities$() around you. This simply causes the Tiles update multiple times in the same tick."
+        }
+    ]
+}

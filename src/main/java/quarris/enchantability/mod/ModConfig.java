@@ -31,6 +31,7 @@ public class ModConfig {
     public BooleanValue enableGluttony;
     public BooleanValue enableGravity;
     public BooleanValue enableHeat;
+    public BooleanValue enableLoyalty;
     public BooleanValue enableLure;
     public BooleanValue enableMetalFist;
     public BooleanValue enableSmite;
@@ -81,7 +82,7 @@ public class ModConfig {
         enableAdrenaline = builder.define("enableAdrenaline", true);
         enableAirWalker = builder.define("enableAirWalker", true);
         enableBlastResist = builder.define("enableBlastResist", true);
-        enableDeflection = builder.define("enableDeflection", true);
+        enableDeflection = builder.define("enableDeflection", false);
         enableDexterity = builder.define("enableDexterity", true);
         enableFarReach = builder.define("enableFarReach", true);
         enableFastBreak = builder.define("enableFastBreak", true);
@@ -89,7 +90,7 @@ public class ModConfig {
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
-        enableLure = builder.define("enableLure", true);
+        enableLure = builder.define("enableLure", false);
         enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);

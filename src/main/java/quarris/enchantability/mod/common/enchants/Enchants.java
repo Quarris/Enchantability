@@ -21,6 +21,7 @@ import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 import quarris.enchantability.mod.Enchantability;
 import quarris.enchantability.mod.ModConfig;
+import quarris.enchantability.mod.common.compat.CompatManager;
 import quarris.enchantability.mod.common.enchants.impl.*;
 
 import java.util.Collection;
@@ -34,66 +35,82 @@ public class Enchants {
         ModConfig config = ModConfig.get();
 
         // Effects
+        CompatManager.setPatchouliFlag(AdrenalineEnchantEffect.NAME.getPath(), config.enableAdrenaline.get());
         if (config.enableAdrenaline.get()) {
             registerEffect(AdrenalineEnchantEffect.NAME, Enchantments.RESPIRATION, AdrenalineEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(AirWalkerEnchantEffect.NAME.getPath(), config.enableAirWalker.get());
         if (config.enableAirWalker.get()) {
             registerEffect(AirWalkerEnchantEffect.NAME, Enchantments.FROST_WALKER, AirWalkerEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(BlastResistanceEnchantEffect.NAME.getPath(), config.enableBlastResist.get());
         if (config.enableBlastResist.get()) {
             registerEffect(BlastResistanceEnchantEffect.NAME, Enchantments.BLAST_PROTECTION, BlastResistanceEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(DeflectionEnchantEffect.NAME.getPath(), config.enableDeflection.get());
         if (config.enableDeflection.get()) {
             registerEffect(DeflectionEnchantEffect.NAME, Enchantments.PROJECTILE_PROTECTION, DeflectionEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(DexterityEnchantEffect.NAME.getPath(), config.enableDexterity.get());
         if (config.enableDexterity.get()) {
             registerEffect(DexterityEnchantEffect.NAME, Enchantments.EFFICIENCY, DexterityEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(FarReachEnchantEffect.NAME.getPath(), config.enableFarReach.get());
         if (config.enableFarReach.get()) {
             registerEffect(FarReachEnchantEffect.NAME, Enchantments.KNOCKBACK, FarReachEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(FastBreakEnchantEffect.NAME.getPath(), config.enableFastBreak.get());
         if (config.enableFastBreak.get()) {
             registerEffect(FastBreakEnchantEffect.NAME, Enchantments.PUNCH, FastBreakEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(FirePraiseEnchantEffect.NAME.getPath(), config.enableFirePraise.get());
         if (config.enableFirePraise.get()) {
             registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(GluttonyEnchantEffect.NAME.getPath(), config.enableGluttony.get());
         if (config.enableGluttony.get()) {
             registerEffect(GluttonyEnchantEffect.NAME, Enchantments.MENDING, GluttonyEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(GravityEnchantEffect.NAME.getPath(), config.enableGravity.get());
         if (config.enableGravity.get()) {
             registerEffect(GravityEnchantEffect.NAME, Enchantments.FEATHER_FALLING, GravityEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(HeatEnchantEffect.NAME.getPath(), config.enableHeat.get());
         if (config.enableHeat.get()) {
             registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(MetalFistEnchantEffect.NAME.getPath(), config.enableMetalFist.get());
         if (config.enableMetalFist.get()) {
             registerEffect(MetalFistEnchantEffect.NAME, Enchantments.SHARPNESS, MetalFistEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(SmiteEnchantEffect.NAME.getPath(), config.enableSmite.get());
         if (config.enableSmite.get()) {
             registerEffect(SmiteEnchantEffect.NAME, Enchantments.SMITE, SmiteEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(StrikeEnchantEffect.NAME.getPath(), config.enableStrike.get());
         if (config.enableStrike.get()) {
             registerEffect(StrikeEnchantEffect.NAME, Enchantments.POWER, StrikeEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(SwiftChargeEnchantEffect.NAME.getPath(), config.enableSwiftCharge.get());
         if (config.enableSwiftCharge.get()) {
             registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(VoidEnchantEffect.NAME.getPath(), config.enableVoid.get());
         if (config.enableVoid.get()) {
             registerEffect(VoidEnchantEffect.NAME, Enchantments.INFINITY, VoidEnchantEffect::new);
         }

@@ -1,0 +1,13 @@
+{
+    "name": "Void",
+    "icon": "minecraft:ender_pearl",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:void",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:infinity', lvl:1}]}",
+            "text": "Void uses the $(d)Infinity$() enchantment and allows you to safely fall into the void in $(l)The End$() and get teleported back to your spawn point."
+        }
+    ]
+}

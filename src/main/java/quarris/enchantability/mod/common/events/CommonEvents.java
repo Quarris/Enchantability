@@ -127,6 +127,7 @@ public class CommonEvents {
             CompoundNBT nbt = original.serializeNBT();
             IPlayerEnchant clone = e.getPlayer().getCapability(EnchantabilityApi.playerEnchant).orElse(null);
             clone.deserializeNBT(nbt);
+            clone.markDirty(true);
         } catch (Exception exp) {
             ModRef.LOGGER.warn("Failed to clone player " + e.getOriginal().getName(), exp);
         }
@@ -183,6 +184,4 @@ public class CommonEvents {
 
         event.setCanceled(true);
     }
-
-
 }

@@ -1,0 +1,13 @@
+{
+    "name": "Air Walker",
+    "icon": "minecraft:elytra",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:air_walker",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:frost_walker', lvl:1}]}",
+            "text": "Air Walker uses the $(d)Frost Walker$() enchantment to allow you to walk on air. It activates when you $(l)Sneak$() mid air and persists until you sprint jump off. It creates invisible blocks below you, which only you can collide with, and therefore only you can walk on."
+        }
+    ]
+}

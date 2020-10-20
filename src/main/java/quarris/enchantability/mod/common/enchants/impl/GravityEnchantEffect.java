@@ -26,7 +26,7 @@ public class GravityEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onApplied() {
-        this.player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).applyPersistentModifier(new AttributeModifier(
+        this.player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).applyNonPersistentModifier(new AttributeModifier(
                 ModRef.ENCHANT_UUID,
                 NAME::toString,
                 -this.level() * 0.0145f,

@@ -30,7 +30,7 @@ public class SwiftChargeEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onApplied() {
-        player.getAttribute(Attributes.ATTACK_SPEED).applyPersistentModifier(new AttributeModifier(
+        player.getAttribute(Attributes.ATTACK_SPEED).applyNonPersistentModifier(new AttributeModifier(
                 ModRef.ENCHANT_UUID, NAME::toString, this.level()/2f, AttributeModifier.Operation.ADDITION
         ));
     }

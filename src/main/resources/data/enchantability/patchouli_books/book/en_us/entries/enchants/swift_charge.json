@@ -1,0 +1,13 @@
+{
+    "name": "Swift Charge",
+    "icon": "minecraft:minecart",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:swift_charge",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:quick_charge', lvl:1}]}",
+            "text": "Swift Charge uses the $(d)Quick Charge$() enchantment and it speeds up certain actions, such as the sleep time, portal transition time, eating food and $(l)attack speed$()."
+        }
+    ]
+}

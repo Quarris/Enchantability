@@ -1,0 +1,13 @@
+{
+    "name": "Strike",
+    "icon": "minecraft:quartz",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:strike",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:power', lvl:1}]}",
+            "text": "Strike uses the $(d)Power$() enchantment and it increases the damage you deal with bare hands."
+        }
+    ]
+}

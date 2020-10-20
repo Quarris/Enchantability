@@ -15,6 +15,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import quarris.enchantability.api.EnchantabilityApi;
+import quarris.enchantability.api.IEffectSupplier;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.api.enchants.IEnchantEffect;
 import quarris.enchantability.mod.common.enchants.EnchantEffectRegistry;
@@ -147,9 +148,12 @@ public class PlayerEnchant extends ItemStackHandler implements IPlayerEnchant {
             ResourceLocation name = new ResourceLocation(tag.getString("Name"));
             int level = tag.getInt("Level");
             Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("Enchantment")));
-            IEnchantEffect effect = EnchantEffectRegistry.getEffect(name).create(this.getPlayer(), enchantment, level);
-            effect.deserializeNBT(tag);
-            this.getEnchants().add(effect);
+            IEffectSupplier supplier = EnchantEffectRegistry.getEffect(name);
+            if (supplier != null) {
+                IEnchantEffect effect = supplier.create(this.getPlayer(), enchantment, level);
+                effect.deserializeNBT(tag);
+                this.getEnchants().add(effect);
+            }
         }
     }
 }

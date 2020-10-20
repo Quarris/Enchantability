@@ -1,0 +1,17 @@
+{
+    "name": "Gravity",
+    "icon": "minecraft:feather",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:gravity",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:feather_falling', lvl:1}]}",
+            "text": "Gravity uses the $(d)Feather Falling$() enchantment to change you gravity, allowing you to jump much higher than normal."
+        },
+        {
+            "type": "text",
+            "text": "This $(enchant) will also slightly reduce fall damage so that you will not get damaged as you jump around. You can expect that the effect closely resembles the damage you would take if you didn't have it on. For example, if you $(l)jump$() off a 5 block cliff, you will take similar damage (as best as I could mimic it), even though your max height above the ground is higher. This is done to avoid you taking damage by just jumping, which Dire hates."
+        }
+    ]
+}

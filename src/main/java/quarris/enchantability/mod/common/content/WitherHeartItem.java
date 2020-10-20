@@ -1,5 +1,6 @@
 package quarris.enchantability.mod.common.content;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -7,11 +8,18 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
 import quarris.enchantability.api.EnchantabilityApi;
+
+import java.util.List;
+import java.util.UUID;
 
 public class WitherHeartItem extends Item {
 
@@ -49,5 +57,29 @@ public class WitherHeartItem extends Item {
             }
         }
         return super.onItemUseFinish(stack, worldIn, entity);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (stack.getItem() != WitherHeartItem.WITHER_HEART)
+            return;
+
+        IFormattableTextComponent translation;
+
+        if (stack.getTag() == null) {
+            translation = new TranslationTextComponent("wither_heart.tooltip.no_owner");
+        } else {
+            UUID ownerUUID = stack.getTag().contains("Owner") ?
+                    stack.getTag().getUniqueId("Owner") : null;
+            String ownerName = stack.getTag().contains("OwnerName") ?
+                    stack.getTag().getString("OwnerName") :
+                    "Unknown"+(ownerUUID == null ?
+                            "" : "{"+ownerUUID+"}");
+            translation = new TranslationTextComponent("wither_heart.tooltip.heart_owner", ownerName);
+        }
+
+        tooltip.add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").mergeStyle(TextFormatting.RED));
+        tooltip.add(translation.mergeStyle(TextFormatting.WHITE));
     }
 }

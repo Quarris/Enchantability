@@ -27,7 +27,6 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
             float chance = effect.level() * 0.2f;
             if (chance >= ModUtil.RANDOM.nextFloat()) {
                 Entity projectile = event.getEntity();
-                System.out.println(projectile);
                 Vector3d motion = projectile.getMotion();
                 shoot(projectile, -motion.x, -motion.y, -motion.z, (float) motion.length() / 2f, 0);
                 ServerWorld world = (ServerWorld) effect.player.world;
@@ -43,7 +42,7 @@ public class DeflectionEnchantEffect extends AbstractEnchantEffect {
         entity.setMotion(vec3d);
         float f = MathHelper.sqrt(vec3d.x * vec3d.x + vec3d.z * vec3d.z);
         entity.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
-        entity.rotationPitch = (float) (MathHelper.atan2(vec3d.y, (double) f) * (double) (180F / (float) Math.PI));
+        entity.rotationPitch = (float) (MathHelper.atan2(vec3d.y, f) * (double) (180F / (float) Math.PI));
         entity.prevRotationYaw = entity.rotationYaw;
         entity.prevRotationPitch = entity.rotationPitch;
         /* This works but there isn't a packet to update acceleration to the client

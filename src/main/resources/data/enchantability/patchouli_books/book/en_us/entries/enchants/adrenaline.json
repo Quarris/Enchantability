@@ -1,0 +1,17 @@
+{
+    "name": "Adrenaline",
+    "icon": "minecraft:sugar",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:adrenaline",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:respiration', lvl:1}]}",
+            "text": "Adrenaline uses the $(d)Respiration$() enchantment and gives you an immediate boost after $(l)taking a lot of damage$() or $(l)dealing a lot of damage$() in a $(l)short amount of time$().$(br)Once the effect activates, the enchant goes on cooldown for a duration; you will be notified when it is able to be activated again."
+        },
+        {
+            "type": "text",
+            "text": "Note: The same cooldown activates for both $(l)damage dealt$() and $(l)damage taken$() effects, so you will not be able to activate both effects until the cooldown has finished, unless you manage to activate both effects at the same time."
+        }
+    ]
+}

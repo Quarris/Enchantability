@@ -1,0 +1,17 @@
+{
+    "name": "Dexterity",
+    "icon": "minecraft:crafting_table",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:dexterity",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:efficiency', lvl:1}]}",
+            "text": "Dexterity uses the $(d)Efficiency$() enchantment allows you to be more effecient with your crafts. It increases the output of certain items defined by in the configs.$(br)Items affected by this $(enchant) will have a tooltip about it."
+        },
+        {
+            "type": "text",
+            "text": "(This $(enchant) is subject to change)"
+        }
+    ]
+}

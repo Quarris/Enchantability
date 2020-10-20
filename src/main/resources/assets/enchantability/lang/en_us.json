@@ -6,18 +6,18 @@
     "enchantability:adrenaline.enchant.desc": "Adrenaline: Gain boost when dealing or taking damage in a short time.",
     "enchantability:air_walker.enchant.desc": "Air Walker: Sneak to walk on air. Sprint jump to get off.",
     "enchantability:blast_resistance.enchant.desc": "Blast Resistance: Protect area from explosions which affected you.",
-    "enchantability:deflection.enchant.desc": "Deflection: Deflect projectiles.",
-    "enchantability:dexterity.enchant.desc": "Dexterity: Have a chance for increased crafting output.",
+    "enchantability:deflection.enchant.desc": "Deflection: Deflect projectiles. (Subject to change)",
+    "enchantability:dexterity.enchant.desc": "Dexterity: Have a chance for increased crafting output. (Subject to change)",
     "enchantability:far_reach.enchant.desc": "Far Reach: Increase reach.",
     "enchantability:fast_break.enchant.desc": "Fast Break: Break faster by hand.",
     "enchantability:fire_praise.enchant.desc": "Fire Praise: Get stronger when watching sun, but weaker at night.",
+    "enchantability:gluttony.enchant.desc": "Gluttony: Special effects when eating certain foods. (Subject to change)",
     "enchantability:gravity.enchant.desc": "Gravity: Have lowered gravity.",
     "enchantability:heat.enchant.desc": "Heat: Increased speed of tiles nearby the player.",
     "enchantability:metal_fist.enchant.desc": "Metal Fist: Mine tougher materials by hand.",
     "enchantability:smite.enchant.desc": "Smite: Summon Lightning at foes with your sword or axe.",
     "enchantability:strike.enchant.desc": "Strike: Increased punch damage.",
     "enchantability:void.enchant.desc": "Void: Teleport back when fallen into void in The End",
-    "enchantability:gluttony.enchant.desc": "Gluttony: Special effects when eating certain foods.",
     "enchantability:swift_charge.enchant.desc": "Swift Charge: Swiftly complete actions (Eating/Drinking, Swinging, etc.).",
 
     "enchantability:adrenaline.enchant.ready": "Your energy fades",
@@ -32,5 +32,10 @@
     "wither_heart.tooltip.heart_owner": "Worthy: %s",
     "wither_heart.already_eaten": "You have already eaten a Wither Heart",
     "wither_heart.not_worthy": "You were not worthy",
-    "wither_heart.eaten": "You feel empowered and unlocked a new slot for your enchants"
+    "wither_heart.eaten": "You feel empowered and unlocked a new slot for your enchants",
+
+    "enchantability.book.name": "Enchantability Guide",
+    "_enchantability.book.description": "$(E) allows you to enchant yourself using enchanted books.$(br)Simply open up an $(echest) and press the button on the bottom left to reveal the slots to put the enchanted books in.$(br)All enchantments which are available are listed in the $(enchants) category.",
+
+    "enchantability.book.description": "Welcome to $(E)! This is a simple guide to show you everything this mod has to offer. In this book I will try to describe everything the best I can! Visit the $(enchants) category to view how to equip the enchants. $(misc) category will show everything that is not an enchant, check it out to see how you can contribute if you have ideas!"
 }

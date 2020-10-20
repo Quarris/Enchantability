@@ -1,0 +1,13 @@
+{
+    "name": "Far Reach",
+    "icon": "minecraft:piston",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:far_reach",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:knockback', lvl:1}]}",
+            "text": "Far Reach uses the $(d)Knockback$() enchantment to extend how far you can reach. This increases your $(l)mining$(), $(l)placing$() and $(l)interaction$() distance."
+        }
+    ]
+}

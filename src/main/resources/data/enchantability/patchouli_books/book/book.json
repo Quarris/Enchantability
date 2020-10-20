@@ -1,0 +1,17 @@
+{
+    "name": "enchantability.book.name",
+    "landing_text": "enchantability.book.description",
+    "version": 1,
+    "model": "enchantability:book",
+    "show_progress": false,
+    "macros": {
+        "$(E)": "$(bold)$(6)Enchantability$()",
+        "$(echest)": "$(bold)$(d)Ender Chest$()",
+        "$(enchants)": "$(bold)$(2)Enchants$()",
+        "$(enchant)": "$(bold)$(2)Enchant$()",
+        "$(misc)": "$(bold)$(9)Miscellaneous$()",
+        "$(heart)": "$(bold)$(8)Wither Heart$()",
+        "$(terraria)": "$(bold)$(2)Terraria$()",
+        "$(dheart)": "$(bold)$(4)Demon Heart$()"
+    }
+}

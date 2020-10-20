@@ -35,7 +35,7 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
                     LightningBoltEntity bolt = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, player.world);
                     bolt.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
                     bolt.setCaster((ServerPlayerEntity)player);
-                    bolt.getPersistentData().putUniqueId("Enchantibility", player.getUniqueID());
+                    bolt.getPersistentData().putUniqueId("Enchantibility:AvoidPlayer", player.getUniqueID());
                     player.world.addEntity(bolt);
                 }
             }
@@ -46,7 +46,7 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = effect.player;
             if (!player.world.isRemote()) {
-                if (event.getLightning().getPersistentData().getUniqueId("Enchantibility").equals(player.getUniqueID())) {
+                if (event.getLightning().getPersistentData().getUniqueId("Enchantibility:AvoidPlayer").equals(player.getUniqueID())) {
                     event.setCanceled(true);
                 }
             }

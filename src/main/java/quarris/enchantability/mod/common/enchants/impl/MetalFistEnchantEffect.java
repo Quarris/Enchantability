@@ -27,7 +27,7 @@ public class MetalFistEnchantEffect extends AbstractEnchantEffect {
     }
 
     public static void breakSpeed(MetalFistEnchantEffect effect, PlayerEvent.BreakSpeed event) {
-        if (effect.level() >= 5) {
+        if (effect.player.getHeldItemMainhand().isEmpty() && effect.level() >= 5) {
             event.setNewSpeed(event.getNewSpeed() * ModConfig.get().speedMultiplier.get().floatValue());
         }
     }

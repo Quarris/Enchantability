@@ -1,0 +1,21 @@
+{
+    "name": "Wither Heart",
+    "icon": "enchantability:wither_heart",
+    "category": "enchantability:misc",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "enchantability:wither_heart",
+            "text": "$(heart) is an item that drops when the Wither is killed. This item, once eaten, will increase the amount of book slots available in the $(echest) by one.$(br)When the Wither is killed, one item for every player in the fight will be dropped. You can only pick up the item that is bound to you."
+        },
+        {
+            "type": "text",
+            "text": "It was important for me that players are not spammed with $(heart) every time the Wither is killed, so the item will not drop for players who have the $(heart) in the inventory, or for those who already have eaten the $(heart)."
+        },
+        {
+            "type": "text",
+            "title": "Reference",
+            "text": "The $(heart) is a direct reference to $(terraria) and the $(dheart). The $(dheart) in $(terraria) increases the amount of accessory slots you have by one, which is reflected in the $(heart). $(terraria) is a great game and I $(bold)HIGHLY$() recommend you play it if you haven't already."
+        }
+    ]
+}

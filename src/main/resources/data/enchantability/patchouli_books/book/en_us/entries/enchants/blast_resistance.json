@@ -1,0 +1,17 @@
+{
+    "name": "Blast Resistance",
+    "icon": "minecraft:tnt",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:blast_resistance",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:blast_protection', lvl:1}]}",
+            "text": "Blast Resistance uses the $(d)Blast Protection$() enchantment and can $(l)reduce or even remove$() the block damage caused by explosions which affected you. No more fixing holes from pesky $(l)$(a)creeper$() explosions near you."
+        },
+        {
+            "type": "text",
+            "text": "If an explosion occurs and you were damaged by it, the blocks have a $(l)chance$(), based on the enchantment level, to $(l)not be destroyed$(). At $(d)level 5$() $(l)no blocks are destroyed$() from the explosion."
+        }
+    ]
+}

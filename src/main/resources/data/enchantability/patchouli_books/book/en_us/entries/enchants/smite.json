@@ -1,0 +1,13 @@
+{
+    "name": "Smite",
+    "icon": "minecraft:end_rod",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:smite",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:smite', lvl:1}]}",
+            "text": "Smite uses the $(d)Smite$() enchantment (:P) to have a chance to cause $(l)lightning strikes$() on the mobs hit with either a sword or an axe."
+        }
+    ]
+}

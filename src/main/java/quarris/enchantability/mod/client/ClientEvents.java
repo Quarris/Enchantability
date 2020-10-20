@@ -17,14 +17,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 import quarris.enchantability.mod.client.screen.EnchButton;
-import quarris.enchantability.mod.common.content.WitherHeartItem;
 import quarris.enchantability.mod.common.enchants.EnchantEffectRegistry;
 import quarris.enchantability.mod.common.util.ModRef;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
@@ -44,15 +42,15 @@ public class ClientEvents {
 		}
 	}
 
-	@SubscribeEvent
+    @SubscribeEvent
     public static void addEnchantTooltips(ItemTooltipEvent event) {
-        if (!(event.getItemStack().getItem() instanceof EnchantedBookItem)) return;
+        if (!(event.getItemStack().getItem() instanceof EnchantedBookItem))
+            return;
 
         ItemStack stack = event.getItemStack();
         PlayerEntity player = event.getPlayer();
         List<ITextComponent> tooltips = new ArrayList<>();
         Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(stack).keySet();
-
 
         for (Enchantment enchantment : enchantments) {
             tooltips.addAll(EnchantEffectRegistry.BY_ENCHANTMENT.get(enchantment).stream()
@@ -84,25 +82,5 @@ public class ClientEvents {
                 event.getToolTip().add(new TranslationTextComponent("enchant.desc.short").mergeStyle(TextFormatting.GRAY));
             }
         }
-    }
-
-    @SubscribeEvent
-    public static void setTooltips(ItemTooltipEvent event) {
-        ItemStack item = event.getItemStack();
-        if (item.getItem() != WitherHeartItem.WITHER_HEART)
-            return;
-
-        IFormattableTextComponent translation;
-
-        if (item.getTag() == null || event.getPlayer() == null) {
-            translation = new TranslationTextComponent("wither_heart.tooltip.no_owner");
-        } else {
-            UUID ownerUUID = item.getTag().contains("Owner") ? item.getTag().getUniqueId("Owner") : null;
-            String ownerName = item.getTag().contains("OwnerName") ? item.getTag().getString("OwnerName") : "Unknown"+(ownerUUID == null ? "" : "{"+ownerUUID+"}");
-            translation = new TranslationTextComponent("wither_heart.tooltip.heart_owner", ownerName);
-        }
-
-        event.getToolTip().add(new TranslationTextComponent("wither_heart.tooltip.only_worthy").mergeStyle(TextFormatting.RED));
-        event.getToolTip().add(translation.mergeStyle(TextFormatting.WHITE));
     }
 }

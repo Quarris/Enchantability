@@ -40,7 +40,6 @@ public class LureEnchantEffect extends AbstractEnchantEffect {
                         .map(entry -> entry.field_242588_c)
                         .collect(Collectors.toList());
 
-                animalTypes.forEach(type -> System.out.println((type.getName())));
 
                 if (animalTypes.isEmpty())
                     return;

@@ -19,7 +19,7 @@ public class FarReachEnchantEffect extends AbstractEnchantEffect {
 
     @Override
     public void onApplied() {
-        this.player.getAttribute(ForgeMod.REACH_DISTANCE.get()).applyPersistentModifier(new AttributeModifier(
+        this.player.getAttribute(ForgeMod.REACH_DISTANCE.get()).applyNonPersistentModifier(new AttributeModifier(
                 ModRef.ENCHANT_UUID,
                 NAME::toString,
                 this.level() * 2,

@@ -39,7 +39,7 @@ public class HeatEnchantEffect extends AbstractEnchantEffect {
             List<String> tileBlacklist = config.tileBlacklist.get();
             boolean treatAsWhitelist = config.treatBlacklistAsWhitelist.get();
 
-            List<TileEntity> tiles = getTileEntitiesInArea(world, player.getPosition(), 32);
+            List<TileEntity> tiles = getTileEntitiesInArea(world, player.getPosition(), ModConfig.get().heatRange.get());
             for (TileEntity tile : tiles) {
                 if (tile instanceof ITickableTileEntity) {
                     if (treatAsWhitelist == tileBlacklist.contains(tile.getType().getRegistryName().toString())) {
@@ -68,7 +68,7 @@ public class HeatEnchantEffect extends AbstractEnchantEffect {
         return list;
     }
 
-    public static Chunk getLoadedChunk(IWorld world, int x, int z) {
+    private static Chunk getLoadedChunk(IWorld world, int x, int z) {
         AbstractChunkProvider provider = world.getChunkProvider();
         if (provider.isChunkLoaded(new ChunkPos(x, z)))
             return provider.getChunk(x, z, false);

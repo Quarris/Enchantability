@@ -1,0 +1,5 @@
+{
+    "name": "Enchants",
+    "description": "Here you can view all the $(enchants) added by $(E).$(br)Each $(enchant) is designed to never replace the original use of the enchantment, but still attempts to reflect the original use or name of the enchantment. For example, you will find that Feather Falling does not reduce your fall damage in any way, as that would completely negate the use of it on your boots.",
+    "icon": "minecraft:enchanted_book"
+}
