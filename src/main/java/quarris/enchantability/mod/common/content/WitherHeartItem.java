@@ -24,8 +24,7 @@ public class WitherHeartItem extends Item {
     @ObjectHolder("enchantability:wither_heart")
     public static Item WITHER_HEART;
 
-    public static Food witherHeartFood = new Food.Builder()
-            .setAlwaysEdible().build();
+    public static Food witherHeartFood = new Food.Builder().setAlwaysEdible().build();
 
     public WitherHeartItem() {
         super(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1).food(witherHeartFood).rarity(Rarity.EPIC));
