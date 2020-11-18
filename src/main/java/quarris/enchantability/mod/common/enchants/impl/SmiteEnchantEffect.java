@@ -9,6 +9,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -46,7 +47,8 @@ public class SmiteEnchantEffect extends AbstractEnchantEffect {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = effect.player;
             if (!player.world.isRemote()) {
-                if (event.getLightning().getPersistentData().getUniqueId("Enchantibility:AvoidPlayer").equals(player.getUniqueID())) {
+                CompoundNBT data = event.getLightning().getPersistentData();
+                if (data.hasUniqueId("Enchantibility:AvoidPlayer") && data.getUniqueId("Enchantibility:AvoidPlayer").equals(player.getUniqueID())) {
                     event.setCanceled(true);
                 }
             }
