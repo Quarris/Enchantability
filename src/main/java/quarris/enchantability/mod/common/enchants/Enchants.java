@@ -124,6 +124,7 @@ public class Enchants {
         // Components
         Enchantability.proxy.registerClientComponents();
 
+        System.out.println("Components");
         if (config.enableAdrenaline.get()) {
             registerComponent(AdrenalineEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AdrenalineEnchantEffect::tick, e -> Collections.singleton(e.player));
 
