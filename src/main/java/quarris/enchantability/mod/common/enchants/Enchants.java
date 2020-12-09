@@ -3,6 +3,7 @@ package quarris.enchantability.mod.common.enchants;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -90,6 +91,11 @@ public class Enchants {
             registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(LoyaltyEnchantEffect.NAME.getPath(), config.enableLoyalty.get());
+        if (config.enableLoyalty.get()) {
+            registerEffect(LoyaltyEnchantEffect.NAME, Enchantments.LOYALTY, LoyaltyEnchantEffect::new);
+        }
+
         CompatManager.setPatchouliFlag(MetalFistEnchantEffect.NAME.getPath(), config.enableMetalFist.get());
         if (config.enableMetalFist.get()) {
             registerEffect(MetalFistEnchantEffect.NAME, Enchantments.SHARPNESS, MetalFistEnchantEffect::new);
@@ -118,6 +124,7 @@ public class Enchants {
         // Components
         Enchantability.proxy.registerClientComponents();
 
+        System.out.println("Components");
         if (config.enableAdrenaline.get()) {
             registerComponent(AdrenalineEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, AdrenalineEnchantEffect::tick, e -> Collections.singleton(e.player));
 
@@ -191,6 +198,20 @@ public class Enchants {
 
         if (config.enableHeat.get()) {
             registerComponent(HeatEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, HeatEnchantEffect::heat, e -> Collections.singleton(e.player));
+        }
+
+        if (config.enableLoyalty.get()) {
+            registerComponent(LoyaltyEnchantEffect.NAME, LivingDeathEvent.class, LoyaltyEnchantEffect::petDied, e -> {
+                if (e.getEntityLiving() instanceof TameableEntity) {
+                    TameableEntity pet = (TameableEntity) e.getEntityLiving();
+                    if (pet.getOwner() instanceof PlayerEntity) {
+                        return Collections.singleton((PlayerEntity) pet.getOwner());
+                    }
+                }
+                return Collections.emptyList();
+            });
+
+            registerComponent(LoyaltyEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, LoyaltyEnchantEffect::revivePet, e -> Collections.singleton(e.player));
         }
 
         if (config.enableLure.get()) {
