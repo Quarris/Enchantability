@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.mod.common.util.ModRef;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,6 +64,9 @@ public class ModConfig {
     public BooleanValue treatBlacklistAsWhitelist;
     public ConfigValue<List<String>> tileBlacklist;
 
+    // Loyalty
+    public ConfigValue<List<Integer>> loyaltyReviveTimes;
+
     // Metal Fist
     public DoubleValue speedMultiplier;
 
@@ -91,6 +95,7 @@ public class ModConfig {
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
         enableLure = builder.define("enableLure", false);
+        enableLoyalty = builder.define("enableLoyalty", true);
         enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);
@@ -139,9 +144,15 @@ public class ModConfig {
 
         builder.comment("Heat").push("heat");
         additionalTickSpeed = builder.defineInRange("additionalTickSpeed", 3, 1, 64);
-        heatRange = builder.defineInRange("heatRange - radius", 32, 1, 256);
+        heatRange = builder.defineInRange("heatRange", 32, 1, 256);
         treatBlacklistAsWhitelist = builder.define("treatBlacklistAsWhitelist", false);
         tileBlacklist = builder.define("tileBlacklist", defaultTileBlacklist());
+        builder.pop();
+
+        builder.comment("Loyalty").push("loyalty");
+        loyaltyReviveTimes = builder
+                .comment("Time (in ticks) until the pet revives", "Times for level 1/2/3 is represented as [1, 2, 3]")
+                .define("reviveTimes", defaultLoyaltyReviveTimes());
         builder.pop();
 
         builder.comment("Metal Fist").push("metal_fist");
@@ -173,6 +184,14 @@ public class ModConfig {
                 ModRef.LOGGER.warn("Registered tag for dexterity doesn't exist, " + tagName);
             }
         }
+    }
+
+    private static List<Integer> defaultLoyaltyReviveTimes() {
+        List<Integer> defaults = new ArrayList<>(3);
+        defaults.add(60 * 20);
+        defaults.add(45 * 20);
+        defaults.add(30 * 20);
+        return defaults;
     }
 
     private static List<String> defaultTags() {
