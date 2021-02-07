@@ -4,7 +4,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.LightType;
+import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import quarris.enchantability.api.enchants.AbstractEnchantEffect;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -19,18 +20,22 @@ public class FirePraiseEnchantEffect extends AbstractEnchantEffect {
     }
 
     public static void praiseTheSun(FirePraiseEnchantEffect effect, TickEvent.PlayerTickEvent event) {
-        // Code modified from The Monk Mod by RWTema
         PlayerEntity player = effect.player;
-        double celestialAngle = player.world.getCelestialAngleRadians(0) * Math.PI * 2;
-        double sunHeight = Math.cos(celestialAngle);
-        Vector3d playerLook = player.getLook(1.0F);
-        Vector3d sunDir = new Vector3d(-Math.sin(celestialAngle), sunHeight, 0);
-        if (player.world.canBlockSeeSky(player.getPosition())) {
-            if (sunHeight >= 0 && sunDir.dotProduct(playerLook) > 0.996) {
-                PotionEffectHelper.applyPotionEffectAtInterval(player, Effects.REGENERATION, 20, 80, effect.level()-1, true);
+        World world = player.world;
+        if (world.getLightFor(LightType.SKY, player.getPosition()) > 7 && !player.isInWater() && world.getDayTime() < 12000) {
+            int regenLevel = (effect.level() + 1) / 2;
+            if (effect.level() > 3) regenLevel++;
+            int strengthLevel = effect.level() / 2;
+            int resistanceLevel = effect.level() / 3;
+            if (effect.level() > 3) resistanceLevel++;
+            if (strengthLevel > 0) {
+                PotionEffectHelper.applyPotionEffectAtInterval(player, Effects.STRENGTH, 20, 80, strengthLevel - 1, true);
             }
-            else if (sunHeight < 0) {
-                PotionEffectHelper.applyPotionEffectAtInterval(player, Effects.WEAKNESS, 20, 80, 0, true);
+            if (regenLevel > 0) {
+                PotionEffectHelper.applyPotionEffectAtInterval(player, Effects.REGENERATION, 20, 80, regenLevel - 1, true);
+            }
+            if (resistanceLevel > 0) {
+                PotionEffectHelper.applyPotionEffectAtInterval(player, Effects.RESISTANCE, 20, 80, resistanceLevel - 1, true);
             }
         }
     }

@@ -73,7 +73,7 @@ public class Enchants {
 
         CompatManager.setPatchouliFlag(FirePraiseEnchantEffect.NAME.getPath(), config.enableFirePraise.get());
         if (config.enableFirePraise.get()) {
-            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_ASPECT, FirePraiseEnchantEffect::new);
+            registerEffect(FirePraiseEnchantEffect.NAME, Enchantments.FIRE_PROTECTION, FirePraiseEnchantEffect::new);
         }
 
         CompatManager.setPatchouliFlag(GluttonyEnchantEffect.NAME.getPath(), config.enableGluttony.get());
@@ -94,6 +94,11 @@ public class Enchants {
         CompatManager.setPatchouliFlag(LoyaltyEnchantEffect.NAME.getPath(), config.enableLoyalty.get());
         if (config.enableLoyalty.get()) {
             registerEffect(LoyaltyEnchantEffect.NAME, Enchantments.LOYALTY, LoyaltyEnchantEffect::new);
+        }
+
+        CompatManager.setPatchouliFlag(LureEnchantEffect.NAME.getPath(), config.enableLure.get());
+        if (config.enableLure.get()) {
+            registerEffect(LureEnchantEffect.NAME, Enchantments.LURE, LureEnchantEffect::new);
         }
 
         CompatManager.setPatchouliFlag(MetalFistEnchantEffect.NAME.getPath(), config.enableMetalFist.get());
