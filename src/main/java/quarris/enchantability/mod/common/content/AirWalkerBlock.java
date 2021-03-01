@@ -21,7 +21,7 @@ public class AirWalkerBlock extends Block {
     public static final VoxelShape SHAPE = VoxelShapes.create(0, 0.9, 0, 1, 1, 1);
 
     public AirWalkerBlock() {
-        super(Block.Properties.create(Material.BARRIER).noDrops().variableOpacity());
+        super(Block.Properties.create(Material.AIR).noDrops().variableOpacity());
         this.setRegistryName("air");
     }
 
