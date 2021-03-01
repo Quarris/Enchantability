@@ -1,0 +1,13 @@
+{
+    "name": "Loyalty",
+    "icon": "minecraft:bone",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:loyalty",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:loyalty', lvl:1}]}",
+            "text": "Loyalty uses the $(d)Loyalty$() enchantment to safe guard your pets. While the enchant is active, any of your tamed pets that die will be respawned at your last saved spawn point after a short while. The time to wait decreases with the level enchant."
+        }
+    ]
+}
