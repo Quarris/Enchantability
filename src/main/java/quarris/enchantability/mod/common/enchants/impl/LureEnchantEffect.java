@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 public class LureEnchantEffect extends AbstractEnchantEffect {
 
+    // TODO Add some configs for these
     public static final float SPAWN_ANGLE = 120;
     public static final float MIN_DISTANCE = 15;
     public static final float MAX_DISTANCE = 50;

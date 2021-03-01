@@ -32,6 +32,7 @@ public class ModConfig {
     public BooleanValue enableGluttony;
     public BooleanValue enableGravity;
     public BooleanValue enableHeat;
+    public BooleanValue enableLavaSwim;
     public BooleanValue enableLoyalty;
     public BooleanValue enableLure;
     public BooleanValue enableMetalFist;
@@ -94,8 +95,9 @@ public class ModConfig {
         enableGluttony = builder.define("enableGluttony", true);
         enableGravity = builder.define("enableGravity", true);
         enableHeat = builder.define("enableHeat", true);
-        enableLure = builder.define("enableLure", false);
+        enableLavaSwim = builder.define("enableLavaSwim", true);
         enableLoyalty = builder.define("enableLoyalty", true);
+        enableLure = builder.define("enableLure", true);
         enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);

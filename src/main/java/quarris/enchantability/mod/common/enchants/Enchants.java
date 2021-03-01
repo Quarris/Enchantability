@@ -91,6 +91,11 @@ public class Enchants {
             registerEffect(HeatEnchantEffect.NAME, Enchantments.FLAME, HeatEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(LavaSwimEffect.NAME.getPath(), config.enableLavaSwim.get());
+        if (config.enableLavaSwim.get()) {
+            registerEffect(LavaSwimEffect.NAME, Enchantments.FIRE_ASPECT, LavaSwimEffect::new);
+        }
+
         CompatManager.setPatchouliFlag(LoyaltyEnchantEffect.NAME.getPath(), config.enableLoyalty.get());
         if (config.enableLoyalty.get()) {
             registerEffect(LoyaltyEnchantEffect.NAME, Enchantments.LOYALTY, LoyaltyEnchantEffect::new);
@@ -202,6 +207,10 @@ public class Enchants {
 
         if (config.enableHeat.get()) {
             registerComponent(HeatEnchantEffect.NAME, TickEvent.PlayerTickEvent.class, HeatEnchantEffect::heat, e -> Collections.singleton(e.player));
+        }
+
+        if (config.enableLavaSwim.get()) {
+            registerComponent(LavaSwimEffect.NAME, TickEvent.PlayerTickEvent.class, LavaSwimEffect::startSwimming, e -> Collections.singleton(e.player));
         }
 
         if (config.enableLoyalty.get()) {

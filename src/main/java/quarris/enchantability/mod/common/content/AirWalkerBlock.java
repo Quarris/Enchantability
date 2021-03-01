@@ -10,6 +10,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import quarris.enchantability.api.EnchantabilityApi;
 import quarris.enchantability.api.capabilities.IPlayerEnchant;
 import quarris.enchantability.mod.common.enchants.impl.AirWalkerEnchantEffect;
@@ -21,7 +22,7 @@ public class AirWalkerBlock extends Block {
     public static final VoxelShape SHAPE = VoxelShapes.create(0, 0.9, 0, 1, 1, 1);
 
     public AirWalkerBlock() {
-        super(Block.Properties.create(Material.BARRIER).noDrops().variableOpacity());
+        super(Block.Properties.create(Material.AIR).noDrops().variableOpacity());
         this.setRegistryName("air");
     }
 
@@ -34,6 +35,11 @@ public class AirWalkerBlock extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return AirWalkerTileEntity.TYPE.create();
+    }
+
+    @Override
+    public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
+        return true;
     }
 
     @Override
