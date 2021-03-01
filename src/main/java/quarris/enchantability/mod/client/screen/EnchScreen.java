@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.glfw.GLFW;
+import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.client.ClientEvents;
 import quarris.enchantability.mod.common.container.EnchContainer;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -27,7 +28,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
         this.ySize = 167;
         this.guiLeft -= 25;
         this.guiTop -= 1;
-        this.addButton(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
+        this.addButton(new EnchButton(this.getGuiLeft() + ModConfig.get().buttonXOffset.get() + 25, this.getGuiTop() + ModConfig.get().buttonYOffset.get(), true));
         GLFW.glfwSetCursorPos(Minecraft.getInstance().getMainWindow().getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
     }
 

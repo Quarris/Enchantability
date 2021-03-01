@@ -7,6 +7,7 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.network.NetworkEvent;
+import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.client.ClientEvents;
 import quarris.enchantability.mod.client.screen.EnchButton;
 
@@ -41,7 +42,7 @@ public class EnderChestInteractPacket {
                     ChestScreen screen = (ChestScreen) Minecraft.getInstance().currentScreen;
                     if (screen == null)
                         return;
-                    EnchButton button = new EnchButton(screen.getGuiLeft() - 18, screen.getGuiTop() + 143, false);
+                    EnchButton button = new EnchButton(screen.getGuiLeft() + ModConfig.get().buttonXOffset.get(), screen.getGuiTop() + ModConfig.get().buttonYOffset.get(), false);
                     try {
                         if (ADD_BUTTON_METHOD == null)
                             ADD_BUTTON_METHOD = ObfuscationReflectionHelper.findMethod(Screen.class, "func_230480_a_", Widget.class);
