@@ -1,2 +1,6 @@
+v10.0:
+    - Added Lava Swim enchant for Fire Aspect
+    - Moved Fire Praise from Fire Aspect to Fire Protection
+    - Buffed Fire Praise to now give Regeneration, Strength and Resistance while in the sun; no negatives at night
 v9.5:
     - Fixed syncing issues when changing dimension

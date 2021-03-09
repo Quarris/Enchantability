@@ -13,8 +13,8 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-def mcVersion = '1.16.4'
-version = '9.5'
+def mcVersion = '1.16.5'
+version = '10.0'
 group = 'quarris.enchantability' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Enchantability'
 
