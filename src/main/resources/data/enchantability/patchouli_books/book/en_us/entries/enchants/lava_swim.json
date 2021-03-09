@@ -1,0 +1,13 @@
+{
+    "name": "Lava Swim",
+    "icon": "minecraft:lava_bucket",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:lava_swim",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:fire_aspect', lvl:1}]}",
+            "text": "Lava Swim uses the $(d)Fire Aspect$() enchantment to allow you to swim in lava. Just like in water, you can now roam the seas of the $(c)fiery Nether$() in style. Do be careful though, make sure you keep those fire resistance potion on you as the $(enchant) $(l)does not$() protect you from the lava damage."
+        }
+    ]
+}

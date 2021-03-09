@@ -6,8 +6,8 @@
     "pages": [
         {
             "type": "spotlight",
-            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:fire_aspect', lvl:1}]}",
-            "text": "Fire Praise uses the $(d)Fire Aspect$() enchantment and it gives you $(l)regeneration$() when you look at the sun during the day, and $(l)weakness$() at night at all times. Use it wisely."
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:fire_protection', lvl:1}]}",
+            "text": "Fire Praise uses the $(d)Fire Aspect$() enchantment and it gives you $(l)Regeneration$(), $(l)Strength$() and $(l)Resistance$() while in the suns light!"
         }
     ]
 }

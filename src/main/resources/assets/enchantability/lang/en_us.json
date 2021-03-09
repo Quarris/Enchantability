@@ -14,6 +14,7 @@
     "enchantability:gluttony.enchant.desc": "Gluttony: Special effects when eating certain foods. (Subject to change)",
     "enchantability:gravity.enchant.desc": "Gravity: Have lowered gravity.",
     "enchantability:heat.enchant.desc": "Heat: Increased speed of tiles nearby the player.",
+    "enchantability:lava_swim.enchant.desc": "Lava Swim: Allows you swim in Lava (does not remove any lava damage).",
     "enchantability:loyalty.enchant.desc": "Loyalty: Respawns your tamed pets at your bed when they die.",
     "enchantability:lure.enchant.desc": "Lure: Spawns animals around you.",
     "enchantability:metal_fist.enchant.desc": "Metal Fist: Mine tougher materials by hand.",
