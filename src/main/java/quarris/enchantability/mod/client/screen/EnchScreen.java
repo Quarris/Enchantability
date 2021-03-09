@@ -36,7 +36,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
     public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrix);
         super.render(matrix, mouseX, mouseY, partialTicks);
-        this.func_230459_a_(matrix, mouseX, mouseY);
+        this.renderHoveredTooltip(matrix, mouseX, mouseY);
     }
 
     @Override
@@ -49,6 +49,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
+        // Draw Container Names
         this.font.func_243248_b(matrix, this.title, 33.0F, 6.0F, 4210752);
         this.font.func_243248_b(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
     }

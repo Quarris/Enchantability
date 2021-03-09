@@ -44,13 +44,13 @@ public class LureEnchantEffect extends AbstractEnchantEffect {
             if (world.getGameTime() % TEST_INTERVAL == 0 && world.getRandom().nextFloat() < CHANCE) {
                 Biome biome = world.getBiome(player.getPosition());
 
-                MobSpawnInfo spawnInfo = biome.func_242433_b();
+                MobSpawnInfo spawnInfo = biome.getMobSpawnInfo();
                 List<MobSpawnInfo.Spawners> spawners = new ArrayList<>();
-                spawners.addAll(spawnInfo.func_242559_a(EntityClassification.CREATURE));
-                spawners.addAll(spawnInfo.func_242559_a(EntityClassification.WATER_CREATURE));
+                spawners.addAll(spawnInfo.getSpawners(EntityClassification.CREATURE));
+                spawners.addAll(spawnInfo.getSpawners(EntityClassification.WATER_CREATURE));
 
                 List<EntityType<?>> animalTypes = spawners.stream()
-                        .map(entry -> entry.field_242588_c)
+                        .map(entry -> entry.type)
                         .collect(Collectors.toList());
 
                 if (animalTypes.isEmpty())
