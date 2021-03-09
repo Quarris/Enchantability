@@ -23,6 +23,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
@@ -111,13 +112,16 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        event.getPlayer().getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap ->
-                PacketHandler.INSTANCE.sendTo(
-                        new SyncClientPacket(cap.serializeNBT()),
-                        ((ServerPlayerEntity) event.getPlayer()).connection.getNetworkManager(),
-                        NetworkDirection.PLAY_TO_CLIENT)
-        );
+    public static void playerLoggedIn(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
+            player.getCapability(EnchantabilityApi.playerEnchant).ifPresent(cap ->
+                    PacketHandler.INSTANCE.sendTo(
+                            new SyncClientPacket(cap.serializeNBT()),
+                            player.connection.getNetworkManager(),
+                            NetworkDirection.PLAY_TO_CLIENT)
+            );
+        }
     }
 
     @SubscribeEvent

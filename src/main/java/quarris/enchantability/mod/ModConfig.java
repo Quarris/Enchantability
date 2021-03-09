@@ -20,6 +20,10 @@ import static net.minecraftforge.common.ForgeConfigSpec.*;
 
 public class ModConfig {
 
+    // Misc Configs
+    public IntValue buttonXOffset;
+    public IntValue buttonYOffset;
+
     // Enabled Features
     public BooleanValue enableAdrenaline;
     public BooleanValue enableAirWalker;
@@ -83,6 +87,15 @@ public class ModConfig {
     }
 
     public ModConfig(Builder builder) {
+        builder.comment("Misc Configs").push("misc");
+        buttonXOffset = builder
+                .comment("The horizontal offset for the button")
+                .defineInRange("buttonXOffset", -18, -1000, 1000);
+        buttonYOffset = builder
+                .comment("The vertical offset for the button")
+                .defineInRange("buttonYOffset", 143, -1000, 1000);
+        builder.pop();
+
         builder.comment("Enabled Features").push("features");
         enableAdrenaline = builder.define("enableAdrenaline", true);
         enableAirWalker = builder.define("enableAirWalker", true);

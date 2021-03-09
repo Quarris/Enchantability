@@ -77,8 +77,8 @@ public class LoyaltyEnchantEffect extends AbstractEnchantEffect {
         // I kinda know how this works, but I got it from Ellpecks Pet Reviver haha
         public void revivePet() {
             // get the overworld, and the overworld's spawn point, by default
-            ServerWorld spawnWorld = this.pet.getServer().func_241755_D_();
-            Vector3d spawn = Vector3d.copyCenteredHorizontally(spawnWorld.func_241135_u_());
+            ServerWorld spawnWorld = this.pet.getServer().func_241755_D_(); // getServerWorld()
+            Vector3d spawn = Vector3d.copyCenteredHorizontally(spawnWorld.getSpawnPoint());
 
             // check if the owner is online, and respawn at the bed if they are
             ServerPlayerEntity player = this.pet.getServer().getPlayerList().getPlayerByUUID(this.pet.getOwnerId());

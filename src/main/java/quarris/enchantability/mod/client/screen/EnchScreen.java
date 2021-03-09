@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.glfw.GLFW;
+import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.client.ClientEvents;
 import quarris.enchantability.mod.common.container.EnchContainer;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -27,7 +28,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
         this.ySize = 167;
         this.guiLeft -= 25;
         this.guiTop -= 1;
-        this.addButton(new EnchButton(this.getGuiLeft() + 7, this.getGuiTop() + 143, true));
+        this.addButton(new EnchButton(this.getGuiLeft() + ModConfig.get().buttonXOffset.get() + 25, this.getGuiTop() + ModConfig.get().buttonYOffset.get(), true));
         GLFW.glfwSetCursorPos(Minecraft.getInstance().getMainWindow().getHandle(), ClientEvents.clickMouseX, ClientEvents.clickMouseY);
     }
 
@@ -35,7 +36,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
     public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrix);
         super.render(matrix, mouseX, mouseY, partialTicks);
-        this.func_230459_a_(matrix, mouseX, mouseY);
+        this.renderHoveredTooltip(matrix, mouseX, mouseY);
     }
 
     @Override
@@ -48,6 +49,7 @@ public class EnchScreen extends DisplayEffectsScreen<EnchContainer> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
+        // Draw Container Names
         this.font.func_243248_b(matrix, this.title, 33.0F, 6.0F, 4210752);
         this.font.func_243248_b(matrix, this.playerInventory.getDisplayName(), 33.0F, (float)(this.ySize - 96 + 3), 4210752);
     }

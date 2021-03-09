@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
+import quarris.enchantability.mod.ModConfig;
 import quarris.enchantability.mod.client.screen.EnchButton;
 import quarris.enchantability.mod.common.enchants.EnchantEffectRegistry;
 import quarris.enchantability.mod.common.util.ModRef;
@@ -38,7 +39,7 @@ public class ClientEvents {
 	public static void addEnchantButton(GuiScreenEvent.InitGuiEvent.Post event) {
 		if (isEnderOpen && event.getGui() instanceof ChestScreen) {
 		    ChestScreen screen = (ChestScreen) event.getGui();
-			event.addWidget(new EnchButton(screen.getGuiLeft() - 18, screen.getGuiTop() + 143, false));
+			event.addWidget(new EnchButton(screen.getGuiLeft() + ModConfig.get().buttonXOffset.get(), screen.getGuiTop() + ModConfig.get().buttonYOffset.get(), false));
 		}
 	}
 
