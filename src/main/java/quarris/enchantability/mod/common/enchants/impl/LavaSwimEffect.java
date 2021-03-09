@@ -41,10 +41,10 @@ public class LavaSwimEffect extends AbstractEnchantEffect {
             effect.updateSwimmingInLava();
             if (!player.abilities.isFlying && player.isInLava() && effect.isSwimmingInLava) {
                 double lookY = player.getLookVec().y;
-                double moveY = lookY < -0.2D ? 0.085D : 0.06D;
+                double moveY = lookY < -0.2D ? 0.06D : 0.05D;
                 if (lookY <= 0.0D || isJumping(player) || !player.world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 0.9D, player.getPosZ())).getFluidState().isEmpty()) {
                     Vector3d motion = player.getMotion();
-                    player.setMotion(motion.add(0.0D, (lookY - motion.y) * moveY, 0.0D));
+                    player.setMotion(motion.add(0.0D, (lookY - motion.y) * moveY * effect.level() * 0.9D, 0.0D));
                 }
                 Vector3d travelVector = new Vector3d(player.moveStrafing, player.moveVertical, player.moveForward);
                 ModifiableAttributeInstance gravity = player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
@@ -52,33 +52,33 @@ public class LavaSwimEffect extends AbstractEnchantEffect {
                 double gravValue = gravity.getValue();
                 double posY = player.getPosY();
                 float speed = player.isSprinting() ? 0.9F : 0.8f;
-                float f6 = 0.02F;
-                float f7 = (float) EnchantmentHelper.getDepthStriderModifier(player);
-                if (f7 > 3.0F) {
-                    f7 = 3.0F;
+                float move = 0.1F * effect.level();
+                float depthStrider = (float) EnchantmentHelper.getDepthStriderModifier(player);
+                if (depthStrider > 3.0F) {
+                    depthStrider = 3.0F;
                 }
 
                 if (!player.isOnGround()) {
-                    f7 *= 0.5F;
+                    depthStrider *= 0.5F;
                 }
 
-                if (f7 > 0.0F) {
-                    speed += (0.54600006F - speed) * f7 / 3.0F;
-                    f6 += (player.getAIMoveSpeed() - f6) * f7 / 3.0F;
+                if (depthStrider > 0.0F) {
+                    speed += (0.54600006F - speed) * depthStrider / 3.0F;
+                    move += (player.getAIMoveSpeed() - move) * depthStrider / 3.0F;
                 }
 
                 if (player.isPotionActive(Effects.DOLPHINS_GRACE)) {
                     speed = 0.96F;
                 }
 
-                f6 *= (float)player.getAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get()).getValue();
-                player.moveRelative(f6, travelVector);
+                move *= (float)player.getAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get()).getValue();
+                player.moveRelative(move, travelVector);
                 player.move(MoverType.SELF, player.getMotion());
+
                 Vector3d vector3d6 = player.getMotion();
                 if (player.collidedHorizontally && player.isOnLadder()) {
                     vector3d6 = new Vector3d(vector3d6.x, 0.2D, vector3d6.z);
                 }
-
                 player.setMotion(vector3d6.mul(speed, 0.8F, speed));
                 Vector3d vector3d2 = player.func_233626_a_(gravValue, isMovingDown, player.getMotion());
                 player.setMotion(vector3d2);
