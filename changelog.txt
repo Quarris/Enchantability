@@ -1,3 +1,5 @@
+v11.0:
+    - Added Super Jump enchant for Knockback
 v10.0:
     - Added Lava Swim enchant for Fire Aspect
     - Moved Fire Praise from Fire Aspect to Fire Protection
