@@ -24,9 +24,11 @@ public interface IPlayerEnchant extends IItemHandlerModifiable, ICapabilitySeria
 
     IEnchantEffect getEnchant(ResourceLocation name);
 
-    // Returns the stack which is deleted when its set extended = false.
-    // This is so that you can drop the item or add it to the inventory or whatever
-    // I personally won't be adding a way to set this to false, but you might
+    /**
+     * Returns the stack which is deleted when its set extended = false.
+     * This is so that you can drop the item or add it to the inventory or whatever
+     * I personally won't be adding a way to set this to false, but you might
+     */
     ItemStack setExtended(boolean extended);
 
     boolean isExtended();

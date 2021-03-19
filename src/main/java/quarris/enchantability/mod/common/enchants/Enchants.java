@@ -121,6 +121,11 @@ public class Enchants {
             registerEffect(StrikeEnchantEffect.NAME, Enchantments.POWER, StrikeEnchantEffect::new);
         }
 
+        CompatManager.setPatchouliFlag(SuperJumpEnchant.NAME.getPath(), config.enableSuperJump.get());
+        if (config.enableSuperJump.get()) {
+            registerEffect(SuperJumpEnchant.NAME, Enchantments.KNOCKBACK, SuperJumpEnchant::new);
+        }
+
         CompatManager.setPatchouliFlag(SwiftChargeEnchantEffect.NAME.getPath(), config.enableSwiftCharge.get());
         if (config.enableSwiftCharge.get()) {
             registerEffect(SwiftChargeEnchantEffect.NAME, Enchantments.QUICK_CHARGE, SwiftChargeEnchantEffect::new);
@@ -255,6 +260,10 @@ public class Enchants {
                         }
                         return Collections.emptyList();
                     });
+        }
+
+        if (config.enableSuperJump.get()) {
+            registerComponent(SuperJumpEnchant.NAME, TickEvent.PlayerTickEvent.class, SuperJumpEnchant::itsamemario, e -> Collections.singleton(e.player));
         }
 
         if (config.enableSwiftCharge.get()) {

@@ -1,0 +1,13 @@
+{
+    "name": "Super Jump",
+    "icon": "minecraft:leather_boots",
+    "category": "enchantability:enchants",
+    "flag": "enchantability:super_jump",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "minecraft:enchanted_book{StoredEnchantments:[{id:'minecraft:knockback', lvl:1}]}",
+            "text": "Super Jump uses the $(d)Knockback$() enchantment and it allows you to charge up a super jump by sneaking for a period of time. The power stacks with the level of the enchant, so if you have Knockback II on, you can wait longer to charge it up twice."
+        }
+    ]
+}

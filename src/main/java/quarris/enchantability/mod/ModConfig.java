@@ -42,6 +42,7 @@ public class ModConfig {
     public BooleanValue enableMetalFist;
     public BooleanValue enableSmite;
     public BooleanValue enableStrike;
+    public BooleanValue enableSuperJump;
     public BooleanValue enableSwiftCharge;
     public BooleanValue enableVoid;
 
@@ -72,9 +73,14 @@ public class ModConfig {
     // Loyalty
     public ConfigValue<List<Integer>> loyaltyReviveTimes;
 
+    // Lure
+
     // Metal Fist
     public DoubleValue speedMultiplier;
 
+    // Super Jump
+    public IntValue chargePerLevel;
+    public DoubleValue chargeJumpMultiplier;
 
     private static ModConfig instance;
 
@@ -114,6 +120,7 @@ public class ModConfig {
         enableMetalFist = builder.define("enableMetalFist", true);
         enableSmite = builder.define("enableSmite", true);
         enableStrike = builder.define("enableStrike", true);
+        enableSuperJump = builder.define("enableSuperJump", true);
         enableSwiftCharge = builder.define("enableSwiftCharge", true);
         enableVoid = builder.define("enableVoid", true);
         builder.pop();
@@ -175,6 +182,15 @@ public class ModConfig {
                 .comment("The multiplier for the break speed when wearing Sharpness 5+ book",
                         "Set to '1.0' to disable increased speed on Sharpness 5")
                 .defineInRange("speedMultiplier", 2D, 1D, 10D);
+        builder.pop();
+
+        builder.comment("Super Jump").push("super_jump");
+        chargePerLevel = builder
+                .comment("The amount of ticks that the player has to charge per enchant level")
+                .defineInRange("chargePerLevel", 30, 10, 80);
+        chargeJumpMultiplier = builder
+                .comment("The mutliplier on the jump once charged.")
+                .defineInRange("chargeJumpMultiplier", 1, 0.25D, 3);
         builder.pop();
 
         builder.pop();
